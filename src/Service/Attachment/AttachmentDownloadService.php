@@ -25,7 +25,7 @@ final readonly class AttachmentDownloadService implements AttachmentDownloadServ
     public function download(string $attachmentId): BinaryFileResponse|StreamedResponse
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($attachmentId);
-        $attachment = $this->attachmentRepository->find($attachmentId);
+        $attachment = $this->attachmentRepository->findActive($attachmentId);
 
         if (null === $attachment) {
             throw AttachmentNotFoundException::forAttachmentId($attachmentId);

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository\Attachment;
 
+use App\Entity\Attachment\Attachment;
 use App\Entity\Attachment\AttachmentLink;
+use App\Enum\Attachment\AttachmentStatus;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentLinkRepository
@@ -31,13 +33,15 @@ final readonly class AttachmentLinkRepository
     public function findByOwner(string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): array
     {
         $qb = $this->entityManager->createQueryBuilder()
-            ->select('attachmentLink')
+            ->select('attachmentLink', 'attachment')
             ->from(AttachmentLink::class, 'attachmentLink')
             ->join('attachmentLink.attachment', 'attachment')
             ->where('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
+            ->andWhere('attachment.status != :deletedStatus')
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
             ->orderBy('attachmentLink.position', 'ASC')
             ->addOrderBy('attachmentLink.createdAt', 'ASC');
 
@@ -58,15 +62,17 @@ final readonly class AttachmentLinkRepository
     public function findOne(string $attachmentId, string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): ?AttachmentLink
     {
         $qb = $this->entityManager->createQueryBuilder()
-            ->select('attachmentLink')
+            ->select('attachmentLink', 'attachment')
             ->from(AttachmentLink::class, 'attachmentLink')
             ->join('attachmentLink.attachment', 'attachment')
             ->where('attachment.id = :attachmentId')
             ->andWhere('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
+            ->andWhere('attachment.status != :deletedStatus')
             ->setParameter('attachmentId', $attachmentId)
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
             ->setMaxResults(1);
 
         if (null !== $context) {
@@ -79,6 +85,24 @@ final readonly class AttachmentLinkRepository
 
         /** @var ?AttachmentLink $result */
         $result = $qb->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
+    /**
+     * @return list<AttachmentLink>
+     */
+    public function findByAttachment(Attachment $attachment): array
+    {
+        /** @var list<AttachmentLink> $result */
+        $result = $this->entityManager->createQueryBuilder()
+            ->select('attachmentLink')
+            ->from(AttachmentLink::class, 'attachmentLink')
+            ->where('attachmentLink.attachment = :attachment')
+            ->setParameter('attachment', $attachment)
+            ->orderBy('attachmentLink.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         return $result;
     }

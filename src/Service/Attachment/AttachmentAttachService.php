@@ -27,7 +27,7 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
         $this->attachmentValidationService->validateAttachmentIdentifier($input->attachmentId);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
 
-        $attachment = $this->attachmentRepository->find($input->attachmentId);
+        $attachment = $this->attachmentRepository->findActive($input->attachmentId);
 
         if (null === $attachment) {
             throw AttachmentNotFoundException::forAttachmentId($input->attachmentId);
