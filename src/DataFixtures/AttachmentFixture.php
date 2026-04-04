@@ -10,58 +10,125 @@ use App\Enum\Attachment\AttachmentMediaKind;
 use App\Enum\Attachment\AttachmentStorageKind;
 use App\Enum\Attachment\AttachmentType;
 use App\Enum\Attachment\AttachmentVisibility;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 final class AttachmentFixture extends Fixture
 {
+    public function __construct(
+        #[Autowire('%kernel.project_dir%')]
+        private readonly string $projectDir,
+        private readonly Filesystem $filesystem = new Filesystem(),
+    ) {
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-        $faker->seed(41001);
+        $storageRoot = $this->projectDir.'/var/storage/attachment';
+        $this->filesystem->mkdir($storageRoot);
 
-        for ($index = 0; $index < 8; ++$index) {
-            $isMedia = $index % 2 === 0;
+        $fixtures = [
+            [
+                'reference' => 'attachment.message.1',
+                'id' => '11111111-1111-1111-1111-111111111111',
+                'type' => AttachmentType::Document,
+                'documentKind' => AttachmentDocumentKind::Text,
+                'mediaKind' => null,
+                'originalName' => 'sample-note.txt',
+                'storedName' => 'message-note.txt',
+                'mimeType' => 'text/plain',
+                'extension' => 'txt',
+                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
+                'storagePath' => 'document/fixtures/message-note.txt',
+                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
+                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt'),
+                'title' => 'Message note',
+                'description' => 'Fixture text attachment for message owner.',
+                'ownerType' => 'message',
+                'ownerId' => 'msg-fixture-1',
+                'context' => 'message',
+                'slot' => 'attachment',
+                'isPrimary' => true,
+            ],
+            [
+                'reference' => 'attachment.product.1',
+                'id' => '22222222-2222-2222-2222-222222222222',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-pixel.gif',
+                'storedName' => 'product-image.gif',
+                'mimeType' => 'image/gif',
+                'extension' => 'gif',
+                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-pixel.gif',
+                'storagePath' => 'media/fixtures/product-image.gif',
+                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-pixel.gif') ?: 34,
+                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-pixel.gif'),
+                'title' => 'Product image',
+                'description' => 'Fixture image attachment for product owner.',
+                'ownerType' => 'product',
+                'ownerId' => 'prod-fixture-1',
+                'context' => 'gallery',
+                'slot' => 'image',
+                'isPrimary' => true,
+                'width' => 1,
+                'height' => 1,
+            ],
+            [
+                'reference' => 'attachment.vendor.1',
+                'id' => '33333333-3333-3333-3333-333333333333',
+                'type' => AttachmentType::Document,
+                'documentKind' => AttachmentDocumentKind::Pdf,
+                'mediaKind' => null,
+                'originalName' => 'vendor-policy.pdf',
+                'storedName' => 'vendor-policy.pdf',
+                'mimeType' => 'application/pdf',
+                'extension' => 'pdf',
+                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
+                'storagePath' => 'document/fixtures/vendor-policy.pdf',
+                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
+                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt'),
+                'title' => 'Vendor policy',
+                'description' => 'Fixture pseudo-pdf attachment for vendor owner.',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'document',
+                'slot' => 'manual',
+                'isPrimary' => false,
+            ],
+        ];
+
+        foreach ($fixtures as $fixture) {
+            $absoluteTargetPath = $storageRoot.'/'.str_replace('/', DIRECTORY_SEPARATOR, $fixture['storagePath']);
+            $this->filesystem->mkdir(dirname($absoluteTargetPath));
+            $this->filesystem->copy($fixture['sourceFile'], $absoluteTargetPath, true);
+
             $attachment = new Attachment(
-                id: $this->generateIdentifier(),
-                type: $isMedia ? AttachmentType::Media : AttachmentType::Document,
+                id: $fixture['id'],
+                type: $fixture['type'],
                 storageKind: AttachmentStorageKind::Local,
                 visibility: AttachmentVisibility::Private,
-                originalName: $isMedia ? $faker->lexify('image-????.png') : $faker->lexify('document-????.pdf'),
-                storedName: $faker->uuid().($isMedia ? '.png' : '.pdf'),
-                mimeType: $isMedia ? 'image/png' : 'application/pdf',
-                size: $faker->numberBetween(1024, 5000000),
-                checksum: hash('sha256', $faker->uuid()),
-                storagePath: sprintf('%s/%s', $isMedia ? 'media' : 'document', $faker->uuid()),
-                extension: $isMedia ? 'png' : 'pdf',
-                mediaKind: $isMedia ? AttachmentMediaKind::Image : null,
-                documentKind: $isMedia ? null : AttachmentDocumentKind::Pdf,
-                title: $faker->sentence(3),
-                description: $faker->sentence(8),
-                altText: $isMedia ? $faker->sentence(4) : null,
-                width: $isMedia ? $faker->numberBetween(640, 2400) : null,
-                height: $isMedia ? $faker->numberBetween(480, 1800) : null,
+                originalName: $fixture['originalName'],
+                storedName: $fixture['storedName'],
+                mimeType: $fixture['mimeType'],
+                size: $fixture['size'],
+                checksum: $fixture['checksum'],
+                storagePath: $fixture['storagePath'],
+                extension: $fixture['extension'],
+                mediaKind: $fixture['mediaKind'],
+                documentKind: $fixture['documentKind'],
+                title: $fixture['title'],
+                description: $fixture['description'],
+                width: $fixture['width'] ?? null,
+                height: $fixture['height'] ?? null,
             );
 
             $manager->persist($attachment);
-            $this->addReference(sprintf('attachment.%d', $index), $attachment);
+            $this->addReference($fixture['reference'], $attachment);
         }
 
         $manager->flush();
-    }
-
-    private function generateIdentifier(): string
-    {
-        $hex = bin2hex(random_bytes(16));
-
-        return sprintf(
-            '%s-%s-%s-%s-%s',
-            substr($hex, 0, 8),
-            substr($hex, 8, 4),
-            substr($hex, 12, 4),
-            substr($hex, 16, 4),
-            substr($hex, 20, 12),
-        );
     }
 }

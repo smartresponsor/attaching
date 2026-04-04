@@ -9,30 +9,57 @@ use App\Entity\Attachment\AttachmentLink;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 final class AttachmentLinkFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-        $faker->seed(41002);
-        $ownerTypes = ['product', 'message', 'vendor', 'billing_document'];
-        $slots = ['attachment', 'gallery', 'invoice', 'manual'];
+        $links = [
+            [
+                'id' => 'aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaa1',
+                'reference' => 'attachment.message.1',
+                'ownerType' => 'message',
+                'ownerId' => 'msg-fixture-1',
+                'context' => 'message',
+                'slot' => 'attachment',
+                'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
+                'id' => 'bbbbbbb2-bbbb-bbbb-bbbb-bbbbbbbbbbb2',
+                'reference' => 'attachment.product.1',
+                'ownerType' => 'product',
+                'ownerId' => 'prod-fixture-1',
+                'context' => 'gallery',
+                'slot' => 'image',
+                'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
+                'id' => 'ccccccc3-cccc-cccc-cccc-ccccccccccc3',
+                'reference' => 'attachment.vendor.1',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'document',
+                'slot' => 'manual',
+                'position' => 0,
+                'isPrimary' => false,
+            ],
+        ];
 
-        for ($index = 0; $index < 8; ++$index) {
+        foreach ($links as $fixture) {
             /** @var Attachment $attachment */
-            $attachment = $this->getReference(sprintf('attachment.%d', $index), Attachment::class);
+            $attachment = $this->getReference($fixture['reference'], Attachment::class);
 
             $manager->persist(new AttachmentLink(
-                id: $this->generateIdentifier(),
+                id: $fixture['id'],
                 attachment: $attachment,
-                ownerType: $ownerTypes[$index % count($ownerTypes)],
-                ownerId: (string) $faker->numberBetween(1000, 9999),
-                context: $index % 2 === 0 ? 'primary' : 'document',
-                slot: $slots[$index % count($slots)],
-                position: $index,
-                isPrimary: $index % 3 === 0,
+                ownerType: $fixture['ownerType'],
+                ownerId: $fixture['ownerId'],
+                context: $fixture['context'],
+                slot: $fixture['slot'],
+                position: $fixture['position'],
+                isPrimary: $fixture['isPrimary'],
             ));
         }
 
@@ -42,19 +69,5 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
     public function getDependencies(): array
     {
         return [AttachmentFixture::class];
-    }
-
-    private function generateIdentifier(): string
-    {
-        $hex = bin2hex(random_bytes(16));
-
-        return sprintf(
-            '%s-%s-%s-%s-%s',
-            substr($hex, 0, 8),
-            substr($hex, 8, 4),
-            substr($hex, 12, 4),
-            substr($hex, 16, 4),
-            substr($hex, 20, 12),
-        );
     }
 }
