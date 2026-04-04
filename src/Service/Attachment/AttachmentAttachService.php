@@ -7,6 +7,7 @@ namespace App\Service\Attachment;
 use App\Dto\Attachment\Input\AttachAttachmentInput;
 use App\Dto\Attachment\Output\AttachmentLinkView;
 use App\Entity\Attachment\AttachmentLink;
+use App\Exception\Attachment\AttachmentNotFoundException;
 use App\Repository\Attachment\AttachmentLinkRepository;
 use App\Repository\Attachment\AttachmentRepository;
 use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
@@ -17,15 +18,19 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
         private AttachmentRepository $attachmentRepository,
         private AttachmentLinkRepository $attachmentLinkRepository,
         private AttachmentLinkViewFactory $attachmentLinkViewFactory,
+        private AttachmentValidationService $attachmentValidationService,
     ) {
     }
 
     public function attach(AttachAttachmentInput $input): AttachmentLinkView
     {
+        $this->attachmentValidationService->validateAttachmentIdentifier($input->attachmentId);
+        $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+
         $attachment = $this->attachmentRepository->find($input->attachmentId);
 
         if (null === $attachment) {
-            throw new \RuntimeException(sprintf('Attachment "%s" was not found.', $input->attachmentId));
+            throw AttachmentNotFoundException::forAttachmentId($input->attachmentId);
         }
 
         if ($input->isPrimary) {

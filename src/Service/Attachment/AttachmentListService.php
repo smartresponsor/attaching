@@ -14,11 +14,14 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
     public function __construct(
         private AttachmentLinkRepository $attachmentLinkRepository,
         private AttachmentViewFactory $attachmentViewFactory,
+        private AttachmentValidationService $attachmentValidationService,
     ) {
     }
 
     public function list(ListAttachmentInput $input): AttachmentListView
     {
+        $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+
         $items = [];
 
         foreach ($this->attachmentLinkRepository->findByOwner($input->ownerType, $input->ownerId, $input->context, $input->slot) as $attachmentLink) {

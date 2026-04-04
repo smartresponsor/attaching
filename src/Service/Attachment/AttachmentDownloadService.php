@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Attachment;
 
 use App\Contract\Attachment\AttachmentStorageInterface;
+use App\Exception\Attachment\AttachmentNotFoundException;
 use App\Repository\Attachment\AttachmentRepository;
 use App\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -17,15 +18,17 @@ final readonly class AttachmentDownloadService implements AttachmentDownloadServ
     public function __construct(
         private AttachmentRepository $attachmentRepository,
         private AttachmentStorageInterface $attachmentStorage,
+        private AttachmentValidationService $attachmentValidationService,
     ) {
     }
 
     public function download(string $attachmentId): BinaryFileResponse|StreamedResponse
     {
+        $this->attachmentValidationService->validateAttachmentIdentifier($attachmentId);
         $attachment = $this->attachmentRepository->find($attachmentId);
 
         if (null === $attachment) {
-            throw new \RuntimeException(sprintf('Attachment "%s" was not found.', $attachmentId));
+            throw AttachmentNotFoundException::forAttachmentId($attachmentId);
         }
 
         $absolutePath = $this->attachmentStorage->resolveAbsolutePath($attachment->getStoragePath());

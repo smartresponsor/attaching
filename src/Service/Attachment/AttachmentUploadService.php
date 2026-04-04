@@ -12,6 +12,7 @@ use App\Dto\Attachment\Input\UploadAttachmentInput;
 use App\Dto\Attachment\Output\AttachmentView;
 use App\Entity\Attachment\Attachment;
 use App\Entity\Attachment\AttachmentLink;
+use App\Exception\Attachment\AttachmentStorageException;
 use App\Enum\Attachment\AttachmentStorageKind;
 use App\Enum\Attachment\AttachmentVisibility;
 use App\Repository\Attachment\AttachmentLinkRepository;
@@ -35,6 +36,7 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
     public function upload(UploadAttachmentInput $input): AttachmentView
     {
         $this->attachmentValidationService->validateUploadedFile($input->uploadedFile);
+        $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
 
         $mimeType = $input->uploadedFile->getMimeType() ?? 'application/octet-stream';
         $classification = $this->attachmentMimeTypeGuesser->classify($mimeType);
@@ -48,7 +50,11 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
             $extension,
         );
 
-        $this->attachmentStorage->store($input->uploadedFile->getPathname(), $storagePath);
+        try {
+            $this->attachmentStorage->store($input->uploadedFile->getPathname(), $storagePath);
+        } catch (\Throwable $throwable) {
+            throw new AttachmentStorageException(sprintf('Unable to store attachment file for "%s".', $input->uploadedFile->getClientOriginalName()), 0, $throwable);
+        }
 
         $attachment = new Attachment(
             id: $attachmentId,
