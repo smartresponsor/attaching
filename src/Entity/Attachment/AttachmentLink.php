@@ -47,4 +47,84 @@ class AttachmentLink
 
     #[ORM\Column]
     private \DateTimeImmutable $updatedAt;
+
+    public function __construct(
+        string $id,
+        Attachment $attachment,
+        string $ownerType,
+        string $ownerId,
+        ?string $context = null,
+        ?string $slot = null,
+        int $position = 0,
+        bool $isPrimary = false,
+    ) {
+        $now = new \DateTimeImmutable();
+
+        $this->id = $id;
+        $this->attachment = $attachment;
+        $this->ownerType = $ownerType;
+        $this->ownerId = $ownerId;
+        $this->context = $context;
+        $this->slot = $slot;
+        $this->position = $position;
+        $this->isPrimary = $isPrimary;
+        $this->createdAt = $now;
+        $this->updatedAt = $now;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getAttachment(): Attachment
+    {
+        return $this->attachment;
+    }
+
+    public function getOwnerType(): string
+    {
+        return $this->ownerType;
+    }
+
+    public function getOwnerId(): string
+    {
+        return $this->ownerId;
+    }
+
+    public function getContext(): ?string
+    {
+        return $this->context;
+    }
+
+    public function getSlot(): ?string
+    {
+        return $this->slot;
+    }
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    public function isPrimary(): bool
+    {
+        return $this->isPrimary;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function clearPrimary(): void
+    {
+        $this->isPrimary = false;
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 }

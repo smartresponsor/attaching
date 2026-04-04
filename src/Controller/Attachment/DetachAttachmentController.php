@@ -4,6 +4,29 @@ declare(strict_types=1);
 
 namespace App\Controller\Attachment;
 
-final class DetachAttachmentController
+use App\Dto\Attachment\Input\DetachAttachmentInput;
+use App\ServiceInterface\Attachment\AttachmentDetachServiceInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
+
+#[Route('/attachments/detach', name: 'attachment_detach', methods: ['POST'])]
+final readonly class DetachAttachmentController
 {
+    public function __construct(private AttachmentDetachServiceInterface $attachmentDetachService)
+    {
+    }
+
+    public function __invoke(Request $request): JsonResponse
+    {
+        $this->attachmentDetachService->detach(new DetachAttachmentInput(
+            attachmentId: (string) $request->request->get('attachmentId', ''),
+            ownerType: (string) $request->request->get('ownerType', ''),
+            ownerId: (string) $request->request->get('ownerId', ''),
+            context: $request->request->get('context') ? (string) $request->request->get('context') : null,
+            slot: $request->request->get('slot') ? (string) $request->request->get('slot') : null,
+        ));
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
 }

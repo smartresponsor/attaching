@@ -11,19 +11,16 @@ final class AttachmentLinkViewFactory
 {
     public function create(AttachmentLink $attachmentLink): AttachmentLinkView
     {
-        $reader = static fn (object $object, string $property): mixed => (function () use ($property) { return $this->$property; })->call($object);
-        $attachment = $reader($attachmentLink, 'attachment');
-
         return new AttachmentLinkView(
-            id: $reader($attachmentLink, 'id'),
-            attachmentId: $reader($attachment, 'id'),
-            ownerType: $reader($attachmentLink, 'ownerType'),
-            ownerId: $reader($attachmentLink, 'ownerId'),
-            context: $reader($attachmentLink, 'context'),
-            slot: $reader($attachmentLink, 'slot'),
-            position: $reader($attachmentLink, 'position'),
-            isPrimary: $reader($attachmentLink, 'isPrimary'),
-            createdAt: $reader($attachmentLink, 'createdAt'),
+            id: $attachmentLink->getId(),
+            attachmentId: $attachmentLink->getAttachment()->getId(),
+            ownerType: $attachmentLink->getOwnerType(),
+            ownerId: $attachmentLink->getOwnerId(),
+            context: $attachmentLink->getContext(),
+            slot: $attachmentLink->getSlot(),
+            position: $attachmentLink->getPosition(),
+            isPrimary: $attachmentLink->isPrimary(),
+            createdAt: $attachmentLink->getCreatedAt(),
         );
     }
 }

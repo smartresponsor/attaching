@@ -94,4 +94,181 @@ class Attachment
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
+
+    public function __construct(
+        string $id,
+        AttachmentType $type,
+        AttachmentStorageKind $storageKind,
+        AttachmentVisibility $visibility,
+        string $originalName,
+        string $storedName,
+        string $mimeType,
+        int $size,
+        string $checksum,
+        string $storagePath,
+        ?string $extension = null,
+        ?AttachmentMediaKind $mediaKind = null,
+        ?AttachmentDocumentKind $documentKind = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?string $altText = null,
+        ?int $width = null,
+        ?int $height = null,
+        ?int $durationMs = null,
+        ?int $pageCount = null,
+    ) {
+        $now = new \DateTimeImmutable();
+
+        $this->id = $id;
+        $this->type = $type;
+        $this->mediaKind = $mediaKind;
+        $this->documentKind = $documentKind;
+        $this->storageKind = $storageKind;
+        $this->visibility = $visibility;
+        $this->status = AttachmentStatus::Active;
+        $this->originalName = $originalName;
+        $this->storedName = $storedName;
+        $this->extension = $extension;
+        $this->mimeType = $mimeType;
+        $this->size = $size;
+        $this->checksum = $checksum;
+        $this->storagePath = $storagePath;
+        $this->title = $title;
+        $this->description = $description;
+        $this->altText = $altText;
+        $this->width = $width;
+        $this->height = $height;
+        $this->durationMs = $durationMs;
+        $this->pageCount = $pageCount;
+        $this->createdAt = $now;
+        $this->updatedAt = $now;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getType(): AttachmentType
+    {
+        return $this->type;
+    }
+
+    public function getMediaKind(): ?AttachmentMediaKind
+    {
+        return $this->mediaKind;
+    }
+
+    public function getDocumentKind(): ?AttachmentDocumentKind
+    {
+        return $this->documentKind;
+    }
+
+    public function getStorageKind(): AttachmentStorageKind
+    {
+        return $this->storageKind;
+    }
+
+    public function getVisibility(): AttachmentVisibility
+    {
+        return $this->visibility;
+    }
+
+    public function getStatus(): AttachmentStatus
+    {
+        return $this->status;
+    }
+
+    public function getOriginalName(): string
+    {
+        return $this->originalName;
+    }
+
+    public function getStoredName(): string
+    {
+        return $this->storedName;
+    }
+
+    public function getExtension(): ?string
+    {
+        return $this->extension;
+    }
+
+    public function getMimeType(): string
+    {
+        return $this->mimeType;
+    }
+
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    public function getChecksum(): string
+    {
+        return $this->checksum;
+    }
+
+    public function getStoragePath(): string
+    {
+        return $this->storagePath;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function getAltText(): ?string
+    {
+        return $this->altText;
+    }
+
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    public function getDurationMs(): ?int
+    {
+        return $this->durationMs;
+    }
+
+    public function getPageCount(): ?int
+    {
+        return $this->pageCount;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function markDeleted(): void
+    {
+        $now = new \DateTimeImmutable();
+        $this->status = AttachmentStatus::Deleted;
+        $this->deletedAt = $now;
+        $this->updatedAt = $now;
+    }
 }

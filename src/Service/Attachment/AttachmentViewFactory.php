@@ -11,28 +11,26 @@ final class AttachmentViewFactory
 {
     public function create(Attachment $attachment, ?string $downloadUrl = null): AttachmentView
     {
-        $reader = static fn (object $object, string $property): mixed => (function () use ($property) { return $this->$property; })->call($object);
-
         return new AttachmentView(
-            id: $reader($attachment, 'id'),
-            type: $reader($attachment, 'type'),
-            mediaKind: $reader($attachment, 'mediaKind'),
-            documentKind: $reader($attachment, 'documentKind'),
-            originalName: $reader($attachment, 'originalName'),
-            mimeType: $reader($attachment, 'mimeType'),
-            extension: $reader($attachment, 'extension'),
-            size: $reader($attachment, 'size'),
-            checksum: $reader($attachment, 'checksum'),
-            visibility: $reader($attachment, 'visibility'),
-            title: $reader($attachment, 'title'),
-            description: $reader($attachment, 'description'),
-            altText: $reader($attachment, 'altText'),
-            width: $reader($attachment, 'width'),
-            height: $reader($attachment, 'height'),
-            durationMs: $reader($attachment, 'durationMs'),
-            pageCount: $reader($attachment, 'pageCount'),
+            id: $attachment->getId(),
+            type: $attachment->getType(),
+            mediaKind: $attachment->getMediaKind(),
+            documentKind: $attachment->getDocumentKind(),
+            originalName: $attachment->getOriginalName(),
+            mimeType: $attachment->getMimeType(),
+            extension: $attachment->getExtension(),
+            size: $attachment->getSize(),
+            checksum: $attachment->getChecksum(),
+            visibility: $attachment->getVisibility(),
+            title: $attachment->getTitle(),
+            description: $attachment->getDescription(),
+            altText: $attachment->getAltText(),
+            width: $attachment->getWidth(),
+            height: $attachment->getHeight(),
+            durationMs: $attachment->getDurationMs(),
+            pageCount: $attachment->getPageCount(),
             downloadUrl: $downloadUrl,
-            createdAt: $reader($attachment, 'createdAt'),
+            createdAt: $attachment->getCreatedAt(),
         );
     }
 }
