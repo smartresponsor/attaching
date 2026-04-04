@@ -1,0 +1,5 @@
+framework:
+  secret: 'attachment-dev-secret'
+  test: false
+  http_method_override: false
+  handle_all_throwables: true
