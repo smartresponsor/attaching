@@ -13,8 +13,7 @@ final readonly class AttachmentDetachService implements AttachmentDetachServiceI
     public function __construct(
         private AttachmentLinkRepository $attachmentLinkRepository,
         private AttachmentValidationService $attachmentValidationService,
-    )
-    {
+    ) {
     }
 
     public function detach(DetachAttachmentInput $input): void

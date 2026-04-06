@@ -4,7 +4,7 @@ attachment:
     local:
       root_path: '%kernel.project_dir%/var/storage/attachment'
   upload:
-    max_size: '32M'
+    max_size: 33554432
     allowed_media_mime_types:
       - image/jpeg
       - image/png
@@ -21,5 +21,3 @@ attachment:
       - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
       - application/vnd.ms-powerpoint
       - application/vnd.openxmlformats-officedocument.presentationml.presentation
-  security:
-    default_visibility: private

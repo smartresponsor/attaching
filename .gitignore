@@ -8,3 +8,5 @@
 /var/storage/
 /coverage/
 *.zip
+
+config/reference.php

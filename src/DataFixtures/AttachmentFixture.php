@@ -10,10 +10,10 @@ use App\Enum\Attachment\AttachmentMediaKind;
 use App\Enum\Attachment\AttachmentStorageKind;
 use App\Enum\Attachment\AttachmentType;
 use App\Enum\Attachment\AttachmentVisibility;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 
 final class AttachmentFixture extends Fixture
 {

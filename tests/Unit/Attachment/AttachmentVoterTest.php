@@ -30,14 +30,9 @@ final class AttachmentVoterTest extends TestCase
         );
 
         $token = $this->createMock(TokenInterface::class);
-        $voter = new class extends AttachmentVoter {
-            public function decide(string $attribute, Attachment $attachment, TokenInterface $token): bool
-            {
-                return $this->voteOnAttribute($attribute, $attachment, $token);
-            }
-        };
+        $voter = new AttachmentVoter();
 
-        self::assertTrue($voter->decide(AttachmentVoter::VIEW, $attachment, $token));
+        self::assertSame(1, $voter->vote($token, $attachment, [AttachmentVoter::VIEW]));
     }
 
     public function testDeletedAttachmentIsDeniedForView(): void
@@ -57,13 +52,8 @@ final class AttachmentVoterTest extends TestCase
         $attachment->markDeleted();
 
         $token = $this->createMock(TokenInterface::class);
-        $voter = new class extends AttachmentVoter {
-            public function decide(string $attribute, Attachment $attachment, TokenInterface $token): bool
-            {
-                return $this->voteOnAttribute($attribute, $attachment, $token);
-            }
-        };
+        $voter = new AttachmentVoter();
 
-        self::assertFalse($voter->decide(AttachmentVoter::VIEW, $attachment, $token));
+        self::assertSame(-1, $voter->vote($token, $attachment, [AttachmentVoter::VIEW]));
     }
 }

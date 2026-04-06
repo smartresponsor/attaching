@@ -38,7 +38,6 @@ abstract class DoctrineIntegrationTestCase extends KernelTestCase
     {
         parent::tearDown();
         $this->entityManager->close();
-        unset($this->entityManager);
     }
 
     /**

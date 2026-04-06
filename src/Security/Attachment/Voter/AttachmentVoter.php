@@ -7,6 +7,7 @@ namespace App\Security\Attachment\Voter;
 use App\Entity\Attachment\Attachment;
 use App\Enum\Attachment\AttachmentStatus;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class AttachmentVoter extends Voter
@@ -28,7 +29,7 @@ final class AttachmentVoter extends Voter
         ], true);
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         \assert($subject instanceof Attachment);
 

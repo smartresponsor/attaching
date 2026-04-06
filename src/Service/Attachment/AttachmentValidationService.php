@@ -29,7 +29,7 @@ final readonly class AttachmentValidationService implements AttachmentValidation
 
         $size = $uploadedFile->getSize();
 
-        if (null !== $size && $size > $this->maxFileSizeInBytes) {
+        if (false !== $size && $size > $this->maxFileSizeInBytes) {
             throw new AttachmentValidationException('Uploaded file exceeds the configured attachment size limit.');
         }
 

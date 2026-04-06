@@ -26,8 +26,9 @@ final class AttachmentHttpExceptionSubscriberTest extends TestCase
 
         $subscriber->onKernelException($event);
 
-        self::assertNotNull($event->getResponse());
-        self::assertSame(400, $event->getResponse()?->getStatusCode());
+        $response = $event->getResponse();
+        self::assertNotNull($response);
+        self::assertSame(400, $response->getStatusCode());
     }
 
     public function testNotFoundExceptionProducesNotFoundJsonResponse(): void
@@ -42,7 +43,8 @@ final class AttachmentHttpExceptionSubscriberTest extends TestCase
 
         $subscriber->onKernelException($event);
 
-        self::assertNotNull($event->getResponse());
-        self::assertSame(404, $event->getResponse()?->getStatusCode());
+        $response = $event->getResponse();
+        self::assertNotNull($response);
+        self::assertSame(404, $response->getStatusCode());
     }
 }

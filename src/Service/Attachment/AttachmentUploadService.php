@@ -12,9 +12,9 @@ use App\Dto\Attachment\Input\UploadAttachmentInput;
 use App\Dto\Attachment\Output\AttachmentView;
 use App\Entity\Attachment\Attachment;
 use App\Entity\Attachment\AttachmentLink;
-use App\Exception\Attachment\AttachmentStorageException;
 use App\Enum\Attachment\AttachmentStorageKind;
 use App\Enum\Attachment\AttachmentVisibility;
+use App\Exception\Attachment\AttachmentStorageException;
 use App\Repository\Attachment\AttachmentLinkRepository;
 use App\Repository\Attachment\AttachmentRepository;
 use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
@@ -64,7 +64,7 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
             originalName: $input->uploadedFile->getClientOriginalName(),
             storedName: basename($storagePath),
             mimeType: $mimeType,
-            size: (int) ($input->uploadedFile->getSize() ?? 0),
+            size: (int) (($input->uploadedFile->getSize() ?: 0)),
             checksum: $checksum,
             storagePath: $storagePath,
             extension: $extension,
