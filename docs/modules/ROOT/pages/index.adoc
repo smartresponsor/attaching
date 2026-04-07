@@ -1,0 +1,21 @@
+= Attaching
+
+Attaching is a Symfony-oriented producer repository for attachment lifecycle handling in the Smart Responsor ecosystem.
+
+This documentation surface is intentionally minimal and producer-only.
+It is designed to be consumed by an external Antora aggregator and does not assemble or publish a standalone documentation portal from this repository.
+
+== Documentation roles
+
+This repository keeps documentation concerns separated by role:
+
+* GitHub-facing landing and quick orientation stay in `README.md`.
+* Narrative documentation for the documentation ecosystem lives under `docs/modules/ROOT/pages/`.
+* Generated reference surfaces, if introduced later, should remain separate from hand-written narrative pages and be linked from narrative entry points instead of being duplicated.
+
+== Available pages
+
+* xref:architecture.adoc[Architecture]
+* xref:install.adoc[Install]
+* xref:operations.adoc[Operations]
+* xref:api.adoc[API]

@@ -1,0 +1,25 @@
+= Architecture
+
+Attaching follows a Symfony-oriented structure based on the default `App\\` namespace.
+
+== Current structure
+
+The current repository exposes these main technical surfaces:
+
+* HTTP controllers under `src/Controller/Attachment/`
+* application services under `src/Service/Attachment/`
+* service contracts under `src/ServiceInterface/Attachment/`
+* persistence entities under `src/Entity/Attachment/`
+* repositories under `src/Repository/Attachment/`
+* local storage implementation under `src/Service/Storage/`
+* cleanup operations under `src/Command/Attachment/`
+
+== Boundary notes
+
+This repository intentionally stays Symfony-oriented:
+
+* `App\\` namespace only
+* no `/src/Domain/`
+* no ports-and-adapters drift
+
+The component currently acts as an attachment lifecycle brick with upload, attach, detach, list, download, delete, and orphan cleanup responsibilities.

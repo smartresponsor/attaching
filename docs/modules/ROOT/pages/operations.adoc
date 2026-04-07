@@ -1,0 +1,23 @@
+= Operations
+
+== Existing operational surface
+
+The repository already contains an operational cleanup entry point:
+
+* `src/Command/Attachment/CleanupOrphanAttachmentCommand.php`
+
+This command is the current operational anchor for orphan cleanup in local attachment storage flows.
+
+== Runtime-related configuration
+
+Relevant runtime/configuration surfaces include:
+
+* `config/packages/attachment.yaml`
+* `config/services.yaml`
+* local storage implementation in `src/Service/Storage/LocalAttachmentStorage.php`
+
+== Documentation policy
+
+Operational narrative belongs in Antora pages.
+GitHub-facing bootstrap notes stay concise in `README.md`.
+Generated observability or operational reference artifacts, if introduced later, should be linked from here rather than duplicated into narrative pages.

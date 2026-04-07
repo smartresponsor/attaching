@@ -1,0 +1,5 @@
+name: attaching
+version: ~
+title: Attaching
+nav:
+  - modules/ROOT/nav.adoc

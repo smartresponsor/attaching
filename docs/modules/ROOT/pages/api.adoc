@@ -1,0 +1,28 @@
+= API
+
+== Current committed API surface
+
+The repository currently exposes HTTP endpoints through Symfony controllers under `src/Controller/Attachment/`.
+Committed endpoint surfaces include:
+
+* upload
+* attach
+* detach
+* list
+* download
+* delete
+
+== OpenAPI policy
+
+No committed Nelmio, API Platform, or generated OpenAPI surface was found in the current repository snapshot.
+
+If OpenAPI is introduced later:
+
+* do not duplicate contract details manually in narrative pages
+* keep generated OpenAPI artifacts separate from hand-written docs
+* link the generated contract surface from this page
+
+== Code-reference policy
+
+No committed phpDocumentor or Doctum code-reference surface was found in the current repository snapshot.
+If code reference is generated later, keep it separate from Antora narrative pages and expose it through a dedicated entry point from this page.

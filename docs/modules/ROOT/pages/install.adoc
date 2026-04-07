@@ -1,0 +1,23 @@
+= Install
+
+== Runtime baseline
+
+Current repository baseline:
+
+* PHP `^8.4`
+* Symfony `^8.0`
+* Doctrine ORM `^3.3`
+
+== Local setup surfaces already present in the repository
+
+* `composer.json`
+* `config/services.yaml`
+* `config/packages/attachment.yaml`
+* `phpunit.xml.dist`
+* `phpstan.neon`
+
+== Notes
+
+This repository currently provides a producer component surface rather than a full packaged distribution guide.
+For GitHub-first quick orientation, start with `README.md`.
+For central documentation aggregation, use this Antora surface.
