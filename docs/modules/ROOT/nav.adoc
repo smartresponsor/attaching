@@ -3,3 +3,5 @@
 * xref:install.adoc[Install]
 * xref:operations.adoc[Operations]
 * xref:api.adoc[API]
+* xref:quality.adoc[Quality]
+* xref:release.adoc[Release]

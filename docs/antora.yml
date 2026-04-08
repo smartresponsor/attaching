@@ -1,5 +1,6 @@
 name: attaching
 version: ~
 title: Attaching
+start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc

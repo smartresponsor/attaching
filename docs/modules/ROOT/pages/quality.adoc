@@ -1,0 +1,25 @@
+= Quality
+
+== Current quality surface
+
+The repository already exposes these local quality gates:
+
+* `composer phpstan -- --no-progress`
+* `composer test -- --no-coverage`
+* `composer cs:check -- --using-cache=no`
+
+== CI lane
+
+A GitHub Actions workflow is committed under `.github/workflows/ci.yaml`.
+The CI lane is expected to validate the same local quality contour on PHP 8.4:
+
+* Composer validation
+* PHPStan
+* PHPUnit
+* CS check
+
+== Quality-documentation policy
+
+This page is the narrative entry point for quality and validation concerns.
+Detailed GitHub workflow implementation remains in `.github/workflows/ci.yaml`.
+If future generated reports or proof artifacts are added, they should stay separate from hand-written narrative pages and be linked from here.

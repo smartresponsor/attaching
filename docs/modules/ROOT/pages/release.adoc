@@ -1,0 +1,24 @@
+= Release
+
+== Current release surface
+
+The repository already exposes these release-facing materials:
+
+* GitHub-facing changelog at `CHANGELOG.md`
+* producer-local release notes and policy at `docs/release/release-process.adoc`
+
+== Release positioning
+
+Attaching currently presents as a pre-release producer component.
+The release discipline is intentionally lightweight but explicit:
+
+* semantic versioning
+* changelog updates
+* CI-backed validation on PHP 8.4
+* documentation surface kept discoverable from both GitHub and Antora entry points
+
+== Documentation-role split
+
+This page is the Antora narrative entry point for release orientation.
+The root `CHANGELOG.md` remains GitHub-facing and should not be duplicated into Antora pages verbatim.
+Detailed release process notes remain in `docs/release/release-process.adoc` and can evolve without turning this repository into a standalone documentation portal.
