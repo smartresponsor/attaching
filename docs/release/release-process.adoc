@@ -1,0 +1,27 @@
+= Release Process
+
+This repository follows a producer-oriented pre-release discipline until the first stable release.
+
+== Versioning
+
+* Use semantic versioning.
+* Before the first stable release, pre-release tags are preferred.
+* The first stable tag should be created only after CI, documentation surface, and runtime expectations are consistently green.
+
+== Pre-release checklist
+
+* `composer validate --strict`
+* `composer phpstan -- --no-progress`
+* `composer test -- --no-coverage`
+* `composer cs:check -- --using-cache=no`
+* README and Antora pages reflect the current runtime and operational surface
+* CHANGELOG is updated
+
+== First stable gate
+
+The first stable release should require:
+
+* green CI on PHP 8.4
+* coherent package and repository identity
+* discoverable documentation surface
+* basic runtime and operational instructions
