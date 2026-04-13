@@ -8,6 +8,7 @@ use App\Dto\Attachment\Input\DetachAttachmentInput;
 use App\ServiceInterface\Attachment\AttachmentDetachServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachments/detach', name: 'attachment_detach', methods: ['POST'])]
@@ -27,6 +28,6 @@ final readonly class DetachAttachmentController
             slot: $request->request->get('slot') ? (string) $request->request->get('slot') : null,
         ));
 
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

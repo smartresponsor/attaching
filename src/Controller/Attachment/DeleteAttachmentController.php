@@ -6,6 +6,7 @@ namespace App\Controller\Attachment;
 
 use App\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachments/{attachmentId}', name: 'attachment_delete', methods: ['DELETE'])]
@@ -19,6 +20,6 @@ final readonly class DeleteAttachmentController
     {
         $this->attachmentDeleteService->delete($attachmentId);
 
-        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+        return new JsonResponse(status: Response::HTTP_NO_CONTENT);
     }
 }

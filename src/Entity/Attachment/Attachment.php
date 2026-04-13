@@ -29,11 +29,11 @@ class Attachment
     #[ORM\Column(enumType: AttachmentType::class)]
     private AttachmentType $type;
 
-    #[ORM\Column(enumType: AttachmentMediaKind::class, nullable: true)]
-    private ?AttachmentMediaKind $mediaKind = null;
+    #[ORM\Column(nullable: true, enumType: AttachmentMediaKind::class)]
+    private ?AttachmentMediaKind $mediaKind;
 
-    #[ORM\Column(enumType: AttachmentDocumentKind::class, nullable: true)]
-    private ?AttachmentDocumentKind $documentKind = null;
+    #[ORM\Column(nullable: true, enumType: AttachmentDocumentKind::class)]
+    private ?AttachmentDocumentKind $documentKind;
 
     #[ORM\Column(enumType: AttachmentStorageKind::class)]
     private AttachmentStorageKind $storageKind;
@@ -51,7 +51,7 @@ class Attachment
     private string $storedName;
 
     #[ORM\Column(length: 32, nullable: true)]
-    private ?string $extension = null;
+    private ?string $extension;
 
     #[ORM\Column(length: 191)]
     private string $mimeType;
@@ -66,25 +66,25 @@ class Attachment
     private string $storagePath;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $title = null;
+    private ?string $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $description = null;
+    private ?string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $altText = null;
+    private ?string $altText;
 
     #[ORM\Column(nullable: true)]
-    private ?int $width = null;
+    private ?int $width;
 
     #[ORM\Column(nullable: true)]
-    private ?int $height = null;
+    private ?int $height;
 
     #[ORM\Column(nullable: true)]
-    private ?int $durationMs = null;
+    private ?int $durationMs;
 
     #[ORM\Column(nullable: true)]
-    private ?int $pageCount = null;
+    private ?int $pageCount;
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;

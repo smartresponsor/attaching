@@ -31,16 +31,16 @@ class AttachmentLink
     private string $ownerId;
 
     #[ORM\Column(length: 191, nullable: true)]
-    private ?string $context = null;
+    private ?string $context;
 
     #[ORM\Column(length: 191, nullable: true)]
-    private ?string $slot = null;
+    private ?string $slot;
 
     #[ORM\Column]
-    private int $position = 0;
+    private int $position;
 
     #[ORM\Column]
-    private bool $isPrimary = false;
+    private bool $isPrimary;
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;

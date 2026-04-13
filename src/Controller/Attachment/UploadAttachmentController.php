@@ -9,6 +9,7 @@ use App\Exception\Attachment\AttachmentValidationException;
 use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachments/upload', name: 'attachment_upload', methods: ['POST'])]
@@ -43,6 +44,6 @@ final readonly class UploadAttachmentController
             'type' => $view->type->value,
             'mimeType' => $view->mimeType,
             'downloadUrl' => $view->downloadUrl,
-        ], JsonResponse::HTTP_CREATED);
+        ], Response::HTTP_CREATED);
     }
 }

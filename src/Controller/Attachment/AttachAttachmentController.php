@@ -8,6 +8,7 @@ use App\Dto\Attachment\Input\AttachAttachmentInput;
 use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachments/attach', name: 'attachment_attach', methods: ['POST'])]
@@ -34,6 +35,6 @@ final readonly class AttachAttachmentController
             'attachmentId' => $view->attachmentId,
             'ownerType' => $view->ownerType,
             'ownerId' => $view->ownerId,
-        ], JsonResponse::HTTP_CREATED);
+        ], Response::HTTP_CREATED);
     }
 }

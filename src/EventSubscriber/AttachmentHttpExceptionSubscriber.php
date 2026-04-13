@@ -9,6 +9,7 @@ use App\Exception\Attachment\AttachmentNotFoundException;
 use App\Exception\Attachment\AttachmentValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -36,9 +37,9 @@ final class AttachmentHttpExceptionSubscriber implements EventSubscriberInterfac
         }
 
         $statusCode = match (true) {
-            $throwable instanceof AttachmentValidationException => JsonResponse::HTTP_BAD_REQUEST,
-            $throwable instanceof AttachmentNotFoundException => JsonResponse::HTTP_NOT_FOUND,
-            default => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+            $throwable instanceof AttachmentValidationException => Response::HTTP_BAD_REQUEST,
+            $throwable instanceof AttachmentNotFoundException => Response::HTTP_NOT_FOUND,
+            default => Response::HTTP_UNPROCESSABLE_ENTITY,
         };
 
         $event->setResponse(new JsonResponse([
