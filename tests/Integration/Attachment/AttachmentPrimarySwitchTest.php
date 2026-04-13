@@ -6,6 +6,7 @@ namespace App\Tests\Integration\Attachment;
 
 use App\DataFixtures\AttachmentFixture;
 use App\Dto\Attachment\Input\AttachAttachmentInput;
+use App\Dto\Attachment\Input\ListAttachmentInput;
 use App\Repository\Attachment\AttachmentLinkRepository;
 use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
 use App\ServiceInterface\Attachment\AttachmentListServiceInterface;
@@ -18,9 +19,13 @@ final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
             AttachmentFixture::class,
         ]);
 
-        $attachService = self::getContainer()->get(AttachmentAttachServiceInterface::class);
-        $linkRepository = self::getContainer()->get(AttachmentLinkRepository::class);
-        $listService = self::getContainer()->get(AttachmentListServiceInterface::class);
+        $attachService = $this->getRequiredService(AttachmentAttachServiceInterface::class);
+        $linkRepository = $this->getRequiredService(AttachmentLinkRepository::class);
+        $listService = $this->getRequiredService(AttachmentListServiceInterface::class);
+
+        self::assertInstanceOf(AttachmentAttachServiceInterface::class, $attachService);
+        self::assertInstanceOf(AttachmentLinkRepository::class, $linkRepository);
+        self::assertInstanceOf(AttachmentListServiceInterface::class, $listService);
 
         $first = $attachService->attach(new AttachAttachmentInput(
             attachmentId: '11111111-1111-1111-1111-111111111111',
@@ -53,7 +58,7 @@ final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
 
         self::assertSame(1, $primaryCount);
 
-        $list = $listService->list(new \App\Dto\Attachment\Input\ListAttachmentInput(
+        $list = $listService->list(new ListAttachmentInput(
             ownerType: 'product',
             ownerId: 'prod-primary-1',
             context: 'gallery',

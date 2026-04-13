@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @extends Voter<string, Attachment>
+ */
 final class AttachmentVoter extends Voter
 {
     public const string VIEW = 'ATTACHMENT_VIEW';
@@ -31,8 +34,6 @@ final class AttachmentVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
-        \assert($subject instanceof Attachment);
-
         if (AttachmentStatus::Deleted === $subject->getStatus()) {
             return false;
         }

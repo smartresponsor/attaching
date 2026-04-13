@@ -7,6 +7,7 @@ namespace App\Controller\Attachment;
 use App\Dto\Attachment\Input\UploadAttachmentInput;
 use App\Exception\Attachment\AttachmentValidationException;
 use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ final readonly class UploadAttachmentController
     {
         $uploadedFile = $request->files->get('file');
 
-        if (null === $uploadedFile) {
+        if (!$uploadedFile instanceof UploadedFile) {
             throw new AttachmentValidationException('Attachment upload requires a file field.');
         }
 

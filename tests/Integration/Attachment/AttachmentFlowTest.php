@@ -20,9 +20,13 @@ final class AttachmentFlowTest extends DoctrineIntegrationTestCase
             AttachmentLinkFixture::class,
         ]);
 
-        $listService = self::getContainer()->get(AttachmentListServiceInterface::class);
-        $downloadService = self::getContainer()->get(AttachmentDownloadServiceInterface::class);
-        $deleteService = self::getContainer()->get(AttachmentDeleteServiceInterface::class);
+        $listService = $this->getRequiredService(AttachmentListServiceInterface::class);
+        $downloadService = $this->getRequiredService(AttachmentDownloadServiceInterface::class);
+        $deleteService = $this->getRequiredService(AttachmentDeleteServiceInterface::class);
+
+        self::assertInstanceOf(AttachmentListServiceInterface::class, $listService);
+        self::assertInstanceOf(AttachmentDownloadServiceInterface::class, $downloadService);
+        self::assertInstanceOf(AttachmentDeleteServiceInterface::class, $deleteService);
 
         $before = $listService->list(new ListAttachmentInput(
             ownerType: 'message',

@@ -11,7 +11,7 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
     public function testUploadListDownloadDeleteFlowOverHttp(): void
     {
         $client = $this->createAttachmentClient();
-        $filePath = self::getContainer()->getParameter('kernel.project_dir').'/tests/Resources/files/sample-note.txt';
+        $filePath = $this->getFixtureFilePath('sample-note.txt');
 
         $client->request('POST', '/attachments/upload', [
             'ownerType' => 'message',
@@ -24,11 +24,12 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseStatusCodeSame(201);
-        $uploadPayload = $this->decodeJson($client->getResponse()->getContent());
+        $uploadPayload = $this->decodeJson((string) $client->getResponse()->getContent());
         self::assertArrayHasKey('id', $uploadPayload);
-        self::assertSame('document', $uploadPayload['type']);
+        self::assertSame('document', $uploadPayload['type'] ?? null);
 
-        $attachmentId = $uploadPayload['id'];
+        $attachmentId = $uploadPayload['id'] ?? null;
+        self::assertIsString($attachmentId);
 
         $client->request('GET', '/attachments', [
             'ownerType' => 'message',
@@ -38,9 +39,10 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        $listPayload = $this->decodeJson($client->getResponse()->getContent());
-        self::assertSame(1, $listPayload['count']);
-        self::assertSame($attachmentId, $listPayload['items'][0]['id']);
+        $listPayload = $this->decodeJson((string) $client->getResponse()->getContent());
+        $listItems = $this->getItems($listPayload);
+        self::assertSame(1, $listPayload['count'] ?? null);
+        self::assertSame($attachmentId, $listItems[0]['id'] ?? null);
 
         $client->request('GET', sprintf('/attachments/%s/download', $attachmentId));
         self::assertResponseIsSuccessful();
@@ -57,14 +59,14 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        $afterDeletePayload = $this->decodeJson($client->getResponse()->getContent());
-        self::assertSame(0, $afterDeletePayload['count']);
+        $afterDeletePayload = $this->decodeJson((string) $client->getResponse()->getContent());
+        self::assertSame(0, $afterDeletePayload['count'] ?? null);
     }
 
     public function testAttachAndDetachExistingAttachmentOverHttp(): void
     {
         $client = $this->createAttachmentClient();
-        $filePath = self::getContainer()->getParameter('kernel.project_dir').'/tests/Resources/files/sample-note.txt';
+        $filePath = $this->getFixtureFilePath('sample-note.txt');
 
         $client->request('POST', '/attachments/upload', [
             'ownerType' => 'message',
@@ -76,8 +78,9 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseStatusCodeSame(201);
-        $uploadPayload = $this->decodeJson($client->getResponse()->getContent());
-        $attachmentId = $uploadPayload['id'];
+        $uploadPayload = $this->decodeJson((string) $client->getResponse()->getContent());
+        $attachmentId = $uploadPayload['id'] ?? null;
+        self::assertIsString($attachmentId);
 
         $client->request('POST', '/attachments/attach', [
             'attachmentId' => $attachmentId,
@@ -99,9 +102,10 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        $listPayload = $this->decodeJson($client->getResponse()->getContent());
-        self::assertSame(1, $listPayload['count']);
-        self::assertSame($attachmentId, $listPayload['items'][0]['id']);
+        $listPayload = $this->decodeJson((string) $client->getResponse()->getContent());
+        $listItems = $this->getItems($listPayload);
+        self::assertSame(1, $listPayload['count'] ?? null);
+        self::assertSame($attachmentId, $listItems[0]['id'] ?? null);
 
         $client->request('POST', '/attachments/detach', [
             'attachmentId' => $attachmentId,
@@ -121,20 +125,40 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        $afterDetachPayload = $this->decodeJson($client->getResponse()->getContent());
-        self::assertSame(0, $afterDetachPayload['count']);
+        $afterDetachPayload = $this->decodeJson((string) $client->getResponse()->getContent());
+        self::assertSame(0, $afterDetachPayload['count'] ?? null);
     }
 
     /**
      * @return array<string, mixed>
      */
-    private function decodeJson(?string $json): array
+    private function decodeJson(string $json): array
     {
-        self::assertNotNull($json);
-
         /** @var array<string, mixed> $decoded */
         $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
         return $decoded;
+    }
+
+    private function getFixtureFilePath(string $fileName): string
+    {
+        $projectDir = static::getContainer()->getParameter('kernel.project_dir');
+        self::assertIsString($projectDir);
+
+        return $projectDir.'/tests/Resources/files/'.$fileName;
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return list<array<string, mixed>>
+     */
+    private function getItems(array $payload): array
+    {
+        $items = $payload['items'] ?? null;
+        self::assertIsArray($items);
+
+        /** @var list<array<string, mixed>> $items */
+        return $items;
     }
 }

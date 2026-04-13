@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Attachment;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -26,10 +26,14 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
         self::bootKernel();
 
         $container = static::getContainer();
-        $this->entityManager = $container->get(EntityManagerInterface::class);
+        $entityManager = $container->get(EntityManagerInterface::class);
+        self::assertInstanceOf(EntityManagerInterface::class, $entityManager);
+        $this->entityManager = $entityManager;
         $this->filesystem = new Filesystem();
-        $this->testDatabasePath = self::getContainer()->getParameter('kernel.project_dir').'/var/attachment.test.sqlite';
-        $this->testStoragePath = self::getContainer()->getParameter('kernel.project_dir').'/var/storage/attachment';
+        $projectDir = $container->getParameter('kernel.project_dir');
+        self::assertIsString($projectDir);
+        $this->testDatabasePath = $projectDir.'/var/attachment.test.sqlite';
+        $this->testStoragePath = $projectDir.'/var/storage/attachment';
 
         $this->resetPersistence();
         $this->resetStorage();
@@ -52,14 +56,17 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
     {
         self::bootKernel();
 
-        $loader = new Loader();
+        $fixtures = [];
 
         foreach ($fixtureClasses as $fixtureClass) {
-            $loader->addFixture(static::getContainer()->get($fixtureClass));
+            $fixtures[] = $this->getRequiredService($fixtureClass);
         }
 
+        /** @var list<FixtureInterface> $fixtures */
+        $fixtures = $fixtures;
+
         $executor = new ORMExecutor($this->entityManager, new ORMPurger());
-        $executor->execute($loader->getFixtures(), append: false);
+        $executor->execute($fixtures, append: false);
 
         self::ensureKernelShutdown();
     }
@@ -69,6 +76,25 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
         self::ensureKernelShutdown();
 
         return static::createClient();
+    }
+
+    /**
+     * @template T of object
+     *
+     * @param class-string<T> $serviceId
+     *
+     * @return T
+     */
+    protected function getRequiredService(string $serviceId): object
+    {
+        self::bootKernel();
+
+        $service = static::getContainer()->get($serviceId);
+        self::assertInstanceOf($serviceId, $service);
+
+        self::ensureKernelShutdown();
+
+        return $service;
     }
 
     private function resetPersistence(): void

@@ -10,5 +10,5 @@ doctrine:
           App:
             type: attribute
             dir: '%kernel.project_dir%/src/Entity'
-            prefix: 'App\\Entity'
+            prefix: 'App\Entity'
             is_bundle: false

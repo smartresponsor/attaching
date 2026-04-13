@@ -29,6 +29,13 @@ final class AttachmentFixture extends Fixture
         $storageRoot = $this->projectDir.'/var/storage/attachment';
         $this->filesystem->mkdir($storageRoot);
 
+        $noteChecksum = hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt');
+        $gifChecksum = hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-pixel.gif');
+
+        if (false === $noteChecksum || false === $gifChecksum) {
+            throw new \RuntimeException('Fixture checksum generation failed.');
+        }
+
         $fixtures = [
             [
                 'reference' => 'attachment.message.1',
@@ -43,7 +50,7 @@ final class AttachmentFixture extends Fixture
                 'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
                 'storagePath' => 'document/fixtures/message-note.txt',
                 'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
-                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt'),
+                'checksum' => $noteChecksum,
                 'title' => 'Message note',
                 'description' => 'Fixture text attachment for message owner.',
                 'ownerType' => 'message',
@@ -65,7 +72,7 @@ final class AttachmentFixture extends Fixture
                 'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-pixel.gif',
                 'storagePath' => 'media/fixtures/product-image.gif',
                 'size' => filesize($this->projectDir.'/tests/Resources/files/sample-pixel.gif') ?: 34,
-                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-pixel.gif'),
+                'checksum' => $gifChecksum,
                 'title' => 'Product image',
                 'description' => 'Fixture image attachment for product owner.',
                 'ownerType' => 'product',
@@ -89,7 +96,7 @@ final class AttachmentFixture extends Fixture
                 'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
                 'storagePath' => 'document/fixtures/vendor-policy.pdf',
                 'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
-                'checksum' => hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt'),
+                'checksum' => $noteChecksum,
                 'title' => 'Vendor policy',
                 'description' => 'Fixture pseudo-pdf attachment for vendor owner.',
                 'ownerType' => 'vendor',

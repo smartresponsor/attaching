@@ -25,7 +25,13 @@ final class AttachmentFixtureHttpReadTest extends DoctrineWebIntegrationTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        $payload = $this->decodeJson($client->getResponse()->getContent());
+        $json = $client->getResponse()->getContent();
+        self::assertIsString($json);
+        $payload = $this->decodeJson($json);
+        self::assertArrayHasKey('items', $payload);
+        self::assertIsArray($payload['items']);
+        self::assertArrayHasKey(0, $payload['items']);
+        self::assertIsArray($payload['items'][0]);
 
         self::assertSame('product', $payload['ownerType']);
         self::assertSame('prod-fixture-1', $payload['ownerId']);
@@ -45,16 +51,14 @@ final class AttachmentFixtureHttpReadTest extends DoctrineWebIntegrationTestCase
         $client->request('GET', '/attachments/11111111-1111-1111-1111-111111111111/download');
 
         self::assertResponseIsSuccessful();
-        self::assertStringContainsString('message-note.txt', (string) $client->getResponse()->headers->get('Content-Disposition'));
+        self::assertStringContainsString('sample-note.txt', (string) $client->getResponse()->headers->get('Content-Disposition'));
     }
 
     /**
      * @return array<string, mixed>
      */
-    private function decodeJson(?string $json): array
+    private function decodeJson(string $json): array
     {
-        self::assertNotNull($json);
-
         /** @var array<string, mixed> $decoded */
         $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 

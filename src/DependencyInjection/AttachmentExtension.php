@@ -12,6 +12,17 @@ final class AttachmentExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
+
+        /**
+         * @var array{
+         *     storage: array{local: array{root_path: string}},
+         *     upload: array{
+         *         max_size: int,
+         *         allowed_media_mime_types: list<string>,
+         *         allowed_document_mime_types: list<string>
+         *     }
+         * } $config
+         */
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('attachment.storage.local.root_path', $config['storage']['local']['root_path']);

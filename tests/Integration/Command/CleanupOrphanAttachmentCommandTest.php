@@ -26,13 +26,17 @@ final class CleanupOrphanAttachmentCommandTest extends DoctrineIntegrationTestCa
 
         self::assertFileExists($filePath);
 
-        $deleteService = self::getContainer()->get(AttachmentDeleteServiceInterface::class);
-        $deleteService->delete($attachmentId);
+        $deleteService = $this->getRequiredService(AttachmentDeleteServiceInterface::class);
+        $repository = $this->getRequiredService(AttachmentRepository::class);
+        $command = $this->getRequiredService(CleanupOrphanAttachmentCommand::class);
 
-        $repository = self::getContainer()->get(AttachmentRepository::class);
+        self::assertInstanceOf(AttachmentDeleteServiceInterface::class, $deleteService);
+        self::assertInstanceOf(AttachmentRepository::class, $repository);
+        self::assertInstanceOf(CleanupOrphanAttachmentCommand::class, $command);
+
+        $deleteService->delete($attachmentId);
         self::assertNotNull($repository->find($attachmentId));
 
-        $command = self::getContainer()->get(CleanupOrphanAttachmentCommand::class);
         $tester = new CommandTester($command);
         $exitCode = $tester->execute([]);
 
