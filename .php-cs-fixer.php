@@ -16,6 +16,7 @@ $finder = Finder::create()
         'vendor',
         'node_modules',
         'public/build',
+		'config/reference.php',
     ])
     ->name('*.php');
 
