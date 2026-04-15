@@ -3,11 +3,18 @@
 
 declare(strict_types=1);
 
+/**
+ * @throws Throwable Symfony console intentionally lets command exceptions bubble to the application/error handler.
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', (bool) ($_SERVER['APP_DEBUG'] ?? true));
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? true);
+$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $debug);
 $application = new Application($kernel);
+/** @noinspection PhpUnhandledExceptionInspection */
 $application->run();

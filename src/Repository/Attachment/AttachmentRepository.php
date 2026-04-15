@@ -26,11 +26,17 @@ final readonly class AttachmentRepository
         $this->entityManager->flush();
     }
 
+    /**
+     * @throws \Throwable when Doctrine cannot resolve or execute the entity lookup
+     */
     public function find(string $attachmentId): ?Attachment
     {
         return $this->entityManager->find(Attachment::class, $attachmentId);
     }
 
+    /**
+     * @throws \Throwable when Doctrine cannot resolve or execute the entity lookup
+     */
     public function findActive(string $attachmentId): ?Attachment
     {
         $attachment = $this->find($attachmentId);

@@ -99,10 +99,6 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
 
     private function resetPersistence(): void
     {
-        if ($this->filesystem->exists($this->testDatabasePath)) {
-            $this->filesystem->remove($this->testDatabasePath);
-        }
-
         $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->dropSchema($metadata);

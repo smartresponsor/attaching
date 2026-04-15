@@ -18,6 +18,11 @@ final readonly class AttachmentDeleteService implements AttachmentDeleteServiceI
     ) {
     }
 
+    /**
+     * @param string $attachmentId
+     *
+     * @throws \Throwable
+     */
     public function delete(string $attachmentId): void
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($attachmentId);

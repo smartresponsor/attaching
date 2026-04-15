@@ -18,6 +18,7 @@ use App\Exception\Attachment\AttachmentStorageException;
 use App\Repository\Attachment\AttachmentLinkRepository;
 use App\Repository\Attachment\AttachmentRepository;
 use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
+use Random\RandomException;
 
 final readonly class AttachmentUploadService implements AttachmentUploadServiceInterface
 {
@@ -33,6 +34,9 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
     ) {
     }
 
+    /**
+     * @throws RandomException when a secure attachment identifier cannot be generated
+     */
     public function upload(UploadAttachmentInput $input): AttachmentView
     {
         $this->attachmentValidationService->validateUploadedFile($input->uploadedFile);
@@ -64,7 +68,7 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
             originalName: $input->uploadedFile->getClientOriginalName(),
             storedName: basename($storagePath),
             mimeType: $mimeType,
-            size: (int) (($input->uploadedFile->getSize() ?: 0)),
+            size: (int) ($input->uploadedFile->getSize() ?: 0),
             checksum: $checksum,
             storagePath: $storagePath,
             extension: $extension,
@@ -95,6 +99,9 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
         return $this->attachmentViewFactory->create($attachment, sprintf('/attachments/%s/download', $attachment->getId()));
     }
 
+    /**
+     * @throws RandomException when secure random bytes cannot be generated
+     */
     private function generateIdentifier(): string
     {
         $hex = bin2hex(random_bytes(16));
