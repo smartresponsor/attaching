@@ -16,8 +16,8 @@ $finder = Finder::create()
         'vendor',
         'node_modules',
         'public/build',
-		'config/reference.php',
     ])
+	->notPath('config/reference.php')
     ->name('*.php');
 
 $config = new Config();
