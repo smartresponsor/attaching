@@ -1,0 +1,23 @@
+parameters:
+  attaching.local_storage_root_path: '%kernel.project_dir%/var/attaching/storage'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    bind:
+      string $rootPath: '%attaching.local_storage_root_path%'
+
+  # Symfony-native component export surface.
+  # The host application may import this file from the component root.
+  App\:
+    resource: '../../src/'
+    exclude:
+      - '../../src/Kernel.php'
+      - '../../src/DependencyInjection/'
+      - '../../src/Entity/'
+      - '../../src/Tests/'
+  App\Realtime\EventPublisherInterface:
+    alias: App\Realtime\NullEventPublisher
+  App\ServiceInterface\Attachment\Storage\StorageAdapterInterface:
+    alias: App\Integration\Attachment\LocalStorageAdapter
