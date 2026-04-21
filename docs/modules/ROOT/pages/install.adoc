@@ -8,16 +8,18 @@ Current repository baseline:
 * Symfony `^8.0`
 * Doctrine ORM `^3.3`
 
-== Local setup surfaces already present in the repository
+== Package-oriented setup surfaces
 
 * `composer.json`
-* `config/services.yaml`
-* `config/packages/attachment.yaml`
+* `config/component/services.yaml`
+* `config/component/routes.yaml`
+* `config/component/doctrine.yaml`
 * `phpunit.xml.dist`
+* `tests/Application/`
 * `phpstan.neon`
 
 == Notes
 
-This repository currently provides a producer component surface rather than a full packaged distribution guide.
-For GitHub-first quick orientation, start with `README.md`.
-For central documentation aggregation, use this Antora surface.
+This repository is a Symfony bundle package, not a standalone application.
+Root application bootstrap files are intentionally absent.
+Runtime composition belongs to the host application, while package verification uses the embedded test application under `tests/Application/`.

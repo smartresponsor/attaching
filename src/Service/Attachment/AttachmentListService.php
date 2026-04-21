@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Dto\Attachment\Input\ListAttachmentInput;
-use App\Dto\Attachment\Output\AttachmentListView;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\ServiceInterface\Attachment\AttachmentListServiceInterface;
+use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
+use App\Attaching\Dto\Attachment\Output\AttachmentListView;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface;
 
 final readonly class AttachmentListService implements AttachmentListServiceInterface
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures;
+namespace App\Attaching\DataFixtures;
 
-use App\Entity\Attachment\Attachment;
-use App\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

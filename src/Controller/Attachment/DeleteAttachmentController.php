@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Attachment;
+namespace App\Attaching\Controller\Attachment;
 
-use App\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Contract\Attachment;
+namespace App\Attaching\Contract\Attachment;
 
-use App\Enum\Attachment\AttachmentDocumentKind;
-use App\Enum\Attachment\AttachmentMediaKind;
-use App\Enum\Attachment\AttachmentType;
+use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Attachment\AttachmentType;
 
 interface AttachmentMimeTypeGuesserInterface
 {

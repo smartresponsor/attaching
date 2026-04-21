@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ServiceInterface\Attachment;
+namespace App\Attaching\ServiceInterface\Attachment;
 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;

@@ -1,23 +1,37 @@
 parameters:
-  attaching.local_storage_root_path: '%kernel.project_dir%/var/attaching/storage'
+  attachment.storage.local.root_path: '%kernel.project_dir%/var/storage/attachment'
 
 services:
   _defaults:
     autowire: true
     autoconfigure: true
-    bind:
-      string $rootPath: '%attaching.local_storage_root_path%'
 
-  # Symfony-native component export surface.
-  # The host application may import this file from the component root.
-  App\:
+  # Symfony-native component export surface for host applications.
+  App\Attaching\:
     resource: '../../src/'
     exclude:
-      - '../../src/Kernel.php'
       - '../../src/DependencyInjection/'
       - '../../src/Entity/'
-      - '../../src/Tests/'
-  App\Realtime\EventPublisherInterface:
-    alias: App\Realtime\NullEventPublisher
-  App\ServiceInterface\Attachment\Storage\StorageAdapterInterface:
-    alias: App\Integration\Attachment\LocalStorageAdapter
+
+  App\Attaching\Contract\Attachment\AttachmentStorageInterface: '@App\Attaching\Service\Storage\LocalAttachmentStorage'
+  App\Attaching\Contract\Attachment\AttachmentPathGeneratorInterface: '@App\Attaching\Service\Attachment\AttachmentPathGenerator'
+  App\Attaching\Contract\Attachment\AttachmentChecksumGeneratorInterface: '@App\Attaching\Service\Attachment\AttachmentChecksumGenerator'
+  App\Attaching\Contract\Attachment\AttachmentMimeTypeGuesserInterface: '@App\Attaching\Service\Attachment\AttachmentMimeTypeGuesser'
+
+  App\Attaching\ServiceInterface\Attachment\AttachmentUploadServiceInterface: '@App\Attaching\Service\Attachment\AttachmentUploadService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface: '@App\Attaching\Service\Attachment\AttachmentAttachService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentDetachServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDetachService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface: '@App\Attaching\Service\Attachment\AttachmentListService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDownloadService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDeleteService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentValidationServiceInterface: '@App\Attaching\Service\Attachment\AttachmentValidationService'
+
+  App\Attaching\Service\Storage\LocalAttachmentStorage:
+    arguments:
+      $rootPath: '%attachment.storage.local.root_path%'
+
+  App\Attaching\Service\Attachment\AttachmentValidationService:
+    arguments:
+      $maxFileSizeInBytes: '%attachment.upload.max_size%'
+      $allowedMediaMimeTypes: '%attachment.upload.allowed_media_mime_types%'
+      $allowedDocumentMimeTypes: '%attachment.upload.allowed_document_mime_types%'

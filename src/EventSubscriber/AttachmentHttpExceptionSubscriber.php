@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber;
+namespace App\Attaching\EventSubscriber;
 
-use App\Exception\Attachment\AttachmentException;
-use App\Exception\Attachment\AttachmentNotFoundException;
-use App\Exception\Attachment\AttachmentValidationException;
+use App\Attaching\Exception\Attachment\AttachmentException;
+use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
+use App\Attaching\Exception\Attachment\AttachmentValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

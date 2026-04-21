@@ -8,13 +8,17 @@ The repository already contains an operational cleanup entry point:
 
 This command is the current operational anchor for orphan cleanup in local attachment storage flows.
 
-== Runtime-related configuration
+== Runtime-related package configuration
 
 Relevant runtime/configuration surfaces include:
 
-* `config/packages/attachment.yaml`
-* `config/services.yaml`
+* `config/component/services.yaml`
+* `config/component/routes.yaml`
+* `config/component/doctrine.yaml`
 * local storage implementation in `src/Service/Storage/LocalAttachmentStorage.php`
+
+Package verification uses the embedded test application under `tests/Application/`.
+Host-specific runtime composition stays outside the package root app surface.
 
 == Documentation policy
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\ServiceInterface\Attachment;
+namespace App\Attaching\ServiceInterface\Attachment;
 
-use App\Dto\Attachment\Input\ListAttachmentInput;
-use App\Dto\Attachment\Output\AttachmentListView;
+use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
+use App\Attaching\Dto\Attachment\Output\AttachmentListView;
 
 interface AttachmentListServiceInterface
 {

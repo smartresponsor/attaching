@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Attachment;
+namespace App\Attaching\Controller\Attachment;
 
-use App\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;

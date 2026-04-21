@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exception\Attachment;
+namespace App\Attaching\Exception\Attachment;
 
 final class AttachmentNotFoundException extends AttachmentException
 {

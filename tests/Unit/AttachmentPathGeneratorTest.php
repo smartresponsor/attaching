@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Attaching\Tests\Unit;
 
-use App\Enum\Attachment\AttachmentType;
-use App\Service\Attachment\AttachmentPathGenerator;
+use App\Attaching\Enum\Attachment\AttachmentType;
+use App\Attaching\Service\Attachment\AttachmentPathGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class AttachmentPathGeneratorTest extends TestCase

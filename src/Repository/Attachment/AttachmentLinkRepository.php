@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Attachment;
+namespace App\Attaching\Repository\Attachment;
 
-use App\Entity\Attachment\Attachment;
-use App\Entity\Attachment\AttachmentLink;
-use App\Enum\Attachment\AttachmentStatus;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Enum\Attachment\AttachmentStatus;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentLinkRepository

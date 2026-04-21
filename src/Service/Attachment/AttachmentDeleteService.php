@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Exception\Attachment\AttachmentNotFoundException;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\Repository\Attachment\AttachmentRepository;
-use App\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
+use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
 
 final readonly class AttachmentDeleteService implements AttachmentDeleteServiceInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Attachment\Output;
+namespace App\Attaching\Dto\Attachment\Output;
 
-use App\Enum\Attachment\AttachmentDocumentKind;
-use App\Enum\Attachment\AttachmentMediaKind;
-use App\Enum\Attachment\AttachmentType;
-use App\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Attachment\AttachmentType;
+use App\Attaching\Enum\Attachment\AttachmentVisibility;
 
 final readonly class AttachmentView
 {

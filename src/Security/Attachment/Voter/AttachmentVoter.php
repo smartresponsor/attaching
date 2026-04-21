@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Attachment\Voter;
+namespace App\Attaching\Security\Attachment\Voter;
 
-use App\Entity\Attachment\Attachment;
-use App\Enum\Attachment\AttachmentStatus;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Enum\Attachment\AttachmentStatus;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;

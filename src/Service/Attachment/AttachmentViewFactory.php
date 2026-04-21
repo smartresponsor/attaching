@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Dto\Attachment\Output\AttachmentView;
-use App\Entity\Attachment\Attachment;
+use App\Attaching\Dto\Attachment\Output\AttachmentView;
+use App\Attaching\Entity\Attachment\Attachment;
 
 final class AttachmentViewFactory
 {

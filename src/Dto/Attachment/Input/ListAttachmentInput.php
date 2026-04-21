@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Attachment\Input;
+namespace App\Attaching\Dto\Attachment\Input;
 
 final readonly class ListAttachmentInput
 {

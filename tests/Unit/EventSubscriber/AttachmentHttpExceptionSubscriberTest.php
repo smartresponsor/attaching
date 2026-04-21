@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\EventSubscriber;
+namespace App\Attaching\Tests\Unit\EventSubscriber;
 
-use App\EventSubscriber\AttachmentHttpExceptionSubscriber;
-use App\Exception\Attachment\AttachmentNotFoundException;
-use App\Exception\Attachment\AttachmentValidationException;
+use App\Attaching\EventSubscriber\AttachmentHttpExceptionSubscriber;
+use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
+use App\Attaching\Exception\Attachment\AttachmentValidationException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;

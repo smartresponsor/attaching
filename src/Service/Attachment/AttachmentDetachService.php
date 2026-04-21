@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Dto\Attachment\Input\DetachAttachmentInput;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\ServiceInterface\Attachment\AttachmentDetachServiceInterface;
+use App\Attaching\Dto\Attachment\Input\DetachAttachmentInput;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDetachServiceInterface;
 
 final readonly class AttachmentDetachService implements AttachmentDetachServiceInterface
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Attachment;
+namespace App\Attaching\Controller\Attachment;
 
-use App\Dto\Attachment\Input\ListAttachmentInput;
-use App\ServiceInterface\Attachment\AttachmentListServiceInterface;
+use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
+use App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

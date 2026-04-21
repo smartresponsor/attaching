@@ -7,8 +7,8 @@ doctrine:
       default:
         auto_mapping: false
         mappings:
-          App:
+          Attaching:
             type: attribute
             dir: '%kernel.project_dir%/src/Entity'
-            prefix: 'App\Entity'
+            prefix: 'App\Attaching\Entity'
             is_bundle: false

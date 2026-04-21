@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Exception\Attachment\AttachmentValidationException;
-use App\ServiceInterface\Attachment\AttachmentValidationServiceInterface;
+use App\Attaching\Exception\Attachment\AttachmentValidationException;
+use App\Attaching\ServiceInterface\Attachment\AttachmentValidationServiceInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class AttachmentValidationService implements AttachmentValidationServiceInterface

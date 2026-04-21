@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Attachment;
+namespace App\Attaching\Tests\Unit\Attachment;
 
-use App\Exception\Attachment\AttachmentValidationException;
-use App\Service\Attachment\AttachmentValidationService;
+use App\Attaching\Exception\Attachment\AttachmentValidationException;
+use App\Attaching\Service\Attachment\AttachmentValidationService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

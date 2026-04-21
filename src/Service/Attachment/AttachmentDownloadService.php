@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Contract\Attachment\AttachmentStorageInterface;
-use App\Exception\Attachment\AttachmentNotFoundException;
-use App\Repository\Attachment\AttachmentRepository;
-use App\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
+use App\Attaching\Contract\Attachment\AttachmentStorageInterface;
+use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;

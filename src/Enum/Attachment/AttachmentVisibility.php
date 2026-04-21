@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Enum\Attachment;
+namespace App\Attaching\Enum\Attachment;
 
 enum AttachmentVisibility: string
 {

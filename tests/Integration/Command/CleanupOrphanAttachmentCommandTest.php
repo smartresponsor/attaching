@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Command;
+namespace App\Attaching\Tests\Integration\Command;
 
-use App\Command\Attachment\CleanupOrphanAttachmentCommand;
-use App\DataFixtures\AttachmentFixture;
-use App\DataFixtures\AttachmentLinkFixture;
-use App\Repository\Attachment\AttachmentRepository;
-use App\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
-use App\Tests\Integration\Attachment\DoctrineIntegrationTestCase;
+use App\Attaching\Command\Attachment\CleanupOrphanAttachmentCommand;
+use App\Attaching\DataFixtures\AttachmentFixture;
+use App\Attaching\DataFixtures\AttachmentLinkFixture;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
+use App\Attaching\Tests\Integration\Attachment\DoctrineIntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 final class CleanupOrphanAttachmentCommandTest extends DoctrineIntegrationTestCase

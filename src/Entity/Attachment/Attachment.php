@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Attachment;
+namespace App\Attaching\Entity\Attachment;
 
-use App\Enum\Attachment\AttachmentDocumentKind;
-use App\Enum\Attachment\AttachmentMediaKind;
-use App\Enum\Attachment\AttachmentStatus;
-use App\Enum\Attachment\AttachmentStorageKind;
-use App\Enum\Attachment\AttachmentType;
-use App\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Attachment\AttachmentStatus;
+use App\Attaching\Enum\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Attachment\AttachmentType;
+use App\Attaching\Enum\Attachment\AttachmentVisibility;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

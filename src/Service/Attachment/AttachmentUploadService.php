@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Contract\Attachment\AttachmentChecksumGeneratorInterface;
-use App\Contract\Attachment\AttachmentMimeTypeGuesserInterface;
-use App\Contract\Attachment\AttachmentPathGeneratorInterface;
-use App\Contract\Attachment\AttachmentStorageInterface;
-use App\Dto\Attachment\Input\UploadAttachmentInput;
-use App\Dto\Attachment\Output\AttachmentView;
-use App\Entity\Attachment\Attachment;
-use App\Entity\Attachment\AttachmentLink;
-use App\Enum\Attachment\AttachmentStorageKind;
-use App\Enum\Attachment\AttachmentVisibility;
-use App\Exception\Attachment\AttachmentStorageException;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\Repository\Attachment\AttachmentRepository;
-use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
+use App\Attaching\Contract\Attachment\AttachmentChecksumGeneratorInterface;
+use App\Attaching\Contract\Attachment\AttachmentMimeTypeGuesserInterface;
+use App\Attaching\Contract\Attachment\AttachmentPathGeneratorInterface;
+use App\Attaching\Contract\Attachment\AttachmentStorageInterface;
+use App\Attaching\Dto\Attachment\Input\UploadAttachmentInput;
+use App\Attaching\Dto\Attachment\Output\AttachmentView;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Enum\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Exception\Attachment\AttachmentStorageException;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
 use Random\RandomException;
 
 final readonly class AttachmentUploadService implements AttachmentUploadServiceInterface

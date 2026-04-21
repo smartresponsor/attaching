@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Attachment;
+namespace App\Attaching\Controller\Attachment;
 
-use App\Dto\Attachment\Input\AttachAttachmentInput;
-use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
+use App\Attaching\Dto\Attachment\Input\AttachAttachmentInput;
+use App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

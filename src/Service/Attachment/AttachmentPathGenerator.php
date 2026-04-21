@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Contract\Attachment\AttachmentPathGeneratorInterface;
-use App\Enum\Attachment\AttachmentType;
+use App\Attaching\Contract\Attachment\AttachmentPathGeneratorInterface;
+use App\Attaching\Enum\Attachment\AttachmentType;
 
 final class AttachmentPathGenerator implements AttachmentPathGeneratorInterface
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures;
+namespace App\Attaching\DataFixtures;
 
-use App\Entity\Attachment\Attachment;
-use App\Enum\Attachment\AttachmentDocumentKind;
-use App\Enum\Attachment\AttachmentMediaKind;
-use App\Enum\Attachment\AttachmentStorageKind;
-use App\Enum\Attachment\AttachmentType;
-use App\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Attachment\AttachmentType;
+use App\Attaching\Enum\Attachment\AttachmentVisibility;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;

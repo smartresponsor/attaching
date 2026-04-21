@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Attachment\Input;
+namespace App\Attaching\Dto\Attachment\Input;
 
-use App\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Attachment\AttachmentVisibility;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class UploadAttachmentInput

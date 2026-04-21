@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Contract\Attachment\AttachmentMimeTypeGuesserInterface;
-use App\Enum\Attachment\AttachmentDocumentKind;
-use App\Enum\Attachment\AttachmentMediaKind;
-use App\Enum\Attachment\AttachmentType;
+use App\Attaching\Contract\Attachment\AttachmentMimeTypeGuesserInterface;
+use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Attachment\AttachmentType;
 
 final class AttachmentMimeTypeGuesser implements AttachmentMimeTypeGuesserInterface
 {

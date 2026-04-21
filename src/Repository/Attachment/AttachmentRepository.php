@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Attachment;
+namespace App\Attaching\Repository\Attachment;
 
-use App\Entity\Attachment\Attachment;
-use App\Enum\Attachment\AttachmentStatus;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Enum\Attachment\AttachmentStatus;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentRepository
@@ -57,7 +58,7 @@ final readonly class AttachmentRepository
         $qb
             ->select('attachment')
             ->from(Attachment::class, 'attachment')
-            ->leftJoin('App\\Entity\\Attachment\\AttachmentLink', 'attachmentLink', 'WITH', 'attachmentLink.attachment = attachment')
+            ->leftJoin(AttachmentLink::class, 'attachmentLink', 'WITH', 'attachmentLink.attachment = attachment')
             ->where('attachment.status = :status')
             ->andWhere('attachmentLink.id IS NULL')
             ->setParameter('status', AttachmentStatus::Deleted)

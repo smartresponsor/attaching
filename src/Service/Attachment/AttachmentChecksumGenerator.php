@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Contract\Attachment\AttachmentChecksumGeneratorInterface;
+use App\Attaching\Contract\Attachment\AttachmentChecksumGeneratorInterface;
 
 final class AttachmentChecksumGenerator implements AttachmentChecksumGeneratorInterface
 {

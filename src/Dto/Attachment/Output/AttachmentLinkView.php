@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Attachment\Output;
+namespace App\Attaching\Dto\Attachment\Output;
 
 final readonly class AttachmentLinkView
 {

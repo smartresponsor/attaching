@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Contract\Attachment;
+namespace App\Attaching\Contract\Attachment;
 
 interface AttachmentOwnerReferenceInterface
 {

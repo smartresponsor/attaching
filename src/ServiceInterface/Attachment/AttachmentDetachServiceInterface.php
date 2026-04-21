@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\ServiceInterface\Attachment;
+namespace App\Attaching\ServiceInterface\Attachment;
 
-use App\Dto\Attachment\Input\DetachAttachmentInput;
+use App\Attaching\Dto\Attachment\Input\DetachAttachmentInput;
 
 interface AttachmentDetachServiceInterface
 {

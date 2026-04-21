@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Attaching;
 
-use App\DependencyInjection\AttachingExtension;
+use App\Attaching\DependencyInjection\AttachmentExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class AttachingBundle extends Bundle
 {
-    public function getContainerExtension(): AttachingExtension
+    public function getContainerExtension(): AttachmentExtension
     {
-        return new AttachingExtension();
+        return new AttachmentExtension();
     }
 }

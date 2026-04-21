@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Attachment;
 
-use App\DataFixtures\AttachmentFixture;
-use App\Dto\Attachment\Input\AttachAttachmentInput;
-use App\Dto\Attachment\Input\ListAttachmentInput;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
-use App\ServiceInterface\Attachment\AttachmentListServiceInterface;
+use App\Attaching\DataFixtures\AttachmentFixture;
+use App\Attaching\Dto\Attachment\Input\AttachAttachmentInput;
+use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
+use App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface;
 
 final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
 {

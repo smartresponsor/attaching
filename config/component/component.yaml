@@ -4,7 +4,7 @@ component:
   title: Attaching
   package: attaching/attachment
   status: rc
-  namespace: App
+  namespace: App\Attaching
   responsibility: "attachment and document association surfaces"
   export_contract:
     services: config/component/services.yaml
@@ -23,7 +23,7 @@ component:
     entities_as_transport_contracts: false
 
   symfony_bundle:
-    class: App\AttachingBundle
-    extension: App\DependencyInjection\AttachingExtension
+    class: App\Attaching\AttachingBundle
+    extension: App\Attaching\DependencyInjection\AttachmentExtension
     services_loaded_by_extension: config/component/services.yaml
     routes_import_required_by_host: config/component/routes.yaml

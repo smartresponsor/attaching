@@ -1,19 +1,20 @@
 # Attaching
 
-Symfony-oriented attaching component for Smart Responsor.
+Symfony-oriented attachment component for Smart Responsor.
 
-## Current bootstrap scope
-- DTO-first attachment baseline
-- Entity inward-only persistence layer
+## Current scope
+- package-oriented attachment and attachment-link business logic
+- inward-only persistence layer under `src/Entity/`
 - mirrored `Service/` and `ServiceInterface/`
 - local storage driver baseline
-- Symfony Fixtures + Faker planned in baseline dependencies
+- embedded test application under `tests/Application/` instead of standalone root app bootstrap
 - QA scaffolding: PHP CS Fixer, PHPStan, PHPUnit
 
 ## Package identity
-- Composer package: `smartresponsor/attaching`
+- Composer package: `attaching/attachment`
 - Component identity: **Attaching**
 - Business object vocabulary: **attachment**
+- Root namespace: `App\Attaching`
 
 ## Runtime baseline
 - PHP `^8.4`
@@ -24,6 +25,12 @@ Symfony-oriented attaching component for Smart Responsor.
 - `composer phpstan -- --no-progress`
 - `composer test -- --no-coverage`
 - `composer cs:check -- --using-cache=no`
+
+## Package surface
+- Bundle class: `App\Attaching\AttachingBundle`
+- Extension class: `App\Attaching\DependencyInjection\AttachmentExtension`
+- Host service import: `config/component/services.yaml`
+- Host route import: `config/component/routes.yaml`
 
 ## Release surface
 - Changelog: `CHANGELOG.md`

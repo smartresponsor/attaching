@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Storage;
+namespace App\Attaching\Service\Storage;
 
-use App\Contract\Attachment\AttachmentStorageInterface;
+use App\Attaching\Contract\Attachment\AttachmentStorageInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 final readonly class LocalAttachmentStorage implements AttachmentStorageInterface

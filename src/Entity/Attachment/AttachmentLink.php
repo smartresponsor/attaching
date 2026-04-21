@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Attachment;
+namespace App\Attaching\Entity\Attachment;
 
 use Doctrine\ORM\Mapping as ORM;
 

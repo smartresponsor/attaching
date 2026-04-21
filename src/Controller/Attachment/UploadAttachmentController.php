@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Attachment;
+namespace App\Attaching\Controller\Attachment;
 
-use App\Dto\Attachment\Input\UploadAttachmentInput;
-use App\Exception\Attachment\AttachmentValidationException;
-use App\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
+use App\Attaching\Dto\Attachment\Input\UploadAttachmentInput;
+use App\Attaching\Exception\Attachment\AttachmentValidationException;
+use App\Attaching\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

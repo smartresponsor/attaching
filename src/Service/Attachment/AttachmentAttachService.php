@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Attachment;
+namespace App\Attaching\Service\Attachment;
 
-use App\Dto\Attachment\Input\AttachAttachmentInput;
-use App\Dto\Attachment\Output\AttachmentLinkView;
-use App\Entity\Attachment\AttachmentLink;
-use App\Exception\Attachment\AttachmentNotFoundException;
-use App\Repository\Attachment\AttachmentLinkRepository;
-use App\Repository\Attachment\AttachmentRepository;
-use App\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
+use App\Attaching\Dto\Attachment\Input\AttachAttachmentInput;
+use App\Attaching\Dto\Attachment\Output\AttachmentLinkView;
+use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
+use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
 use Random\RandomException;
 
 final readonly class AttachmentAttachService implements AttachmentAttachServiceInterface

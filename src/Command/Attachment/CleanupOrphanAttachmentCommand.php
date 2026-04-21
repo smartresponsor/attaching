@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Command\Attachment;
+namespace App\Attaching\Command\Attachment;
 
-use App\Contract\Attachment\AttachmentStorageInterface;
-use App\Repository\Attachment\AttachmentRepository;
+use App\Attaching\Contract\Attachment\AttachmentStorageInterface;
+use App\Attaching\Repository\Attachment\AttachmentRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

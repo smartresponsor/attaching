@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Contract\Attachment;
+namespace App\Attaching\Contract\Attachment;
 
-use App\Enum\Attachment\AttachmentType;
+use App\Attaching\Enum\Attachment\AttachmentType;
 
 interface AttachmentPathGeneratorInterface
 {

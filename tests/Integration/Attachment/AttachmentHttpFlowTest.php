@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Attachment;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

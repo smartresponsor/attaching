@@ -1,5 +1,5 @@
 framework:
-  secret: 'attachment-dev-secret'
-  test: false
+  secret: 'attachment-test-secret'
+  test: true
   http_method_override: false
   handle_all_throwables: true
