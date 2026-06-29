@@ -21,14 +21,14 @@ final class AttachmentValidationServiceTest extends TestCase
         $service->validateOwnerReference('', 'owner-1');
     }
 
-    public function testValidateAttachmentIdentifierRejectsEmptyIdentifier(): void
+    public function testValidateAttachmentIdentifierRejectsNonPositiveIdentifier(): void
     {
         $service = new AttachmentValidationService();
 
         $this->expectException(AttachmentValidationException::class);
         $this->expectExceptionMessage('identifier');
 
-        $service->validateAttachmentIdentifier('   ');
+        $service->validateAttachmentIdentifier(0);
     }
 
     public function testValidateUploadedFileRejectsUnsupportedMimeType(): void

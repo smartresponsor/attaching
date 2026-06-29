@@ -8,6 +8,8 @@ component:
   responsibility: "attachment and document association surfaces"
   export_contract:
     services: config/component/services.yaml
+    config_tool_services: config/component/config_tool_services.yaml
+    config_tools: config/component/config_tools.yaml
     routes: config/component/routes.yaml
     api_platform: config/component/api_platform.yaml
     doctrine: config/component/doctrine.yaml

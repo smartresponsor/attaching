@@ -6,8 +6,8 @@ namespace App\Attaching\Exception\Attachment;
 
 final class AttachmentNotFoundException extends AttachmentException
 {
-    public static function forAttachmentId(string $attachmentId): self
+    public static function forAttachmentId(int $attachmentId): self
     {
-        return new self(sprintf('Attachment "%s" was not found.', $attachmentId));
+        return new self(sprintf('Attachment "%d" was not found.', $attachmentId));
     }
 }

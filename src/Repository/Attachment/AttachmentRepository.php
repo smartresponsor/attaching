@@ -11,8 +11,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentRepository
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
     public function save(Attachment $attachment): void
@@ -30,7 +31,7 @@ final readonly class AttachmentRepository
     /**
      * @throws \Throwable when Doctrine cannot resolve or execute the entity lookup
      */
-    public function find(string $attachmentId): ?Attachment
+    public function find(int $attachmentId): ?Attachment
     {
         return $this->entityManager->find(Attachment::class, $attachmentId);
     }
@@ -38,7 +39,7 @@ final readonly class AttachmentRepository
     /**
      * @throws \Throwable when Doctrine cannot resolve or execute the entity lookup
      */
-    public function findActive(string $attachmentId): ?Attachment
+    public function findActive(int $attachmentId): ?Attachment
     {
         $attachment = $this->find($attachmentId);
 

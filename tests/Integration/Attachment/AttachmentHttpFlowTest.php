@@ -29,7 +29,7 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         self::assertSame('document', $uploadPayload['type'] ?? null);
 
         $attachmentId = $uploadPayload['id'] ?? null;
-        self::assertIsString($attachmentId);
+        self::assertIsInt($attachmentId);
 
         $client->request('GET', '/attachments', [
             'ownerType' => 'message',
@@ -44,11 +44,11 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         self::assertSame(1, $listPayload['count'] ?? null);
         self::assertSame($attachmentId, $listItems[0]['id'] ?? null);
 
-        $client->request('GET', sprintf('/attachments/%s/download', $attachmentId));
+        $client->request('GET', sprintf('/attachments/%d/download', $attachmentId));
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('attachment;', (string) $client->getResponse()->headers->get('Content-Disposition'));
 
-        $client->request('DELETE', sprintf('/attachments/%s', $attachmentId));
+        $client->request('DELETE', sprintf('/attachments/%d', $attachmentId));
         self::assertResponseStatusCodeSame(204);
 
         $client->request('GET', '/attachments', [
@@ -80,7 +80,7 @@ final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase
         self::assertResponseStatusCodeSame(201);
         $uploadPayload = $this->decodeJson((string) $client->getResponse()->getContent());
         $attachmentId = $uploadPayload['id'] ?? null;
-        self::assertIsString($attachmentId);
+        self::assertIsInt($attachmentId);
 
         $client->request('POST', '/attachments/attach', [
             'attachmentId' => $attachmentId,

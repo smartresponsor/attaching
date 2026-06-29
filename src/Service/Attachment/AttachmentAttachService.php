@@ -11,7 +11,6 @@ use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
 use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
 use App\Attaching\Repository\Attachment\AttachmentRepository;
 use App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
-use Random\RandomException;
 
 final readonly class AttachmentAttachService implements AttachmentAttachServiceInterface
 {
@@ -28,7 +27,6 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
      *
      * @return AttachmentLinkView
      *
-     * @throws RandomException when a secure attachment-link identifier cannot be generated
      * @throws \Throwable
      */
     public function attach(AttachAttachmentInput $input): AttachmentLinkView
@@ -47,7 +45,6 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
         }
 
         $attachmentLink = new AttachmentLink(
-            id: $this->generateIdentifier(),
             attachment: $attachment,
             ownerType: $input->ownerType,
             ownerId: $input->ownerId,
@@ -60,22 +57,5 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
         $this->attachmentLinkRepository->save($attachmentLink);
 
         return $this->attachmentLinkViewFactory->create($attachmentLink);
-    }
-
-    /**
-     * @throws RandomException when secure random bytes cannot be generated
-     */
-    private function generateIdentifier(): string
-    {
-        $hex = bin2hex(random_bytes(16));
-
-        return sprintf(
-            '%s-%s-%s-%s-%s',
-            substr($hex, 0, 8),
-            substr($hex, 8, 4),
-            substr($hex, 12, 4),
-            substr($hex, 16, 4),
-            substr($hex, 20, 12),
-        );
     }
 }

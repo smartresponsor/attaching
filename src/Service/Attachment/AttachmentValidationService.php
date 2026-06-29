@@ -52,10 +52,10 @@ final readonly class AttachmentValidationService implements AttachmentValidation
         }
     }
 
-    public function validateAttachmentIdentifier(string $attachmentId): void
+    public function validateAttachmentIdentifier(int $attachmentId): void
     {
-        if ('' === trim($attachmentId)) {
-            throw new AttachmentValidationException('Attachment identifier must not be empty.');
+        if ($attachmentId <= 0) {
+            throw new AttachmentValidationException('Attachment identifier must be a positive integer.');
         }
     }
 }

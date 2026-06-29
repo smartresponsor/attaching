@@ -23,8 +23,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Attachment
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'guid', unique: true)]
-    private string $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
     #[ORM\Column(enumType: AttachmentType::class)]
     private AttachmentType $type;
@@ -96,7 +97,6 @@ class Attachment
     private ?\DateTimeImmutable $deletedAt = null;
 
     public function __construct(
-        string $id,
         AttachmentType $type,
         AttachmentStorageKind $storageKind,
         AttachmentVisibility $visibility,
@@ -119,7 +119,6 @@ class Attachment
     ) {
         $now = new \DateTimeImmutable();
 
-        $this->id = $id;
         $this->type = $type;
         $this->mediaKind = $mediaKind;
         $this->documentKind = $documentKind;
@@ -144,9 +143,9 @@ class Attachment
         $this->updatedAt = $now;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
-        return $this->id;
+        return $this->id ?? throw new \LogicException('Attachment identifier is not initialized yet.');
     }
 
     public function getType(): AttachmentType
@@ -254,14 +253,34 @@ class Attachment
         return $this->createdAt;
     }
 
+    public function createdAt(): \DateTimeImmutable
+    {
+        return $this->getCreatedAt();
+    }
+
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
+    public function updatedAt(): \DateTimeImmutable
+    {
+        return $this->getUpdatedAt();
+    }
+
+    public function modifiedAt(): \DateTimeImmutable
+    {
+        return $this->getUpdatedAt();
+    }
+
     public function getDeletedAt(): ?\DateTimeImmutable
     {
         return $this->deletedAt;
+    }
+
+    public function deletedAt(): ?\DateTimeImmutable
+    {
+        return $this->getDeletedAt();
     }
 
     public function markDeleted(): void
@@ -270,5 +289,17 @@ class Attachment
         $this->status = AttachmentStatus::Deleted;
         $this->deletedAt = $now;
         $this->updatedAt = $now;
+    }
+
+    public function delete(): void
+    {
+        $this->markDeleted();
+    }
+
+    public function restore(): void
+    {
+        $this->status = AttachmentStatus::Active;
+        $this->deletedAt = null;
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

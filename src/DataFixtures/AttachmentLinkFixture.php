@@ -16,7 +16,6 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
     {
         $links = [
             [
-                'id' => 'aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaa1',
                 'reference' => 'attachment.message.1',
                 'ownerType' => 'message',
                 'ownerId' => 'msg-fixture-1',
@@ -26,7 +25,6 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'isPrimary' => true,
             ],
             [
-                'id' => 'bbbbbbb2-bbbb-bbbb-bbbb-bbbbbbbbbbb2',
                 'reference' => 'attachment.product.1',
                 'ownerType' => 'product',
                 'ownerId' => 'prod-fixture-1',
@@ -36,7 +34,33 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'isPrimary' => true,
             ],
             [
-                'id' => 'ccccccc3-cccc-cccc-cccc-ccccccccccc3',
+                'reference' => 'attachment.vendor.avatar.1',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'profile',
+                'slot' => 'avatar',
+                'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
+                'reference' => 'attachment.product.banner.1',
+                'ownerType' => 'product',
+                'ownerId' => 'prod-fixture-1',
+                'context' => 'gallery',
+                'slot' => 'banner',
+                'position' => 1,
+                'isPrimary' => false,
+            ],
+            [
+                'reference' => 'attachment.category.icon.1',
+                'ownerType' => 'category',
+                'ownerId' => 'catalog-fixture-1',
+                'context' => 'catalog',
+                'slot' => 'icon',
+                'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
                 'reference' => 'attachment.vendor.1',
                 'ownerType' => 'vendor',
                 'ownerId' => 'vendor-fixture-1',
@@ -52,7 +76,6 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
             $attachment = $this->getReference($fixture['reference'], Attachment::class);
 
             $manager->persist(new AttachmentLink(
-                id: $fixture['id'],
                 attachment: $attachment,
                 ownerType: $fixture['ownerType'],
                 ownerId: $fixture['ownerId'],

@@ -17,8 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 class AttachmentLink
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'guid', unique: true)]
-    private string $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Attachment::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -49,7 +50,6 @@ class AttachmentLink
     private \DateTimeImmutable $updatedAt;
 
     public function __construct(
-        string $id,
         Attachment $attachment,
         string $ownerType,
         string $ownerId,
@@ -60,7 +60,6 @@ class AttachmentLink
     ) {
         $now = new \DateTimeImmutable();
 
-        $this->id = $id;
         $this->attachment = $attachment;
         $this->ownerType = $ownerType;
         $this->ownerId = $ownerId;
@@ -72,9 +71,9 @@ class AttachmentLink
         $this->updatedAt = $now;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
-        return $this->id;
+        return $this->id ?? throw new \LogicException('Attachment link identifier is not initialized yet.');
     }
 
     public function getAttachment(): Attachment

@@ -9,5 +9,5 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 interface AttachmentDownloadServiceInterface
 {
-    public function download(string $attachmentId): BinaryFileResponse|StreamedResponse;
+    public function download(int $attachmentId): BinaryFileResponse|StreamedResponse;
 }

@@ -7,7 +7,7 @@ namespace App\Attaching\Dto\Attachment\Input;
 final readonly class DetachAttachmentInput
 {
     public function __construct(
-        public string $attachmentId,
+        public int $attachmentId,
         public string $ownerType,
         public string $ownerId,
         public ?string $context = null,

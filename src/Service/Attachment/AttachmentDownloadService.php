@@ -23,13 +23,9 @@ final readonly class AttachmentDownloadService implements AttachmentDownloadServ
     }
 
     /**
-     * @param string $attachmentId
-     *
      * @return BinaryFileResponse|StreamedResponse
-     *
-     * @throws \Throwable
      */
-    public function download(string $attachmentId): BinaryFileResponse|StreamedResponse
+    public function download(int $attachmentId): BinaryFileResponse|StreamedResponse
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($attachmentId);
         $attachment = $this->attachmentRepository->findActive($attachmentId);

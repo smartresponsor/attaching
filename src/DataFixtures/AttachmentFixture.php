@@ -12,34 +12,41 @@ use App\Attaching\Enum\Attachment\AttachmentType;
 use App\Attaching\Enum\Attachment\AttachmentVisibility;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class AttachmentFixture extends Fixture
 {
     public function __construct(
-        #[Autowire('%kernel.project_dir%')]
-        private readonly string $projectDir,
         private readonly Filesystem $filesystem = new Filesystem(),
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $storageRoot = $this->projectDir.'/var/storage/attachment';
+        $componentDir = \dirname(__DIR__, 2);
+        $storageRoot = $componentDir.'/var/storage/attachment';
         $this->filesystem->mkdir($storageRoot);
 
-        $noteChecksum = hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-note.txt');
-        $gifChecksum = hash_file('sha256', $this->projectDir.'/tests/Resources/files/sample-pixel.gif');
+        $noteFixtureFile = $componentDir.'/tests/Resources/files/sample-note.txt';
+        $gifFixtureFile = $componentDir.'/tests/Resources/files/sample-pixel.gif';
+        $avatarFixtureFile = $componentDir.'/tests/Resources/files/sample-avatar.png';
+        $productFixtureFile = $componentDir.'/tests/Resources/files/sample-product.png';
+        $categoryFixtureFile = $componentDir.'/tests/Resources/files/sample-category.png';
+        $bannerFixtureFile = $componentDir.'/tests/Resources/files/sample-banner.png';
+        $noteChecksum = hash_file('sha256', $noteFixtureFile);
+        $gifChecksum = hash_file('sha256', $gifFixtureFile);
+        $avatarChecksum = hash_file('sha256', $avatarFixtureFile);
+        $productChecksum = hash_file('sha256', $productFixtureFile);
+        $categoryChecksum = hash_file('sha256', $categoryFixtureFile);
+        $bannerChecksum = hash_file('sha256', $bannerFixtureFile);
 
-        if (false === $noteChecksum || false === $gifChecksum) {
+        if (false === $noteChecksum || false === $gifChecksum || false === $avatarChecksum || false === $productChecksum || false === $categoryChecksum || false === $bannerChecksum) {
             throw new \RuntimeException('Fixture checksum generation failed.');
         }
 
         $fixtures = [
             [
                 'reference' => 'attachment.message.1',
-                'id' => '11111111-1111-1111-1111-111111111111',
                 'type' => AttachmentType::Document,
                 'documentKind' => AttachmentDocumentKind::Text,
                 'mediaKind' => null,
@@ -47,9 +54,9 @@ final class AttachmentFixture extends Fixture
                 'storedName' => 'message-note.txt',
                 'mimeType' => 'text/plain',
                 'extension' => 'txt',
-                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
+                'sourceFile' => $noteFixtureFile,
                 'storagePath' => 'document/fixtures/message-note.txt',
-                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
+                'size' => filesize($noteFixtureFile) ?: 44,
                 'checksum' => $noteChecksum,
                 'title' => 'Message note',
                 'description' => 'Fixture text attachment for message owner.',
@@ -61,7 +68,6 @@ final class AttachmentFixture extends Fixture
             ],
             [
                 'reference' => 'attachment.product.1',
-                'id' => '22222222-2222-2222-2222-222222222222',
                 'type' => AttachmentType::Media,
                 'documentKind' => null,
                 'mediaKind' => AttachmentMediaKind::Image,
@@ -69,9 +75,9 @@ final class AttachmentFixture extends Fixture
                 'storedName' => 'product-image.gif',
                 'mimeType' => 'image/gif',
                 'extension' => 'gif',
-                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-pixel.gif',
+                'sourceFile' => $gifFixtureFile,
                 'storagePath' => 'media/fixtures/product-image.gif',
-                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-pixel.gif') ?: 34,
+                'size' => filesize($gifFixtureFile) ?: 34,
                 'checksum' => $gifChecksum,
                 'title' => 'Product image',
                 'description' => 'Fixture image attachment for product owner.',
@@ -84,8 +90,99 @@ final class AttachmentFixture extends Fixture
                 'height' => 1,
             ],
             [
+                'reference' => 'attachment.vendor.avatar.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-avatar.png',
+                'storedName' => 'vendor-avatar.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $avatarFixtureFile,
+                'storagePath' => 'media/fixtures/vendor-avatar.png',
+                'size' => filesize($avatarFixtureFile) ?: 0,
+                'checksum' => $avatarChecksum,
+                'title' => 'Vendor avatar',
+                'description' => 'Fixture avatar image attachment for vendor profile owner.',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'profile',
+                'slot' => 'avatar',
+                'isPrimary' => true,
+                'width' => 256,
+                'height' => 256,
+            ],
+            [
+                'reference' => 'attachment.product.banner.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-product.png',
+                'storedName' => 'product-banner.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $productFixtureFile,
+                'storagePath' => 'media/fixtures/product-banner.png',
+                'size' => filesize($productFixtureFile) ?: 0,
+                'checksum' => $productChecksum,
+                'title' => 'Product banner',
+                'description' => 'Fixture product banner image attachment.',
+                'ownerType' => 'product',
+                'ownerId' => 'prod-fixture-1',
+                'context' => 'gallery',
+                'slot' => 'banner',
+                'isPrimary' => false,
+                'width' => 640,
+                'height' => 480,
+            ],
+            [
+                'reference' => 'attachment.category.icon.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-category.png',
+                'storedName' => 'category-icon.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $categoryFixtureFile,
+                'storagePath' => 'media/fixtures/category-icon.png',
+                'size' => filesize($categoryFixtureFile) ?: 0,
+                'checksum' => $categoryChecksum,
+                'title' => 'CategoryEntity icon',
+                'description' => 'Fixture category icon image attachment.',
+                'ownerType' => 'category',
+                'ownerId' => 'catalog-fixture-1',
+                'context' => 'catalog',
+                'slot' => 'icon',
+                'isPrimary' => true,
+                'width' => 320,
+                'height' => 320,
+            ],
+            [
+                'reference' => 'attachment.vendor.banner.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-banner.png',
+                'storedName' => 'vendor-banner.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $bannerFixtureFile,
+                'storagePath' => 'media/fixtures/vendor-banner.png',
+                'size' => filesize($bannerFixtureFile) ?: 0,
+                'checksum' => $bannerChecksum,
+                'title' => 'Vendor banner',
+                'description' => 'Fixture vendor banner image attachment.',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'profile',
+                'slot' => 'cover',
+                'isPrimary' => false,
+                'width' => 1200,
+                'height' => 400,
+            ],
+            [
                 'reference' => 'attachment.vendor.1',
-                'id' => '33333333-3333-3333-3333-333333333333',
                 'type' => AttachmentType::Document,
                 'documentKind' => AttachmentDocumentKind::Pdf,
                 'mediaKind' => null,
@@ -93,9 +190,9 @@ final class AttachmentFixture extends Fixture
                 'storedName' => 'vendor-policy.pdf',
                 'mimeType' => 'application/pdf',
                 'extension' => 'pdf',
-                'sourceFile' => $this->projectDir.'/tests/Resources/files/sample-note.txt',
+                'sourceFile' => $noteFixtureFile,
                 'storagePath' => 'document/fixtures/vendor-policy.pdf',
-                'size' => filesize($this->projectDir.'/tests/Resources/files/sample-note.txt') ?: 44,
+                'size' => filesize($noteFixtureFile) ?: 44,
                 'checksum' => $noteChecksum,
                 'title' => 'Vendor policy',
                 'description' => 'Fixture pseudo-pdf attachment for vendor owner.',
@@ -113,7 +210,6 @@ final class AttachmentFixture extends Fixture
             $this->filesystem->copy($fixture['sourceFile'], $absoluteTargetPath, true);
 
             $attachment = new Attachment(
-                id: $fixture['id'],
                 type: $fixture['type'],
                 storageKind: AttachmentStorageKind::Local,
                 visibility: AttachmentVisibility::Private,

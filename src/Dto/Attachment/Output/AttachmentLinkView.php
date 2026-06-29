@@ -7,8 +7,8 @@ namespace App\Attaching\Dto\Attachment\Output;
 final readonly class AttachmentLinkView
 {
     public function __construct(
-        public string $id,
-        public string $attachmentId,
+        public int $id,
+        public int $attachmentId,
         public string $ownerType,
         public string $ownerId,
         public ?string $context,

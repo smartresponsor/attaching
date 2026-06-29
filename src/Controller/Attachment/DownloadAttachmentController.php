@@ -9,14 +9,20 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments/{attachmentId}/download', name: 'attachment_download', methods: ['GET'])]
+#[Route(
+    '/attachments/{attachmentId}/download',
+    name: 'attachment_download',
+    requirements: ['attachmentId' => '\d+'],
+    methods: ['GET'],
+    priority: 100,
+)]
 final readonly class DownloadAttachmentController
 {
     public function __construct(private AttachmentDownloadServiceInterface $attachmentDownloadService)
     {
     }
 
-    public function __invoke(string $attachmentId): BinaryFileResponse|StreamedResponse
+    public function __invoke(int $attachmentId): BinaryFileResponse|StreamedResponse
     {
         return $this->attachmentDownloadService->download($attachmentId);
     }

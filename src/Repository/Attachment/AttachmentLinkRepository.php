@@ -11,8 +11,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentLinkRepository
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
     public function save(AttachmentLink $attachmentLink): void
@@ -59,7 +60,7 @@ final readonly class AttachmentLinkRepository
         return $result;
     }
 
-    public function findOne(string $attachmentId, string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): ?AttachmentLink
+    public function findOne(int $attachmentId, string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): ?AttachmentLink
     {
         $qb = $this->entityManager->createQueryBuilder()
             ->select('attachmentLink', 'attachment')
@@ -82,6 +83,33 @@ final readonly class AttachmentLinkRepository
         if (null !== $slot) {
             $qb->andWhere('attachmentLink.slot = :slot')->setParameter('slot', $slot);
         }
+
+        /** @var ?AttachmentLink $result */
+        $result = $qb->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
+    public function findPrimaryForOwnerSlot(string $ownerType, string $ownerId, string $context, string $slot): ?AttachmentLink
+    {
+        $qb = $this->entityManager->createQueryBuilder()
+            ->select('attachmentLink', 'attachment')
+            ->from(AttachmentLink::class, 'attachmentLink')
+            ->join('attachmentLink.attachment', 'attachment')
+            ->where('attachmentLink.ownerType = :ownerType')
+            ->andWhere('attachmentLink.ownerId = :ownerId')
+            ->andWhere('attachmentLink.context = :context')
+            ->andWhere('attachmentLink.slot = :slot')
+            ->andWhere('attachmentLink.isPrimary = true')
+            ->andWhere('attachment.status != :deletedStatus')
+            ->setParameter('ownerType', $ownerType)
+            ->setParameter('ownerId', $ownerId)
+            ->setParameter('context', $context)
+            ->setParameter('slot', $slot)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
+            ->orderBy('attachmentLink.position', 'ASC')
+            ->addOrderBy('attachmentLink.createdAt', 'DESC')
+            ->setMaxResults(1);
 
         /** @var ?AttachmentLink $result */
         $result = $qb->getQuery()->getOneOrNullResult();

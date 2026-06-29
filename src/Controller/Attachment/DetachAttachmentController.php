@@ -21,7 +21,7 @@ final readonly class DetachAttachmentController
     public function __invoke(Request $request): JsonResponse
     {
         $this->attachmentDetachService->detach(new DetachAttachmentInput(
-            attachmentId: (string) $request->request->get('attachmentId', ''),
+            attachmentId: (int) $request->request->get('attachmentId', 0),
             ownerType: (string) $request->request->get('ownerType', ''),
             ownerId: (string) $request->request->get('ownerId', ''),
             context: $request->request->get('context') ? (string) $request->request->get('context') : null,

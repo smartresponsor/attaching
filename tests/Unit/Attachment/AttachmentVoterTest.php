@@ -8,7 +8,7 @@ use App\Attaching\Entity\Attachment\Attachment;
 use App\Attaching\Enum\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Attachment\AttachmentType;
 use App\Attaching\Enum\Attachment\AttachmentVisibility;
-use App\Attaching\Security\Attachment\Voter\AttachmentVoter;
+use App\Attaching\Voter\Attachment\AttachmentVoter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -17,7 +17,6 @@ final class AttachmentVoterTest extends TestCase
     public function testActiveAttachmentIsGrantedForView(): void
     {
         $attachment = new Attachment(
-            id: 'att-1',
             type: AttachmentType::Document,
             storageKind: AttachmentStorageKind::Local,
             visibility: AttachmentVisibility::Private,
@@ -38,7 +37,6 @@ final class AttachmentVoterTest extends TestCase
     public function testDeletedAttachmentIsDeniedForView(): void
     {
         $attachment = new Attachment(
-            id: 'att-2',
             type: AttachmentType::Document,
             storageKind: AttachmentStorageKind::Local,
             visibility: AttachmentVisibility::Private,

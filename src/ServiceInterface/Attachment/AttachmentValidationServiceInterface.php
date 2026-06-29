@@ -12,5 +12,5 @@ interface AttachmentValidationServiceInterface
 
     public function validateOwnerReference(string $ownerType, string $ownerId): void;
 
-    public function validateAttachmentIdentifier(string $attachmentId): void;
+    public function validateAttachmentIdentifier(int $attachmentId): void;
 }

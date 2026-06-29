@@ -1,0 +1,13 @@
+= Attaching Voter Layer Canon
+
+Symfony security voters are type-layer classes. They belong under `src/Voter`, not under a broad `src/Security` capability bucket.
+
+Canonical location:
+
+[source,text]
+----
+src/Voter/Attachment/AttachmentVoter.php
+App\Attaching\Voter\Attachment\AttachmentVoter
+----
+
+The `Security` concept remains a runtime concern, but the source tree should keep class purpose readable from the first layer after `src/`.

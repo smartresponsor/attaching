@@ -38,7 +38,7 @@ final class AttachmentHttpExceptionSubscriberTest extends TestCase
             $this->createMock(HttpKernelInterface::class),
             Request::create('/attachments/missing/download', 'GET'),
             HttpKernelInterface::MAIN_REQUEST,
-            AttachmentNotFoundException::forAttachmentId('missing-id'),
+            AttachmentNotFoundException::forAttachmentId(123),
         );
 
         $subscriber->onKernelException($event);

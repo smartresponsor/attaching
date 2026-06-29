@@ -41,6 +41,7 @@ abstract class DoctrineIntegrationTestCase extends KernelTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
+        restore_exception_handler();
         $this->entityManager->close();
     }
 

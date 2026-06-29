@@ -1,0 +1,18 @@
+attaching_storage_local_root_path: '%kernel.project_dir%/var/storage/attachment'
+attaching_upload_max_size: 33554432
+attaching_upload_allowed_media_mime_types:
+  - image/jpeg
+  - image/png
+  - image/webp
+  - image/gif
+  - audio/mpeg
+  - video/mp4
+attaching_upload_allowed_document_mime_types:
+  - application/pdf
+  - text/plain
+  - application/msword
+  - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  - application/vnd.ms-excel
+  - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  - application/vnd.ms-powerpoint
+  - application/vnd.openxmlformats-officedocument.presentationml.presentation

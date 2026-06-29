@@ -18,7 +18,6 @@ use App\Attaching\Exception\Attachment\AttachmentStorageException;
 use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
 use App\Attaching\Repository\Attachment\AttachmentRepository;
 use App\Attaching\ServiceInterface\Attachment\AttachmentUploadServiceInterface;
-use Random\RandomException;
 
 final readonly class AttachmentUploadService implements AttachmentUploadServiceInterface
 {
@@ -34,9 +33,6 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
     ) {
     }
 
-    /**
-     * @throws RandomException when a secure attachment identifier cannot be generated
-     */
     public function upload(UploadAttachmentInput $input): AttachmentView
     {
         $this->attachmentValidationService->validateUploadedFile($input->uploadedFile);
@@ -44,12 +40,10 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
 
         $mimeType = $input->uploadedFile->getMimeType() ?? 'application/octet-stream';
         $classification = $this->attachmentMimeTypeGuesser->classify($mimeType);
-        $attachmentId = $this->generateIdentifier();
         $extension = $input->uploadedFile->guessExtension() ?? $input->uploadedFile->getClientOriginalExtension() ?: null;
         $checksum = $this->attachmentChecksumGenerator->generate($input->uploadedFile->getPathname());
         $storagePath = $this->attachmentPathGenerator->generate(
             $classification['type'],
-            $attachmentId,
             $checksum,
             $extension,
         );
@@ -61,7 +55,6 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
         }
 
         $attachment = new Attachment(
-            id: $attachmentId,
             type: $classification['type'],
             storageKind: AttachmentStorageKind::Local,
             visibility: $input->visibility ?? AttachmentVisibility::Private,
@@ -81,7 +74,6 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
         $this->attachmentRepository->save($attachment);
 
         $attachmentLink = new AttachmentLink(
-            id: $this->generateIdentifier(),
             attachment: $attachment,
             ownerType: $input->ownerType,
             ownerId: $input->ownerId,
@@ -96,23 +88,6 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
 
         $this->attachmentLinkRepository->save($attachmentLink);
 
-        return $this->attachmentViewFactory->create($attachment, sprintf('/attachments/%s/download', $attachment->getId()));
-    }
-
-    /**
-     * @throws RandomException when secure random bytes cannot be generated
-     */
-    private function generateIdentifier(): string
-    {
-        $hex = bin2hex(random_bytes(16));
-
-        return sprintf(
-            '%s-%s-%s-%s-%s',
-            substr($hex, 0, 8),
-            substr($hex, 8, 4),
-            substr($hex, 12, 4),
-            substr($hex, 16, 4),
-            substr($hex, 20, 12),
-        );
+        return $this->attachmentViewFactory->create($attachment, sprintf('/attachments/%d/download', $attachment->getId()));
     }
 }

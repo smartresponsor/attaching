@@ -7,6 +7,7 @@ namespace App\Attaching\Tests\Integration\Command;
 use App\Attaching\Command\Attachment\CleanupOrphanAttachmentCommand;
 use App\Attaching\DataFixtures\AttachmentFixture;
 use App\Attaching\DataFixtures\AttachmentLinkFixture;
+use App\Attaching\Entity\Attachment\Attachment;
 use App\Attaching\Repository\Attachment\AttachmentRepository;
 use App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
 use App\Attaching\Tests\Integration\Attachment\DoctrineIntegrationTestCase;
@@ -21,7 +22,9 @@ final class CleanupOrphanAttachmentCommandTest extends DoctrineIntegrationTestCa
             AttachmentLinkFixture::class,
         ]);
 
-        $attachmentId = '11111111-1111-1111-1111-111111111111';
+        $attachment = $this->entityManager->getRepository(Attachment::class)->findOneBy(['originalName' => 'sample-note.txt']);
+        self::assertInstanceOf(Attachment::class, $attachment);
+        $attachmentId = $attachment->getId();
         $filePath = $this->testStoragePath.'/document/fixtures/message-note.txt';
 
         self::assertFileExists($filePath);

@@ -9,9 +9,10 @@ use App\Attaching\Enum\Attachment\AttachmentType;
 
 final class AttachmentPathGenerator implements AttachmentPathGeneratorInterface
 {
-    public function generate(AttachmentType $type, string $attachmentId, string $checksum, ?string $extension = null): string
+    public function generate(AttachmentType $type, string $checksum, ?string $extension = null): string
     {
         $now = new \DateTimeImmutable();
+        $randomSuffix = bin2hex(random_bytes(8));
         $suffix = null !== $extension && '' !== $extension ? '.'.$extension : '';
 
         return sprintf(
@@ -20,7 +21,7 @@ final class AttachmentPathGenerator implements AttachmentPathGeneratorInterface
             $now->format('Y'),
             $now->format('m'),
             $now->format('d'),
-            $attachmentId,
+            $randomSuffix,
             substr($checksum, 0, 12),
             $suffix,
         );

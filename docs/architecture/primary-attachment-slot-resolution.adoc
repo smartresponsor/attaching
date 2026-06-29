@@ -1,0 +1,65 @@
+= Primary Attachment Slot Resolution
+:toc:
+
+== Purpose
+
+External producer components can resolve one canonical attachment for a semantic owner/context/slot without taking ownership of file storage.
+
+Attaching owns:
+
+* stored file metadata;
+* attachment lifecycle;
+* owner link persistence;
+* primary attachment selection per owner/context/slot.
+
+Producer components own the business meaning of their slots. For example, Vendoring decides that `profile/avatar` means a vendor public avatar, while Attaching only stores and resolves the linked media attachment.
+
+== Resolver contract
+
+`AttachmentPrimaryLinkResolverServiceInterface::resolvePrimary()` returns the active primary attachment link for:
+
+[source,text]
+----
+ownerType + ownerId + context + slot
+----
+
+The resolver ignores deleted attachments and returns `null` when no active primary link exists.
+
+== Vendor profile examples
+
+Avatar:
+
+[source,text]
+----
+ownerType = vendor
+ownerId = 123
+context = profile
+slot = avatar
+isPrimary = true
+----
+
+Cover:
+
+[source,text]
+----
+ownerType = vendor
+ownerId = 123
+context = profile
+slot = cover
+isPrimary = true
+----
+
+Gallery:
+
+[source,text]
+----
+ownerType = vendor
+ownerId = 123
+context = media
+slot = gallery
+position = 0..n
+----
+
+== Consumer boundary
+
+A producer such as Vendoring should consume `AttachmentPrimaryLinkResolverServiceInterface` through an optional host bridge. It should not duplicate canonical avatar/cover file paths in its own profile tables.

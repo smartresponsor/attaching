@@ -43,6 +43,7 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
+        restore_exception_handler();
 
         if (isset($this->entityManager)) {
             $this->entityManager->close();

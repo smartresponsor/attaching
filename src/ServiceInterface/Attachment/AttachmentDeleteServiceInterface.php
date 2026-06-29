@@ -6,5 +6,5 @@ namespace App\Attaching\ServiceInterface\Attachment;
 
 interface AttachmentDeleteServiceInterface
 {
-    public function delete(string $attachmentId): void;
+    public function delete(int $attachmentId): void;
 }

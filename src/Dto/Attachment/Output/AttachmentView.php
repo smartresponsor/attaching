@@ -12,7 +12,7 @@ use App\Attaching\Enum\Attachment\AttachmentVisibility;
 final readonly class AttachmentView
 {
     public function __construct(
-        public string $id,
+        public int $id,
         public AttachmentType $type,
         public ?AttachmentMediaKind $mediaKind,
         public ?AttachmentDocumentKind $documentKind,
