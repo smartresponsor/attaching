@@ -1,0 +1,120 @@
+= Attaching ERC Mobile Availability
+:toc:
+
+== Purpose
+
+This evidence release candidate records the current availability boundary for Attaching across Symfony, Cruding, Viewing, Interfacing, Navigating, and Mobiling.
+
+Attaching remains the owner of attachment lifecycle business behavior. Neighbor repositories publish generic CRUD routing, interface templates, shell navigation, and native mobile availability.
+
+== Responsibility boundary
+
+Attaching owns:
+
+* upload validation and attachment metadata persistence;
+* owner-to-attachment link persistence;
+* primary attachment slot resolution;
+* download and local storage access;
+* detach, delete, and orphan cleanup operations;
+* DTO payloads for Attaching-owned HTTP responses.
+
+Attaching does not own:
+
+* generic CRUD route grammar;
+* generic CRUD controllers;
+* Twig surface rendering;
+* global web or mobile navigation publication;
+* native mobile screen composition;
+* mobile-edge transport normalization.
+
+== Related repository checks
+
+Cruding:
+
+* owns tokenized CRUD grammar such as `vendor/attachment/index` and `vendor/attachment/media/show/{id}`;
+* documents attachment-style resource paths as examples and tests;
+* must remain the owner of generic index, show, edit, archive, and route parsing behavior.
+
+Viewing:
+
+* has no current attachment-specific source surface in the checked tree;
+* therefore no Attaching patch is required for Viewing.
+
+Interfacing:
+
+* maps the `attaching` provider key to the `attachment` template surface;
+* keeps attachment Twig templates under the Interfacing-owned template surface;
+* is the correct owner for web rendering of attachment lists, media, preview, storage, upload, and document surfaces.
+
+Navigating:
+
+* publishes web menu entries for `attachment`, `my.attachment`, and `attachment.media` routes;
+* publishes mobile menu entries for `My Attachments` and `Attachments`;
+* keeps mobile locations separated as bottom primary, account quick, more drawer, and vendor context.
+
+Mobiling:
+
+* owns mobile-edge transport routes `GET /attachment` and `POST /attachment/link`;
+* maps those routes upstream to Attaching `GET /attachments` and `POST /attachments/attach`;
+* owns Android and iOS native attachment screens, bridges, gateways, and route resolvers.
+
+== Current web availability
+
+The web availability path is:
+
+[source,text]
+----
+Navigating web menu
+  -> Cruding tokenized route grammar when generic resource operation is requested
+  -> Interfacing attachment template surface for rendering
+  -> Attaching business API/service when attachment lifecycle data is required
+----
+
+Available web menu candidates:
+
+* global attachment index: `/attachment/index`;
+* personal attachment index: `/my/attachment/index`;
+* related media index: `/attachment/media/index`.
+
+Attaching must not copy those generic web menu declarations locally. If a new web menu item is required, the patch belongs in Navigating after the route ownership and shell location are known.
+
+== Current mobile availability
+
+The mobile availability path is:
+
+[source,text]
+----
+Navigating mobile shell
+  -> Mobiling Android/iOS route `attachment`
+  -> Mobiling mobile-edge `GET /attachment`
+  -> Attaching `GET /attachments`
+----
+
+The mobile link creation path is:
+
+[source,text]
+----
+Mobiling Android/iOS bridge
+  -> mobile-edge `POST /attachment/link`
+  -> Attaching `POST /attachments/attach`
+----
+
+Available mobile menu candidates:
+
+* account quick: `My Attachments` route `attachment`;
+* more drawer active: `Attachments` route `attachment`;
+* vendor context: `My Attachments` route `attachment`.
+
+Mobile bottom primary intentionally does not place Attaching as a primary tab. It remains a vendor/account contextual capability.
+
+== RC-critical milestone
+
+1. Keep Attaching Symfony-oriented with default `App\\Attaching` namespace and no `/src/Domain/`.
+2. Keep zero generic CRUD YAML routes inside Attaching.
+3. Keep generic CRUD operation grammar in Cruding.
+4. Keep attachment template rendering in Interfacing.
+5. Keep web/mobile menu publication in Navigating.
+6. Keep native screen and mobile-edge normalization in Mobiling.
+7. Keep Attaching quality gates green: composer validate, PHP lint, PHPStan, PHPUnit, and CS check.
+
+== Growth milestone
