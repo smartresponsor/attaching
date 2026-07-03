@@ -23,7 +23,7 @@ Producer components own the business meaning of their slots. For example, Vendor
 ownerType + ownerId + context + slot
 ----
 
-The resolver ignores deleted attachments and returns `null` when no active primary link exists.
+The resolver ignores deleted attachment record and returns `null` when no active primary link exists.
 
 == Vendor profile examples
 

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'app:attachment:cleanup-orphan', description: 'Remove deleted attachments that no longer have owner links.')]
+#[AsCommand(name: 'app:attachment:cleanup-orphan', description: 'Remove deleted attachment record that no longer has owner link.')]
 final class CleanupOrphanAttachmentCommand extends Command
 {
     public function __construct(

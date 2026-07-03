@@ -28,31 +28,31 @@ final class AttachingDemoFixturesContractTest extends TestCase
             new AttachmentLinkFixture(),
         ], append: false);
 
-        /** @var list<Attachment> $attachments */
-        $attachments = $entityManager->createQuery('SELECT attachment FROM '.Attachment::class.' attachment ORDER BY attachment.id ASC')->getResult();
-        /** @var list<AttachmentLink> $links */
-        $links = $entityManager->createQuery('SELECT link FROM '.AttachmentLink::class.' link ORDER BY link.id ASC')->getResult();
+        /** @var list<Attachment> $attachmentList */
+        $attachmentList = $entityManager->createQuery('SELECT attachment FROM '.Attachment::class.' attachment ORDER BY attachment.id ASC')->getResult();
+        /** @var list<AttachmentLink> $attachmentLinkList */
+        $attachmentLinkList = $entityManager->createQuery('SELECT link FROM '.AttachmentLink::class.' link ORDER BY link.id ASC')->getResult();
 
-        self::assertCount(7, $attachments);
-        self::assertCount(6, $links);
+        self::assertCount(7, $attachmentList);
+        self::assertCount(6, $attachmentLinkList);
 
-        foreach ($attachments as $attachment) {
+        foreach ($attachmentList as $attachment) {
             self::assertGreaterThan(0, $attachment->getId());
             self::assertNotEmpty($attachment->getStoragePath());
             self::assertNotEmpty($attachment->getChecksum());
         }
 
-        $primaryLinks = 0;
-        foreach ($links as $link) {
+        $primaryLinkCount = 0;
+        foreach ($attachmentLinkList as $link) {
             self::assertGreaterThan(0, $link->getId());
             self::assertSame($link->getAttachment()->getId(), $entityManager->getUnitOfWork()->getSingleIdentifierValue($link->getAttachment()));
 
             if ($link->isPrimary()) {
-                ++$primaryLinks;
+                ++$primaryLinkCount;
             }
         }
 
-        self::assertSame(4, $primaryLinks);
+        self::assertSame(4, $primaryLinkCount);
     }
 
     private function entityManager(): EntityManager
