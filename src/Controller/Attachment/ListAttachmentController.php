@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments', name: 'attachment_list', methods: ['GET'])]
+#[Route('/attachment', name: 'attachment_list', methods: ['GET'])]
 final readonly class ListAttachmentController
 {
     public function __construct(private AttachmentListServiceInterface $attachmentListService)

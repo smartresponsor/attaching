@@ -88,6 +88,6 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
 
         $this->attachmentLinkRepository->save($attachmentLink);
 
-        return $this->attachmentViewFactory->create($attachment, sprintf('/attachments/%d/download', $attachment->getId()));
+        return $this->attachmentViewFactory->create($attachment, sprintf('/attachment/%d/download', $attachment->getId()));
     }
 }

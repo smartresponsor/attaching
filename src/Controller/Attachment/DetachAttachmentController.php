@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments/detach', name: 'attachment_detach', methods: ['POST'])]
+#[Route('/attachment/detach', name: 'attachment_detach', methods: ['POST'])]
 final readonly class DetachAttachmentController
 {
     public function __construct(private AttachmentDetachServiceInterface $attachmentDetachService)

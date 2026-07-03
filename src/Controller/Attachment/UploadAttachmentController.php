@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments/upload', name: 'attachment_upload', methods: ['POST'])]
+#[Route('/attachment/upload', name: 'attachment_upload', methods: ['POST'])]
 final readonly class UploadAttachmentController
 {
     public function __construct(private AttachmentUploadServiceInterface $attachmentUploadService)

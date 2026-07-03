@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments/attach', name: 'attachment_attach', methods: ['POST'])]
+#[Route('/attachment/attach', name: 'attachment_attach', methods: ['POST'])]
 final readonly class AttachAttachmentController
 {
     public function __construct(private AttachmentAttachServiceInterface $attachmentAttachService)

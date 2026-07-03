@@ -34,7 +34,7 @@ final readonly class AttachmentPrimaryLinkResolverService implements AttachmentP
             link: $this->attachmentLinkViewFactory->create($attachmentLink),
             attachment: $this->attachmentViewFactory->create(
                 $attachment,
-                sprintf('/attachments/%d/download', $attachment->getId()),
+                sprintf('/attachment/%d/download', $attachment->getId()),
             ),
         );
     }

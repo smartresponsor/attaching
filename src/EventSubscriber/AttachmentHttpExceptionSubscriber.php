@@ -26,7 +26,7 @@ final class AttachmentHttpExceptionSubscriber implements EventSubscriberInterfac
     {
         $request = $event->getRequest();
 
-        if (!str_starts_with($request->getPathInfo(), '/attachments')) {
+        if (!str_starts_with($request->getPathInfo(), '/attachment')) {
             return;
         }
 

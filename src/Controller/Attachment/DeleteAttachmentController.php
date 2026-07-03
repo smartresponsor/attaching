@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/attachments/{attachmentId}', name: 'attachment_delete', requirements: ['attachmentId' => '\d+'], methods: ['DELETE'])]
+#[Route('/attachment/{attachmentId}', name: 'attachment_delete', requirements: ['attachmentId' => '\d+'], methods: ['DELETE'])]
 final readonly class DeleteAttachmentController
 {
     public function __construct(private AttachmentDeleteServiceInterface $attachmentDeleteService)

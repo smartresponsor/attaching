@@ -27,7 +27,7 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
         foreach ($this->attachmentLinkRepository->findByOwner($input->ownerType, $input->ownerId, $input->context, $input->slot) as $attachmentLink) {
             $items[] = $this->attachmentViewFactory->create(
                 $attachmentLink->getAttachment(),
-                sprintf('/attachments/%d/download', $attachmentLink->getAttachment()->getId()),
+                sprintf('/attachment/%d/download', $attachmentLink->getAttachment()->getId()),
             );
         }
 

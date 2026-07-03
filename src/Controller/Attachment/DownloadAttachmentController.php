@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
-    '/attachments/{attachmentId}/download',
+    '/attachment/{attachmentId}/download',
     name: 'attachment_download',
     requirements: ['attachmentId' => '\d+'],
     methods: ['GET'],
