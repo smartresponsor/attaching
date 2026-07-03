@@ -18,7 +18,7 @@ final class AttachmentFixtureHttpReadTest extends DoctrineWebIntegrationTestCase
         ]);
 
         $client = $this->createAttachmentClient();
-        $client->request('GET', '/attachments', [
+        $client->request('GET', '/attachment', [
             'ownerType' => 'product',
             'ownerId' => 'prod-fixture-1',
             'context' => 'gallery',
@@ -52,7 +52,7 @@ final class AttachmentFixtureHttpReadTest extends DoctrineWebIntegrationTestCase
         $attachment = $this->entityManager->getRepository(Attachment::class)->findOneBy(['originalName' => 'sample-note.txt']);
         self::assertInstanceOf(Attachment::class, $attachment);
 
-        $client->request('GET', sprintf('/attachments/%d/download', $attachment->getId()));
+        $client->request('GET', sprintf('/attachment/%d/download', $attachment->getId()));
 
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('sample-note.txt', (string) $client->getResponse()->headers->get('Content-Disposition'));

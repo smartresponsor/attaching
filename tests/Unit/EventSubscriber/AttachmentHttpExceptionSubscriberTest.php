@@ -19,7 +19,7 @@ final class AttachmentHttpExceptionSubscriberTest extends TestCase
         $subscriber = new AttachmentHttpExceptionSubscriber();
         $event = new ExceptionEvent(
             $this->createMock(HttpKernelInterface::class),
-            Request::create('/attachments', 'GET'),
+            Request::create('/attachment', 'GET'),
             HttpKernelInterface::MAIN_REQUEST,
             new AttachmentValidationException('Bad attachment request.'),
         );
@@ -36,7 +36,7 @@ final class AttachmentHttpExceptionSubscriberTest extends TestCase
         $subscriber = new AttachmentHttpExceptionSubscriber();
         $event = new ExceptionEvent(
             $this->createMock(HttpKernelInterface::class),
-            Request::create('/attachments/missing/download', 'GET'),
+            Request::create('/attachment/missing/download', 'GET'),
             HttpKernelInterface::MAIN_REQUEST,
             AttachmentNotFoundException::forAttachmentId(123),
         );

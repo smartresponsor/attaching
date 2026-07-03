@@ -55,7 +55,7 @@ Navigating:
 Mobiling:
 
 * owns mobile-edge transport routes `GET /attachment` and `POST /attachment/link`;
-* maps those routes upstream to Attaching `GET /attachments` and `POST /attachments/attach`;
+* maps those routes upstream to Attaching `GET /attachment` and `POST /attachment/attach`;
 * owns Android and iOS native attachment screens, bridges, gateways, and route resolvers.
 
 == Current web availability
@@ -87,7 +87,7 @@ The mobile availability path is:
 Navigating mobile shell
   -> Mobiling Android/iOS route `attachment`
   -> Mobiling mobile-edge `GET /attachment`
-  -> Attaching `GET /attachments`
+  -> Attaching `GET /attachment`
 ----
 
 The mobile link creation path is:
@@ -96,7 +96,7 @@ The mobile link creation path is:
 ----
 Mobiling Android/iOS bridge
   -> mobile-edge `POST /attachment/link`
-  -> Attaching `POST /attachments/attach`
+  -> Attaching `POST /attachment/attach`
 ----
 
 Available mobile menu candidates:
