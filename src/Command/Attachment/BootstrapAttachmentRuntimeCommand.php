@@ -30,7 +30,7 @@ final class BootstrapAttachmentRuntimeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $environment = (string) ($_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? getenv('APP_ENV') ?: 'dev');
+        $environment = $this->environment();
 
         if ('prod' === $environment) {
             $io->error('Runtime bootstrap is not allowed in prod environment.');
@@ -65,5 +65,22 @@ final class BootstrapAttachmentRuntimeCommand extends Command
         $io->success('Attaching standalone runtime schema and demo fixtures were bootstrapped from entity metadata.');
 
         return Command::SUCCESS;
+    }
+
+    private function environment(): string
+    {
+        foreach ([$_SERVER['APP_ENV'] ?? null, $_ENV['APP_ENV'] ?? null, getenv('APP_ENV')] as $value) {
+            if (!is_scalar($value)) {
+                continue;
+            }
+
+            $environment = trim((string) $value);
+
+            if ('' !== $environment) {
+                return $environment;
+            }
+        }
+
+        return 'dev';
     }
 }

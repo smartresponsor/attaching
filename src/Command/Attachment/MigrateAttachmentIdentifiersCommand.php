@@ -175,26 +175,35 @@ final class MigrateAttachmentIdentifiersCommand extends Command
 
     private function requiresMigration(): bool
     {
-        $attachmentIdType = (string) $this->connection->fetchOne(
+        $attachmentIdType = $this->stringResult($this->connection->fetchOne(
             <<<'SQL'
             SELECT data_type
             FROM information_schema.columns
             WHERE table_name = 'attachment' AND column_name = 'id'
             LIMIT 1
             SQL
-        );
+        ));
 
-        $attachmentLinkIdType = (string) $this->connection->fetchOne(
+        $attachmentLinkIdType = $this->stringResult($this->connection->fetchOne(
             <<<'SQL'
             SELECT data_type
             FROM information_schema.columns
             WHERE table_name = 'attachment_link' AND column_name = 'id'
             LIMIT 1
             SQL
-        );
+        ));
 
         return !\in_array($attachmentIdType, ['integer', 'bigint'], true)
             || !\in_array($attachmentLinkIdType, ['integer', 'bigint'], true);
+    }
+
+    private function stringResult(mixed $value): string
+    {
+        if (is_scalar($value)) {
+            return (string) $value;
+        }
+
+        return '';
     }
 
     private function recreateAttachmentTable(): void

@@ -19,7 +19,8 @@ class AttachmentLink
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    // @phpstan-ignore property.onlyRead
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: Attachment::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -73,7 +74,11 @@ class AttachmentLink
 
     public function getId(): int
     {
-        return $this->id ?? throw new \LogicException('Attachment link identifier is not initialized yet.');
+        if (!isset($this->id)) {
+            throw new \LogicException('Attachment link identifier is not initialized yet.');
+        }
+
+        return $this->id;
     }
 
     public function getAttachment(): Attachment

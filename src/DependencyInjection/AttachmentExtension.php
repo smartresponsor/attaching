@@ -32,7 +32,7 @@ final class AttachmentExtension extends Extension
         if (is_file($runtimeFile)) {
             $runtime = Yaml::parseFile($runtimeFile);
             if (is_array($runtime)) {
-                $this->applyRuntimeParameters($container, $runtime);
+                $this->applyRuntimeParameters($container, $this->normalizeRuntimeParameters($runtime));
             }
         }
 
@@ -50,6 +50,24 @@ final class AttachmentExtension extends Extension
 
         $loader = new YamlFileLoader($container, new FileLocator($configDirectory));
         $loader->load('services.yaml');
+    }
+
+    /**
+     * @param array<mixed, mixed> $runtime
+     *
+     * @return array<string, mixed>
+     */
+    private function normalizeRuntimeParameters(array $runtime): array
+    {
+        $parameters = [];
+
+        foreach ($runtime as $key => $value) {
+            if (is_string($key)) {
+                $parameters[$key] = $value;
+            }
+        }
+
+        return $parameters;
     }
 
     /**

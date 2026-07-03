@@ -28,14 +28,15 @@ final class AttachingDemoFixturesContractTest extends TestCase
             new AttachmentLinkFixture(),
         ], append: false);
 
+        /** @var list<Attachment> $attachments */
         $attachments = $entityManager->createQuery('SELECT attachment FROM '.Attachment::class.' attachment ORDER BY attachment.id ASC')->getResult();
+        /** @var list<AttachmentLink> $links */
         $links = $entityManager->createQuery('SELECT link FROM '.AttachmentLink::class.' link ORDER BY link.id ASC')->getResult();
 
         self::assertCount(7, $attachments);
         self::assertCount(6, $links);
 
         foreach ($attachments as $attachment) {
-            self::assertIsInt($attachment->getId());
             self::assertGreaterThan(0, $attachment->getId());
             self::assertNotEmpty($attachment->getStoragePath());
             self::assertNotEmpty($attachment->getChecksum());
@@ -43,9 +44,7 @@ final class AttachingDemoFixturesContractTest extends TestCase
 
         $primaryLinks = 0;
         foreach ($links as $link) {
-            self::assertIsInt($link->getId());
             self::assertGreaterThan(0, $link->getId());
-            self::assertIsInt($link->getAttachment()->getId());
             self::assertSame($link->getAttachment()->getId(), $entityManager->getUnitOfWork()->getSingleIdentifierValue($link->getAttachment()));
 
             if ($link->isPrimary()) {

@@ -6,6 +6,7 @@ namespace App\Attaching\Tests\Application;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -37,10 +38,20 @@ final class Kernel extends BaseKernel
     {
         $bundles = require $this->getTestConfigDir().'/bundles.php';
 
+        if (!is_array($bundles)) {
+            throw new \LogicException('Test bundle configuration must return an array.');
+        }
+
         foreach ($bundles as $class => $envs) {
-            if (($envs[$this->environment] ?? $envs['all'] ?? false) === true) {
-                yield new $class();
+            if (!is_string($class) || !is_subclass_of($class, BundleInterface::class) || !is_array($envs)) {
+                continue;
             }
+
+            if (($envs[$this->environment] ?? $envs['all'] ?? false) !== true) {
+                continue;
+            }
+
+            yield new $class();
         }
     }
 

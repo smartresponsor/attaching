@@ -25,7 +25,8 @@ class Attachment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    // @phpstan-ignore property.onlyRead
+    private int $id;
 
     #[ORM\Column(enumType: AttachmentType::class)]
     private AttachmentType $type;
@@ -145,7 +146,11 @@ class Attachment
 
     public function getId(): int
     {
-        return $this->id ?? throw new \LogicException('Attachment identifier is not initialized yet.');
+        if (!isset($this->id)) {
+            throw new \LogicException('Attachment identifier is not initialized yet.');
+        }
+
+        return $this->id;
     }
 
     public function getType(): AttachmentType
