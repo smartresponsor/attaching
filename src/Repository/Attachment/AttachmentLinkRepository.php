@@ -60,6 +60,11 @@ final readonly class AttachmentLinkRepository
         return $result;
     }
 
+    public function exists(int $attachmentId, string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): bool
+    {
+        return null !== $this->findOne($attachmentId, $ownerType, $ownerId, $context, $slot);
+    }
+
     public function findOne(int $attachmentId, string $ownerType, string $ownerId, ?string $context = null, ?string $slot = null): ?AttachmentLink
     {
         $qb = $this->entityManager->createQueryBuilder()

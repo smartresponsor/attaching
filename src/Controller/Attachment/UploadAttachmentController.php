@@ -43,8 +43,23 @@ final readonly class UploadAttachmentController
         return new JsonResponse([
             'id' => $view->id,
             'type' => $view->type->value,
+            'mediaKind' => $view->mediaKind?->value,
+            'documentKind' => $view->documentKind?->value,
+            'originalName' => $view->originalName,
             'mimeType' => $view->mimeType,
+            'extension' => $view->extension,
+            'size' => $view->size,
+            'checksum' => $view->checksum,
+            'visibility' => $view->visibility->value,
+            'title' => $view->title,
+            'description' => $view->description,
+            'altText' => $view->altText,
+            'width' => $view->width,
+            'height' => $view->height,
+            'durationMs' => $view->durationMs,
+            'pageCount' => $view->pageCount,
             'downloadUrl' => $view->downloadUrl,
+            'createdAt' => $view->createdAt->format(DATE_ATOM),
         ], Response::HTTP_CREATED);
     }
 }

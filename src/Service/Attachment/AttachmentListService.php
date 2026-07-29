@@ -21,6 +21,7 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
     public function list(ListAttachmentInput $input): AttachmentListView
     {
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+        $this->attachmentValidationService->validateLinkScope($input->context, $input->slot);
 
         $items = [];
 

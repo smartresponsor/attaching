@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class AttachmentValidationService implements AttachmentValidationServiceInterface
 {
+    private const OWNER_TYPE_LIST = ['vendor', 'product', 'project', 'order', 'message'];
+    private const CONTEXT_LIST = ['vendor', 'product', 'project', 'order', 'message', 'gallery', 'document', 'evidence'];
+    private const SLOT_LIST = ['attachment', 'primary', 'gallery', 'image', 'document', 'evidence', 'cover'];
+
     /**
      * @param list<string> $allowedMediaMimeTypes
      * @param list<string> $allowedDocumentMimeTypes
@@ -43,12 +47,46 @@ final readonly class AttachmentValidationService implements AttachmentValidation
 
     public function validateOwnerReference(string $ownerType, string $ownerId): void
     {
-        if ('' === trim($ownerType)) {
+        $ownerType = trim($ownerType);
+        $ownerId = trim($ownerId);
+
+        if ('' === $ownerType) {
             throw new AttachmentValidationException('Attachment ownerType must not be empty.');
         }
-
-        if ('' === trim($ownerId)) {
+        if (!\in_array($ownerType, self::OWNER_TYPE_LIST, true)) {
+            throw new AttachmentValidationException(sprintf('Attachment ownerType "%s" is not supported.', $ownerType));
+        }
+        if ('' === $ownerId) {
             throw new AttachmentValidationException('Attachment ownerId must not be empty.');
+        }
+        if (mb_strlen($ownerId) > 191) {
+            throw new AttachmentValidationException('Attachment ownerId must not exceed 191 characters.');
+        }
+    }
+
+    public function validateLinkScope(?string $context, ?string $slot, int $position = 0): void
+    {
+        if (null !== $context && !\in_array(trim($context), self::CONTEXT_LIST, true)) {
+            throw new AttachmentValidationException(sprintf('Attachment context "%s" is not supported.', $context));
+        }
+        if (null !== $slot && !\in_array(trim($slot), self::SLOT_LIST, true)) {
+            throw new AttachmentValidationException(sprintf('Attachment slot "%s" is not supported.', $slot));
+        }
+        if ($position < 0) {
+            throw new AttachmentValidationException('Attachment position must not be negative.');
+        }
+    }
+
+    public function validateMetadata(?string $title, ?string $description, ?string $altText): void
+    {
+        if (null !== $title && mb_strlen(trim($title)) > 255) {
+            throw new AttachmentValidationException('Attachment title must not exceed 255 characters.');
+        }
+        if (null !== $description && mb_strlen($description) > 12000) {
+            throw new AttachmentValidationException('Attachment description must not exceed 12000 characters.');
+        }
+        if (null !== $altText && mb_strlen($altText) > 1000) {
+            throw new AttachmentValidationException('Attachment altText must not exceed 1000 characters.');
         }
     }
 

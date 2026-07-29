@@ -7,6 +7,7 @@ namespace App\Attaching\Service\Attachment;
 use App\Attaching\Dto\Attachment\Input\AttachAttachmentInput;
 use App\Attaching\Dto\Attachment\Output\AttachmentLinkView;
 use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Exception\Attachment\AttachmentLinkException;
 use App\Attaching\Exception\Attachment\AttachmentNotFoundException;
 use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
 use App\Attaching\Repository\Attachment\AttachmentRepository;
@@ -33,11 +34,16 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($input->attachmentId);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+        $this->attachmentValidationService->validateLinkScope($input->context, $input->slot, $input->position);
 
         $attachment = $this->attachmentRepository->findActive($input->attachmentId);
 
         if (null === $attachment) {
             throw AttachmentNotFoundException::forAttachmentId($input->attachmentId);
+        }
+
+        if ($this->attachmentLinkRepository->exists($input->attachmentId, $input->ownerType, $input->ownerId, $input->context, $input->slot)) {
+            throw new AttachmentLinkException('Attachment is already linked to this owner context and slot.');
         }
 
         if ($input->isPrimary) {

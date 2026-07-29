@@ -12,5 +12,9 @@ interface AttachmentValidationServiceInterface
 
     public function validateOwnerReference(string $ownerType, string $ownerId): void;
 
+    public function validateLinkScope(?string $context, ?string $slot, int $position = 0): void;
+
+    public function validateMetadata(?string $title, ?string $description, ?string $altText): void;
+
     public function validateAttachmentIdentifier(int $attachmentId): void;
 }

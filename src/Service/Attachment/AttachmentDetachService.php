@@ -20,6 +20,7 @@ final readonly class AttachmentDetachService implements AttachmentDetachServiceI
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($input->attachmentId);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+        $this->attachmentValidationService->validateLinkScope($input->context, $input->slot);
 
         $attachmentLink = $this->attachmentLinkRepository->findOne($input->attachmentId, $input->ownerType, $input->ownerId, $input->context, $input->slot);
 

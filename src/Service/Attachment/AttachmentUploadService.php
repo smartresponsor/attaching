@@ -37,6 +37,8 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
     {
         $this->attachmentValidationService->validateUploadedFile($input->uploadedFile);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
+        $this->attachmentValidationService->validateLinkScope($input->context, $input->slot);
+        $this->attachmentValidationService->validateMetadata($input->title, $input->description, $input->altText);
 
         $mimeType = $input->uploadedFile->getMimeType() ?? 'application/octet-stream';
         $classification = $this->attachmentMimeTypeGuesser->classify($mimeType);

@@ -31,6 +31,46 @@ final class AttachmentValidationServiceTest extends TestCase
         $service->validateAttachmentIdentifier(0);
     }
 
+    public function testValidateOwnerReferenceRejectsUnsupportedOwnerType(): void
+    {
+        $service = new AttachmentValidationService();
+
+        $this->expectException(AttachmentValidationException::class);
+        $this->expectExceptionMessage('not supported');
+
+        $service->validateOwnerReference('unknown-owner', 'owner-1');
+    }
+
+    public function testValidateLinkScopeRejectsUnknownSlot(): void
+    {
+        $service = new AttachmentValidationService();
+
+        $this->expectException(AttachmentValidationException::class);
+        $this->expectExceptionMessage('slot');
+
+        $service->validateLinkScope('project', 'executable');
+    }
+
+    public function testValidateLinkScopeRejectsNegativePosition(): void
+    {
+        $service = new AttachmentValidationService();
+
+        $this->expectException(AttachmentValidationException::class);
+        $this->expectExceptionMessage('negative');
+
+        $service->validateLinkScope('product', 'gallery', -1);
+    }
+
+    public function testValidateMetadataRejectsOversizedAltText(): void
+    {
+        $service = new AttachmentValidationService();
+
+        $this->expectException(AttachmentValidationException::class);
+        $this->expectExceptionMessage('altText');
+
+        $service->validateMetadata(null, null, str_repeat('a', 1001));
+    }
+
     public function testValidateUploadedFileRejectsUnsupportedMimeType(): void
     {
         $path = tempnam(sys_get_temp_dir(), 'attachment-test-');
