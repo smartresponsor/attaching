@@ -25,6 +25,12 @@ services:
   App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDownloadService'
   App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDeleteService'
   App\Attaching\ServiceInterface\Attachment\AttachmentValidationServiceInterface: '@App\Attaching\Service\Attachment\AttachmentValidationService'
+  App\Attaching\ServiceInterface\Attachment\AttachmentOwnerPurgeServiceInterface:
+    alias: 'App\Attaching\Service\Attachment\AttachmentOwnerPurgeService'
+    public: true
+  App\Attaching\ServiceInterface\Attachment\AttachmentPrimaryLinkResolverServiceInterface:
+    alias: 'App\Attaching\Service\Attachment\AttachmentPrimaryLinkResolverService'
+    public: true
 
   App\Attaching\Service\Storage\LocalAttachmentStorage:
     arguments:
