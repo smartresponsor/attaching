@@ -41,6 +41,21 @@ final class AttachmentValidationServiceTest extends TestCase
         $service->validateOwnerReference('unknown-owner', 'owner-1');
     }
 
+    public function testValidateProfileAndVerificationScopes(): void
+    {
+        $service = new AttachmentValidationService();
+
+        $service->validateOwnerReference('vendor', 'vendor-fixture-1');
+        $service->validateLinkScope('profile', 'avatar');
+        $service->validateLinkScope('profile', 'cover');
+
+        $service->validateOwnerReference('access', 'admin@smartresponsor.local');
+        $service->validateLinkScope('verification', 'personal_identity');
+        $service->validateLinkScope('verification', 'account');
+
+        self::assertTrue(true);
+    }
+
     public function testValidateLinkScopeRejectsUnknownSlot(): void
     {
         $service = new AttachmentValidationService();
