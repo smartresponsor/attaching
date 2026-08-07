@@ -12,6 +12,8 @@ use Doctrine\Persistence\ObjectManager;
 
 final class AttachmentLinkFixture extends Fixture implements DependentFixtureInterface
 {
+    private const BOOTSTRAP_ADMIN_OWNER_ID = 'admin@smartresponsor.local';
+
     public function load(ObjectManager $manager): void
     {
         $links = [
@@ -43,12 +45,21 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'isPrimary' => true,
             ],
             [
-                'reference' => 'attachment.product.banner.1',
-                'ownerType' => 'product',
-                'ownerId' => 'prod-fixture-1',
+                'reference' => 'attachment.vendor.cover.1',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
+                'context' => 'profile',
+                'slot' => 'cover',
+                'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
+                'reference' => 'attachment.vendor.gallery.1',
+                'ownerType' => 'vendor',
+                'ownerId' => 'vendor-fixture-1',
                 'context' => 'gallery',
-                'slot' => 'banner',
-                'position' => 1,
+                'slot' => 'image',
+                'position' => 0,
                 'isPrimary' => false,
             ],
             [
@@ -61,12 +72,21 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'isPrimary' => true,
             ],
             [
-                'reference' => 'attachment.vendor.1',
-                'ownerType' => 'vendor',
-                'ownerId' => 'vendor-fixture-1',
-                'context' => 'document',
-                'slot' => 'manual',
+                'reference' => 'attachment.admin.identity.1',
+                'ownerType' => 'access',
+                'ownerId' => self::BOOTSTRAP_ADMIN_OWNER_ID,
+                'context' => 'verification',
+                'slot' => 'personal_identity',
                 'position' => 0,
+                'isPrimary' => true,
+            ],
+            [
+                'reference' => 'attachment.admin.verification.1',
+                'ownerType' => 'access',
+                'ownerId' => self::BOOTSTRAP_ADMIN_OWNER_ID,
+                'context' => 'verification',
+                'slot' => 'account',
+                'position' => 1,
                 'isPrimary' => false,
             ],
         ];
