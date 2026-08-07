@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class AttachmentValidationService implements AttachmentValidationServiceInterface
 {
-    private const OWNER_TYPE_LIST = ['vendor', 'product', 'project', 'order', 'message'];
-    private const CONTEXT_LIST = ['vendor', 'product', 'project', 'order', 'message', 'gallery', 'document', 'evidence'];
-    private const SLOT_LIST = ['attachment', 'primary', 'gallery', 'image', 'document', 'evidence', 'cover'];
+    private const OWNER_TYPE_LIST = ['vendor', 'product', 'project', 'order', 'message', 'access'];
+    private const CONTEXT_LIST = ['vendor', 'product', 'project', 'order', 'message', 'gallery', 'profile', 'document', 'verification', 'evidence', 'catalog'];
+    private const SLOT_LIST = ['attachment', 'primary', 'gallery', 'image', 'avatar', 'cover', 'document', 'personal_identity', 'account', 'evidence', 'icon', 'banner'];
 
     /**
      * @param list<string> $allowedMediaMimeTypes
