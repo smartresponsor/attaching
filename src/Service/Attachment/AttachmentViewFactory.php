@@ -9,8 +9,14 @@ use App\Attaching\Entity\Attachment\Attachment;
 
 final class AttachmentViewFactory
 {
-    public function create(Attachment $attachment, ?string $downloadUrl = null): AttachmentView
-    {
+    public function create(
+        Attachment $attachment,
+        ?string $downloadUrl = null,
+        ?string $context = null,
+        ?string $slot = null,
+        bool $isPrimary = false,
+        int $position = 0,
+    ): AttachmentView {
         return new AttachmentView(
             id: $attachment->getId(),
             type: $attachment->getType(),
@@ -31,6 +37,10 @@ final class AttachmentViewFactory
             pageCount: $attachment->getPageCount(),
             downloadUrl: $downloadUrl,
             createdAt: $attachment->getCreatedAt(),
+            context: $context,
+            slot: $slot,
+            isPrimary: $isPrimary,
+            position: $position,
         );
     }
 }

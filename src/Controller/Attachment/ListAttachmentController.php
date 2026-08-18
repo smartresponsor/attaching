@@ -51,6 +51,10 @@ final readonly class ListAttachmentController
                 'durationMs' => $item->durationMs,
                 'pageCount' => $item->pageCount,
                 'downloadUrl' => $item->downloadUrl,
+                'context' => $item->context,
+                'slot' => $item->slot,
+                'isPrimary' => $item->isPrimary,
+                'position' => $item->position,
                 'createdAt' => $item->createdAt->format(DATE_ATOM),
             ], $view->items),
         ]);

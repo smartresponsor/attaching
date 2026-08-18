@@ -44,7 +44,7 @@ final readonly class AttachmentLinkRepository
             ->setParameter('ownerId', $ownerId)
             ->setParameter('deletedStatus', AttachmentStatus::Deleted)
             ->orderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.createdAt', 'ASC');
+            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC');
 
         if (null !== $context) {
             $qb->andWhere('attachmentLink.context = :context')->setParameter('context', $context);
@@ -113,11 +113,59 @@ final readonly class AttachmentLinkRepository
             ->setParameter('slot', $slot)
             ->setParameter('deletedStatus', AttachmentStatus::Deleted)
             ->orderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.createdAt', 'DESC')
+            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'DESC')
             ->setMaxResults(1);
 
         /** @var ?AttachmentLink $result */
         $result = $qb->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
+    /**
+     * @param list<int> $attachmentIds
+     *
+     * @return list<AttachmentLink>
+     */
+    public function findByAttachmentIds(array $attachmentIds): array
+    {
+        $attachmentIds = array_values(array_unique(array_filter($attachmentIds, static fn (int $id): bool => $id > 0)));
+        if ([] === $attachmentIds) {
+            return [];
+        }
+
+        /** @var list<AttachmentLink> $result */
+        $result = $this->entityManager->createQueryBuilder()
+            ->select('attachmentLink', 'attachment')
+            ->from(AttachmentLink::class, 'attachmentLink')
+            ->join('attachmentLink.attachment', 'attachment')
+            ->where('attachment.id IN (:attachmentIds)')
+            ->setParameter('attachmentIds', $attachmentIds)
+            ->orderBy('attachment.id', 'ASC')
+            ->addOrderBy('attachmentLink.position', 'ASC')
+            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
+    /**
+     * @return list<AttachmentLink>
+     */
+    public function findByAttachmentId(int $attachmentId): array
+    {
+        /** @var list<AttachmentLink> $result */
+        $result = $this->entityManager->createQueryBuilder()
+            ->select('attachmentLink', 'attachment')
+            ->from(AttachmentLink::class, 'attachmentLink')
+            ->join('attachmentLink.attachment', 'attachment')
+            ->where('attachment.id = :attachmentId')
+            ->setParameter('attachmentId', $attachmentId)
+            ->orderBy('attachmentLink.position', 'ASC')
+            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         return $result;
     }
@@ -133,7 +181,7 @@ final readonly class AttachmentLinkRepository
             ->from(AttachmentLink::class, 'attachmentLink')
             ->where('attachmentLink.attachment = :attachment')
             ->setParameter('attachment', $attachment)
-            ->orderBy('attachmentLink.createdAt', 'ASC')
+            ->orderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
             ->getQuery()
             ->getResult();
 

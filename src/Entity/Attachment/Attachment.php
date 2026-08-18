@@ -10,6 +10,11 @@ use App\Attaching\Enum\Attachment\AttachmentStatus;
 use App\Attaching\Enum\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Attachment\AttachmentType;
 use App\Attaching\Enum\Attachment\AttachmentVisibility;
+use App\Objecting\EntityInterface\ObjectEntityInterface;
+use App\Objecting\EntityTrait\Embeddable\ObjectAuditEmbeddableTrait;
+use App\Objecting\EntityTrait\Embeddable\ObjectIdentityEmbeddableTrait;
+use App\Objecting\EntityTrait\Embeddable\ObjectStateEmbeddableTrait;
+use App\Objecting\EntityTrait\Embeddable\ObjectTitleEmbeddableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,8 +25,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'attachment')]
-class Attachment
+class Attachment implements ObjectEntityInterface
 {
+    use ObjectIdentityEmbeddableTrait;
+    use ObjectTitleEmbeddableTrait;
+    use ObjectAuditEmbeddableTrait;
+    use ObjectStateEmbeddableTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -88,12 +97,6 @@ class Attachment
     #[ORM\Column(nullable: true)]
     private ?int $pageCount;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
-
-    #[ORM\Column]
-    private \DateTimeImmutable $updatedAt;
-
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
@@ -140,8 +143,11 @@ class Attachment
         $this->height = $height;
         $this->durationMs = $durationMs;
         $this->pageCount = $pageCount;
-        $this->createdAt = $now;
-        $this->updatedAt = $now;
+        $this->initializeObjectIdentity();
+        $this->initializeObjectTitle($title ?? $originalName);
+        $this->initializeObjectAudit($now);
+        $this->touchModified($now);
+        $this->initializeObjectState(objectStatus: AttachmentStatus::Active->value);
     }
 
     public function getId(): int
@@ -253,11 +259,6 @@ class Attachment
         return $this->pageCount;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
     public function createdAt(): \DateTimeImmutable
     {
         return $this->getCreatedAt();
@@ -265,7 +266,7 @@ class Attachment
 
     public function getUpdatedAt(): \DateTimeImmutable
     {
-        return $this->updatedAt;
+        return $this->getModifiedAt() ?? $this->getCreatedAt();
     }
 
     public function updatedAt(): \DateTimeImmutable
@@ -293,7 +294,9 @@ class Attachment
         $now = new \DateTimeImmutable();
         $this->status = AttachmentStatus::Deleted;
         $this->deletedAt = $now;
-        $this->updatedAt = $now;
+        $this->setObjectStatus(AttachmentStatus::Deleted->value);
+        $this->setObjectActive(false);
+        $this->touchModified($now);
     }
 
     public function delete(): void
@@ -305,6 +308,8 @@ class Attachment
     {
         $this->status = AttachmentStatus::Active;
         $this->deletedAt = null;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->setObjectStatus(AttachmentStatus::Active->value);
+        $this->setObjectActive(true);
+        $this->touchModified();
     }
 }
