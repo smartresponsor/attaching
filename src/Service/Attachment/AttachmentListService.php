@@ -29,6 +29,10 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
             $items[] = $this->attachmentViewFactory->create(
                 $attachmentLink->getAttachment(),
                 sprintf('/attachment/%d/download', $attachmentLink->getAttachment()->getId()),
+                $attachmentLink->getContext(),
+                $attachmentLink->getSlot(),
+                $attachmentLink->isPrimary(),
+                $attachmentLink->getPosition(),
             );
         }
 

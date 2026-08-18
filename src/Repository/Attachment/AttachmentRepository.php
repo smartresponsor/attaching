@@ -51,6 +51,31 @@ final readonly class AttachmentRepository
     }
 
     /**
+     * @param list<int> $attachmentIds
+     *
+     * @return list<Attachment>
+     */
+    public function findByIds(array $attachmentIds): array
+    {
+        $attachmentIds = array_values(array_unique(array_filter($attachmentIds, static fn (int $id): bool => $id > 0)));
+        if ([] === $attachmentIds) {
+            return [];
+        }
+
+        /** @var list<Attachment> $result */
+        $result = $this->entityManager->createQueryBuilder()
+            ->select('attachment')
+            ->from(Attachment::class, 'attachment')
+            ->where('attachment.id IN (:attachmentIds)')
+            ->setParameter('attachmentIds', $attachmentIds)
+            ->orderBy('attachment.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
+    /**
      * @return list<Attachment>
      */
     public function findDeletedWithoutLinks(): array

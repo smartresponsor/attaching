@@ -31,6 +31,10 @@ final readonly class AttachmentView
         public ?int $pageCount,
         public ?string $downloadUrl,
         public \DateTimeImmutable $createdAt,
+        public ?string $context = null,
+        public ?string $slot = null,
+        public bool $isPrimary = false,
+        public int $position = 0,
     ) {
     }
 }

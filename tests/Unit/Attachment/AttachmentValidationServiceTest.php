@@ -31,6 +31,14 @@ final class AttachmentValidationServiceTest extends TestCase
         $service->validateAttachmentIdentifier(0);
     }
 
+    public function testValidateProfileAvatarScopeIsSupported(): void
+    {
+        $service = new AttachmentValidationService();
+        self::expectNotToPerformAssertions();
+
+        $service->validateLinkScope('profile', 'avatar');
+    }
+
     public function testValidateOwnerReferenceRejectsUnsupportedOwnerType(): void
     {
         $service = new AttachmentValidationService();

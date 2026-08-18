@@ -82,8 +82,18 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                     height,
                     duration_ms,
                     page_count,
-                    created_at,
-                    updated_at,
+                    object_uuid,
+                    object_slug,
+                    object_first_title,
+                    object_middle_title,
+                    object_last_title,
+                    object_created_at,
+                    object_modified_at,
+                    object_created_by,
+                    object_modified_by,
+                    object_active,
+                    object_enabled,
+                    object_status,
                     deleted_at
                 )
                 SELECT
@@ -108,8 +118,18 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                     a.height,
                     a.duration_ms,
                     a.page_count,
+                    decode(replace(a.id::text, '-', ''), 'hex'),
+                    a.id::text,
+                    COALESCE(a.title, a.original_name),
+                    NULL,
+                    NULL,
                     a.created_at,
                     a.updated_at,
+                    NULL,
+                    NULL,
+                    CASE WHEN a.status = 'deleted' THEN false ELSE true END,
+                    true,
+                    a.status,
                     a.deleted_at
                 FROM attachment_legacy a
                 INNER JOIN attachment_id_map m ON m.old_id = a.id::text
@@ -137,8 +157,10 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                     slot,
                     position,
                     is_primary,
-                    created_at,
-                    updated_at
+                    object_created_at,
+                    object_modified_at,
+                    object_created_by,
+                    object_modified_by
                 )
                 SELECT
                     lm.new_id,
@@ -150,7 +172,9 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                     l.position,
                     l.is_primary,
                     l.created_at,
-                    l.updated_at
+                    l.updated_at,
+                    NULL,
+                    NULL
                 FROM attachment_link_legacy l
                 INNER JOIN attachment_id_map am ON am.old_id = l.attachment_id::text
                 INNER JOIN attachment_link_id_map lm ON lm.old_id = l.id::text
@@ -232,8 +256,18 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                 height integer DEFAULT NULL,
                 duration_ms integer DEFAULT NULL,
                 page_count integer DEFAULT NULL,
-                created_at timestamp(0) without time zone NOT NULL,
-                updated_at timestamp(0) without time zone NOT NULL,
+                object_uuid bytea NOT NULL UNIQUE,
+                object_slug varchar(190) NOT NULL UNIQUE,
+                object_first_title varchar(255) DEFAULT NULL,
+                object_middle_title text DEFAULT NULL,
+                object_last_title text DEFAULT NULL,
+                object_created_at timestamp(0) without time zone NOT NULL,
+                object_modified_at timestamp(0) without time zone DEFAULT NULL,
+                object_created_by varchar(190) DEFAULT NULL,
+                object_modified_by varchar(190) DEFAULT NULL,
+                object_active boolean NOT NULL DEFAULT true,
+                object_enabled boolean NOT NULL DEFAULT true,
+                object_status varchar(64) DEFAULT NULL,
                 deleted_at timestamp(0) without time zone DEFAULT NULL
             )
             SQL
@@ -253,8 +287,10 @@ final class MigrateAttachmentIdentifiersCommand extends Command
                 slot varchar(191) DEFAULT NULL,
                 position integer NOT NULL,
                 is_primary boolean NOT NULL,
-                created_at timestamp(0) without time zone NOT NULL,
-                updated_at timestamp(0) without time zone NOT NULL,
+                object_created_at timestamp(0) without time zone NOT NULL,
+                object_modified_at timestamp(0) without time zone DEFAULT NULL,
+                object_created_by varchar(190) DEFAULT NULL,
+                object_modified_by varchar(190) DEFAULT NULL,
                 CONSTRAINT fk_attachment_link_attachment FOREIGN KEY (attachment_id) REFERENCES attachment (id) ON DELETE CASCADE
             )
             SQL

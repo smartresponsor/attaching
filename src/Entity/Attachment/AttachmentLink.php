@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\Entity\Attachment;
 
+use App\Objecting\EntityInterface\ObjectRelationEntityInterface;
+use App\Objecting\EntityTrait\Embeddable\ObjectAuditEmbeddableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,8 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'attachment_link')]
-class AttachmentLink
+class AttachmentLink implements ObjectRelationEntityInterface
 {
+    use ObjectAuditEmbeddableTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -44,12 +47,6 @@ class AttachmentLink
     #[ORM\Column]
     private bool $isPrimary;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
-
-    #[ORM\Column]
-    private \DateTimeImmutable $updatedAt;
-
     public function __construct(
         Attachment $attachment,
         string $ownerType,
@@ -68,8 +65,8 @@ class AttachmentLink
         $this->slot = $slot;
         $this->position = $position;
         $this->isPrimary = $isPrimary;
-        $this->createdAt = $now;
-        $this->updatedAt = $now;
+        $this->initializeObjectAudit($now);
+        $this->touchModified($now);
     }
 
     public function getId(): int
@@ -116,19 +113,14 @@ class AttachmentLink
         return $this->isPrimary;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
     public function getUpdatedAt(): \DateTimeImmutable
     {
-        return $this->updatedAt;
+        return $this->getModifiedAt() ?? $this->getCreatedAt();
     }
 
     public function clearPrimary(): void
     {
         $this->isPrimary = false;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->touchModified();
     }
 }
