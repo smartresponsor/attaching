@@ -61,7 +61,7 @@ SQL),
             'retail',
             'gallery',
             'image',
-            $manager->getConnection()->fetchFirstColumn("SELECT id::text FROM retail WHERE kind = 'service' AND object_status = 'published' ORDER BY id"),
+            $manager->getConnection()->fetchFirstColumn("SELECT id::text FROM retail WHERE kind IN ('service', 'task') AND object_status = 'published' ORDER BY id"),
         );
 
         $professionalVendorIds = $manager->getConnection()->fetchFirstColumn(<<<'SQL'
