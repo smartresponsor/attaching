@@ -48,7 +48,7 @@ SELECT category.id::text
 FROM category
 JOIN catalog ON catalog.id = category.catalog_id
 WHERE catalog.object_code = 'services'
-  AND category.depth = 1
+  AND category.depth IN (1, 2)
   AND category.published = TRUE
 ORDER BY category.id
 SQL),
