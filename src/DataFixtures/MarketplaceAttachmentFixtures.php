@@ -47,8 +47,9 @@ final class MarketplaceAttachmentFixtures extends Fixture implements FixtureGrou
 SELECT category.id::text
 FROM category
 JOIN catalog ON catalog.id = category.catalog_id
-WHERE catalog.object_code = 'services'
-  AND category.depth IN (1, 2)
+WHERE catalog.object_code = 'retailing'
+  AND category.parent_id IS NULL
+  AND category.slug IN ('product', 'service', 'project', 'task', 'order')
   AND category.published = TRUE
 ORDER BY category.id
 SQL),
