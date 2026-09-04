@@ -52,6 +52,7 @@ final class AttachmentValidationServiceTest extends TestCase
     public function testValidateProfileAndVerificationScopes(): void
     {
         $service = new AttachmentValidationService();
+        self::expectNotToPerformAssertions();
 
         $service->validateOwnerReference('vendor', 'vendor-fixture-1');
         $service->validateLinkScope('profile', 'avatar');
@@ -60,8 +61,6 @@ final class AttachmentValidationServiceTest extends TestCase
         $service->validateOwnerReference('access', 'admin@smartresponsor.local');
         $service->validateLinkScope('verification', 'personal_identity');
         $service->validateLinkScope('verification', 'account');
-
-        self::assertTrue(true);
     }
 
     public function testValidateLinkScopeRejectsUnknownSlot(): void
