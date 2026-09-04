@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Support\Attachment;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-abstract class DoctrineWebIntegrationTestCase extends WebTestCase
+abstract class DoctrineIntegrationTestCase extends KernelTestCase
 {
     protected EntityManagerInterface $entityManager;
     protected Filesystem $filesystem;
@@ -37,17 +36,13 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
 
         $this->resetPersistence();
         $this->resetStorage();
-        self::ensureKernelShutdown();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
         restore_exception_handler();
-
-        if (isset($this->entityManager)) {
-            $this->entityManager->close();
-        }
+        $this->entityManager->close();
     }
 
     /**
@@ -55,8 +50,6 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
      */
     protected function loadFixtures(array $fixtureClasses): void
     {
-        self::bootKernel();
-
         $fixtures = [];
 
         foreach ($fixtureClasses as $fixtureClass) {
@@ -68,15 +61,6 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
 
         $executor = new ORMExecutor($this->entityManager, new ORMPurger());
         $executor->execute($fixtures, append: false);
-
-        self::ensureKernelShutdown();
-    }
-
-    protected function createAttachmentClient(): KernelBrowser
-    {
-        self::ensureKernelShutdown();
-
-        return static::createClient();
     }
 
     /**
@@ -88,12 +72,8 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
      */
     protected function getRequiredService(string $serviceId): object
     {
-        self::bootKernel();
-
         $service = static::getContainer()->get($serviceId);
         self::assertInstanceOf($serviceId, $service);
-
-        self::ensureKernelShutdown();
 
         return $service;
     }

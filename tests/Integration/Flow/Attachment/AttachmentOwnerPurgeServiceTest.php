@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
-use App\Attaching\Enum\Attachment\AttachmentStatus;
-use App\Attaching\Enum\Attachment\AttachmentStorageKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Enum\Attachment\AttachmentVisibility;
-use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
-use App\Attaching\Repository\Attachment\AttachmentRepository;
-use App\Attaching\ServiceInterface\Attachment\AttachmentOwnerPurgeServiceInterface;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
+use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
+use App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository;
+use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentOwnerPurgeServiceInterface;
+use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
 
 final class AttachmentOwnerPurgeServiceTest extends DoctrineIntegrationTestCase
 {

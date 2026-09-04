@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
-use App\Attaching\DataFixtures\AttachmentFixture;
-use App\Attaching\Dto\Attachment\Input\AttachAttachmentInput;
-use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Repository\Attachment\AttachmentLinkRepository;
-use App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface;
-use App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
+use App\Attaching\Dto\Input\Attachment\AttachAttachmentInput;
+use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository;
+use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface;
+use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
+use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
 
 final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
 {
