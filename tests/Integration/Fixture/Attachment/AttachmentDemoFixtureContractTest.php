@@ -33,8 +33,8 @@ final class AttachmentDemoFixtureContractTest extends TestCase
         /** @var list<AttachmentLink> $attachmentLinkList */
         $attachmentLinkList = $entityManager->createQuery('SELECT link FROM '.AttachmentLink::class.' link ORDER BY link.id ASC')->getResult();
 
-        self::assertCount(7, $attachmentList);
-        self::assertCount(6, $attachmentLinkList);
+        self::assertCount(8, $attachmentList);
+        self::assertCount(8, $attachmentLinkList);
 
         foreach ($attachmentList as $attachment) {
             self::assertGreaterThan(0, $attachment->getId());
@@ -52,7 +52,7 @@ final class AttachmentDemoFixtureContractTest extends TestCase
             }
         }
 
-        self::assertSame(4, $primaryLinkCount);
+        self::assertSame(6, $primaryLinkCount);
     }
 
     private function entityManager(): EntityManager
