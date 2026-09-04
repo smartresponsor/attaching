@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Entity\Attachment;
+namespace App\Attaching\Entity\Persistence\Attachment;
 
-use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
-use App\Attaching\Enum\Attachment\AttachmentMediaKind;
-use App\Attaching\Enum\Attachment\AttachmentStatus;
-use App\Attaching\Enum\Attachment\AttachmentStorageKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
+use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
 use App\Objecting\EntityInterface\ObjectEntityInterface;
 use App\Objecting\EntityTrait\Embeddable\ObjectAuditEmbeddableTrait;
 use App\Objecting\EntityTrait\Embeddable\ObjectIdentityEmbeddableTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Enum\Attachment;
+namespace App\Attaching\Enum\Classification\Attachment;
 
 enum AttachmentMediaKind: string
 {

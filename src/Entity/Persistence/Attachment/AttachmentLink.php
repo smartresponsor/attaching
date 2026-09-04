@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Entity\Attachment;
+namespace App\Attaching\Entity\Persistence\Attachment;
 
 use App\Objecting\EntityInterface\ObjectRelationEntityInterface;
 use App\Objecting\EntityTrait\Embeddable\ObjectAuditEmbeddableTrait;
