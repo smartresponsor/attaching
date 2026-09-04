@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
+use App\Attaching\Tests\Integration\Support\Attachment\DoctrineWebIntegrationTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class AttachmentHttpFlowTest extends DoctrineWebIntegrationTestCase

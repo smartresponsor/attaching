@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
-use App\Attaching\DataFixtures\AttachmentFixture;
-use App\Attaching\DataFixtures\AttachmentLinkFixture;
-use App\Attaching\Dto\Attachment\Input\ListAttachmentInput;
-use App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface;
-use App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface;
-use App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
+use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
+use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDeleteServiceInterface;
+use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
+use App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentDownloadServiceInterface;
+use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
 
 final class AttachmentFlowTest extends DoctrineIntegrationTestCase
 {

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\DataFixtures;
+namespace App\Attaching\DataFixtures\Marketplace\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
-use App\Attaching\Enum\Attachment\AttachmentMediaKind;
-use App\Attaching\Enum\Attachment\AttachmentStorageKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
+use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class MarketplaceAttachmentFixtures extends Fixture implements FixtureGroupInterface
+final class MarketplaceAttachmentFixture extends Fixture implements FixtureGroupInterface
 {
     public function __construct(private readonly Filesystem $filesystem = new Filesystem())
     {
@@ -33,7 +33,7 @@ final class MarketplaceAttachmentFixtures extends Fixture implements FixtureGrou
             throw new \RuntimeException('Doctrine entity manager is required to load marketplace attachment fixtures.');
         }
 
-        $componentDir = dirname(__DIR__, 2);
+        $componentDir = dirname(__DIR__, 4);
         $storageRoot = $componentDir.'/var/storage/attachment';
 
         $this->attachRows(
@@ -88,7 +88,7 @@ SQL);
         $manager->flush();
     }
 
-    /** @param list<string> $ownerIds */
+    /** @param list<mixed> $ownerIds */
     private function attachRows(
         EntityManagerInterface $manager,
         string $storageRoot,
@@ -108,7 +108,11 @@ SQL);
         }
 
         foreach ($ownerIds as $ownerId) {
-            $ownerId = trim((string) $ownerId);
+            if (!is_scalar($ownerId) && null !== $ownerId) {
+                continue;
+            }
+
+            $ownerId = trim((string) ($ownerId ?? ''));
             if ('' === $ownerId) {
                 continue;
             }

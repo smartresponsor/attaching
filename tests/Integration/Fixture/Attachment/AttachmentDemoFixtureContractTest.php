@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests;
+namespace App\Attaching\Tests\Integration\Fixture\Attachment;
 
-use App\Attaching\DataFixtures\AttachmentFixture;
-use App\Attaching\DataFixtures\AttachmentLinkFixture;
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\DriverManager;
@@ -17,7 +17,7 @@ use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit\Framework\TestCase;
 
-final class AttachingDemoFixturesContractTest extends TestCase
+final class AttachmentDemoFixtureContractTest extends TestCase
 {
     public function testDemoFixturesPersistIntegerPrimaryKeysAndAttachmentGraph(): void
     {
@@ -57,7 +57,7 @@ final class AttachingDemoFixturesContractTest extends TestCase
 
     private function entityManager(): EntityManager
     {
-        $projectDir = dirname(__DIR__);
+        $projectDir = dirname(__DIR__, 4);
         $config = ORMSetup::createAttributeMetadataConfig([$projectDir.'/src/Entity'], true);
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
         $config->enableNativeLazyObjects(true);

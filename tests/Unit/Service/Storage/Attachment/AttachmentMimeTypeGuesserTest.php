@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Unit\Attachment;
+namespace App\Attaching\Tests\Unit\Service\Storage\Attachment;
 
-use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
-use App\Attaching\Enum\Attachment\AttachmentMediaKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Service\Attachment\AttachmentMimeTypeGuesser;
+use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Service\Storage\Attachment\AttachmentMimeTypeGuesser;
 use PHPUnit\Framework\TestCase;
 
 final class AttachmentMimeTypeGuesserTest extends TestCase

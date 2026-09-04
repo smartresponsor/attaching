@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Unit\Attachment;
+namespace App\Attaching\Tests\Unit\Voter\Authorization\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Enum\Attachment\AttachmentStorageKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Enum\Attachment\AttachmentVisibility;
-use App\Attaching\Voter\Attachment\AttachmentVoter;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
+use App\Attaching\Voter\Authorization\Attachment\AttachmentVoter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

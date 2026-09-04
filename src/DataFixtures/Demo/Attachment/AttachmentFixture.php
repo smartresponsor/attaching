@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\DataFixtures;
+namespace App\Attaching\DataFixtures\Demo\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Enum\Attachment\AttachmentDocumentKind;
-use App\Attaching\Enum\Attachment\AttachmentMediaKind;
-use App\Attaching\Enum\Attachment\AttachmentStorageKind;
-use App\Attaching\Enum\Attachment\AttachmentType;
-use App\Attaching\Enum\Attachment\AttachmentVisibility;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
+use App\Attaching\Enum\Classification\Attachment\AttachmentType;
+use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -23,7 +23,7 @@ final class AttachmentFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $componentDir = \dirname(__DIR__, 2);
+        $componentDir = \dirname(__DIR__, 4);
         $storageRoot = $componentDir.'/var/storage/attachment';
         $this->filesystem->mkdir($storageRoot);
 

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Tests\Integration\Attachment;
+namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
-use App\Attaching\DataFixtures\AttachmentFixture;
-use App\Attaching\DataFixtures\AttachmentLinkFixture;
-use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
+use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
+use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Tests\Integration\Support\Attachment\DoctrineWebIntegrationTestCase;
 
 final class AttachmentFixtureHttpReadTest extends DoctrineWebIntegrationTestCase
 {
