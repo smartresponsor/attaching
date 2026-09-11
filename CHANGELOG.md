@@ -6,6 +6,13 @@ The format is based on Keep a Changelog and this component follows a pre-release
 
 ## [Unreleased]
 
+### Fixed
+- Canonicalized attachment lifecycle persistence on Objecting state fields and removed duplicate status mapping
+- Aligned identifier-migration rebuild SQL with current Objecting physical column names
+
+### Security
+- Refresh Symfony dependency locks to patched releases resolving current Composer audit advisories
+
 ### Added
 - Antora-compatible producer documentation surface
 - GitHub Actions CI workflow for PHP 8.4 quality gates

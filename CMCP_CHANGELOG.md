@@ -111,3 +111,33 @@ Iteration 2: implement the smallest coherent Attaching-only mapping repair that 
 Что имеем? Runtime и destructive maintenance path теперь описывают одну и ту же текущую Objecting physical schema; README также синхронизирован с runtime tree.
 
 Что осталось? Создать отдельный coherent iteration-3 commit; iteration 4 затем закрывает integration/release tails и Git publication posture.
+
+## 2026-09-11 — Iteration 4/5: debt closure and integration
+
+### Integration findings
+- Branch `refactor/canonical-attachment-tree-v2` tracks `origin/refactor/canonical-attachment-tree-v2`, is ahead by two commits and behind by zero.
+- RC validation is green: Composer validation, PHPStan, PHPUnit, and canon checks passed with zero blockers.
+- CI and release documentation use the same PHP 8.4 quality contour as local verification.
+- `composer audit` exposed a previously uncovered RC blocker: 12 security advisories across 6 locked dependencies, including high-severity Symfony MIME and Security HTTP advisories.
+
+### Debt closure selected
+- Refresh the affected Symfony dependency locks within existing package constraints.
+- Re-run Composer audit and all local quality gates.
+- Update `CHANGELOG.md` with the lifecycle mapping, identifier-migration schema, and dependency-security fixes.
+
+Что имеем? Functional/canon integration is green, but dependency security is a real RC blocker and is being closed in this iteration.
+
+Что осталось? Complete the scoped Composer refresh, require a green audit and full gate set, then commit the release/security closure.
+
+### Security remediation result
+- Updated affected Symfony packages and required transitive dependencies to patched releases within existing constraints; the lock now includes current Symfony 8.1 security-fixed versions.
+- Removed unintended `objecting/object` dev-master lock drift introduced by the first dependency resolution so this Attaching task does not silently advance a sibling component revision.
+- `composer audit`: PASS — no security vulnerability advisories found.
+- `composer validate --strict`: PASS.
+- `composer test`: PASS — 31 tests, 228 assertions.
+- `composer phpstan`: PASS — no errors.
+- `composer cs:check`: PASS — 0 of 92 files require fixes.
+
+Что имеем? Functional, canon, dependency-security and release-documentation contours are green; branch remains integration-ready with only the pre-existing untracked `.gating/` outside this task's owned changes.
+
+Что осталось? Commit this debt-closure batch. Iteration 5 should perform final acceptance/release review and decide publication/push according to the original Git policy.
