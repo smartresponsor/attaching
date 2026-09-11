@@ -40,10 +40,10 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->join('attachmentLink.attachment', 'attachment')
             ->where('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
-            ->andWhere('attachment.status != :deletedStatus')
+            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
-            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted->value)
             ->orderBy('attachmentLink.position', 'ASC')
             ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC');
 
@@ -75,11 +75,11 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->where('attachment.id = :attachmentId')
             ->andWhere('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
-            ->andWhere('attachment.status != :deletedStatus')
+            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
             ->setParameter('attachmentId', $attachmentId)
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
-            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted->value)
             ->setMaxResults(1);
 
         if (null !== $context) {
@@ -107,12 +107,12 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->andWhere('attachmentLink.context = :context')
             ->andWhere('attachmentLink.slot = :slot')
             ->andWhere('attachmentLink.isPrimary = true')
-            ->andWhere('attachment.status != :deletedStatus')
+            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
             ->setParameter('context', $context)
             ->setParameter('slot', $slot)
-            ->setParameter('deletedStatus', AttachmentStatus::Deleted)
+            ->setParameter('deletedStatus', AttachmentStatus::Deleted->value)
             ->orderBy('attachmentLink.position', 'ASC')
             ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'DESC')
             ->setMaxResults(1);

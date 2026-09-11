@@ -86,9 +86,9 @@ final readonly class AttachmentRepository implements AttachmentRepositoryInterfa
             ->select('attachment')
             ->from(Attachment::class, 'attachment')
             ->leftJoin(AttachmentLink::class, 'attachmentLink', 'WITH', 'attachmentLink.attachment = attachment')
-            ->where('attachment.status = :status')
+            ->where('attachment.objectState.objectStatus = :status')
             ->andWhere('attachmentLink.id IS NULL')
-            ->setParameter('status', AttachmentStatus::Deleted)
+            ->setParameter('status', AttachmentStatus::Deleted->value)
             ->orderBy('attachment.deletedAt', 'ASC');
 
         /** @var list<Attachment> $result */

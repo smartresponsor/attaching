@@ -52,9 +52,6 @@ class Attachment implements ObjectEntityInterface
     #[ORM\Column(enumType: AttachmentVisibility::class)]
     private AttachmentVisibility $visibility;
 
-    #[ORM\Column(enumType: AttachmentStatus::class)]
-    private AttachmentStatus $status;
-
     #[ORM\Column(length: 255)]
     private string $originalName;
 
@@ -128,7 +125,6 @@ class Attachment implements ObjectEntityInterface
         $this->documentKind = $documentKind;
         $this->storageKind = $storageKind;
         $this->visibility = $visibility;
-        $this->status = AttachmentStatus::Active;
         $this->originalName = $originalName;
         $this->storedName = $storedName;
         $this->extension = $extension;
@@ -186,7 +182,13 @@ class Attachment implements ObjectEntityInterface
 
     public function getStatus(): AttachmentStatus
     {
-        return $this->status;
+        $status = $this->getObjectStatus();
+
+        if (null === $status) {
+            throw new \LogicException('Attachment status is not initialized.');
+        }
+
+        return AttachmentStatus::from($status);
     }
 
     public function getOriginalName(): string
@@ -292,7 +294,6 @@ class Attachment implements ObjectEntityInterface
     public function markDeleted(): void
     {
         $now = new \DateTimeImmutable();
-        $this->status = AttachmentStatus::Deleted;
         $this->deletedAt = $now;
         $this->setObjectStatus(AttachmentStatus::Deleted->value);
         $this->setObjectActive(false);
@@ -306,7 +307,6 @@ class Attachment implements ObjectEntityInterface
 
     public function restore(): void
     {
-        $this->status = AttachmentStatus::Active;
         $this->deletedAt = null;
         $this->setObjectStatus(AttachmentStatus::Active->value);
         $this->setObjectActive(true);
