@@ -141,3 +141,19 @@ Iteration 2: implement the smallest coherent Attaching-only mapping repair that 
 Что имеем? Functional, canon, dependency-security and release-documentation contours are green; branch remains integration-ready with only the pre-existing untracked `.gating/` outside this task's owned changes.
 
 Что осталось? Commit this debt-closure batch. Iteration 5 should perform final acceptance/release review and decide publication/push according to the original Git policy.
+
+## 2026-09-11 — Iteration 5/5: final acceptance and publication
+
+### Final acceptance
+- Bounded RC validation is green: Composer validation, PHPStan, PHPUnit, and canon checks pass with zero blockers or warnings.
+- Dependency security remains green after remediation: the previous iteration's Composer audit reported no advisories.
+- Branch `refactor/canonical-attachment-tree-v2` is ahead of its configured upstream and behind by zero; the only dirty item is the pre-existing untracked `.gating/`, which is not part of this task's owned changes.
+- Existing PR #3 targets `master` from this branch and is mergeable at the Git level. Its historical GitHub Actions checks are failed, so remote merge must remain subject to the repository merge gate after the updated branch is pushed.
+- The full RC wrapper timed out once during final acceptance, but the bounded RC validator completed successfully and reproduces the required local validation contour.
+
+### Terminal state
+No further Attaching code, schema, documentation, dependency-security, or canon blockers were found within the execution budget. The task is ready for branch publication and PR re-evaluation.
+
+Что имеем? Пять итераций materially completed; all owned changes are committed and local acceptance is green.
+
+Что осталось? Push the current branch, inspect PR #3 against the new head, and merge only if the safe merge gate permits it.
