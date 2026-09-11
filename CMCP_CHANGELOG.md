@@ -147,7 +147,7 @@ Iteration 2: implement the smallest coherent Attaching-only mapping repair that 
 ### Final acceptance
 - Bounded RC validation is green: Composer validation, PHPStan, PHPUnit, and canon checks pass with zero blockers or warnings.
 - Dependency security remains green after remediation: the previous iteration's Composer audit reported no advisories.
-- Branch `refactor/canonical-attachment-tree-v2` is ahead of its configured upstream and behind by zero; the only dirty item is the pre-existing untracked `.gating/`, which is not part of this task's owned changes.
+- Branch `refactor/canonical-attachment-tree-v2` is ahead of its configured upstream and behind by zero. The pre-existing local `.gating/` execution-policy copy is now explicitly ignored via `/.gating/` so it cannot be accidentally staged and no longer leaves the repository permanently dirty.
 - Existing PR #3 targets `master` from this branch and is mergeable at the Git level. Its historical GitHub Actions checks are failed, so remote merge must remain subject to the repository merge gate after the updated branch is pushed.
 - The full RC wrapper timed out once during final acceptance, but the bounded RC validator completed successfully and reproduces the required local validation contour.
 
