@@ -4,7 +4,7 @@ Symfony-oriented attachment component for Smart Responsor.
 
 ## Current scope
 - package-oriented attachment and attachment-link business logic
-- inward-only persistence layer under `src/Entity/`
+- inward-only attachment persistence layer under `src/Entity/Persistence/Attachment/`
 - mirrored `Service/` and `ServiceInterface/`
 - local storage driver baseline
 - embedded test application under `tests/Application/` instead of standalone root app bootstrap

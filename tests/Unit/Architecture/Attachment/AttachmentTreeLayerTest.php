@@ -44,4 +44,18 @@ final class AttachmentTreeLayerTest extends TestCase
         self::assertDirectoryDoesNotExist(__DIR__.'/../../../../src/Exception/Runtime');
         self::assertFileDoesNotExist(__DIR__.'/../../../../src/Security/Attachment/Voter/AttachmentVoter.php');
     }
+
+    public function testIdentifierMigrationUsesCurrentObjectingPhysicalColumnNames(): void
+    {
+        $commandFile = __DIR__.'/../../../../src/Command/Maintenance/Attachment/MigrateAttachmentIdentifiersCommand.php';
+        $contents = file_get_contents($commandFile);
+
+        self::assertNotFalse($contents);
+        self::assertStringNotContainsString('object_uuid', $contents);
+        self::assertStringNotContainsString('object_status', $contents);
+        self::assertStringNotContainsString('object_created_at', $contents);
+        self::assertStringContainsString('uuid bytea NOT NULL UNIQUE', $contents);
+        self::assertStringContainsString('status varchar(64) NOT NULL', $contents);
+        self::assertStringContainsString('created_at timestamp(0) without time zone NOT NULL', $contents);
+    }
 }

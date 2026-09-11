@@ -85,3 +85,29 @@ Iteration 2: implement the smallest coherent Attaching-only mapping repair that 
 +Что имеем? Исходный duplicate-column fail устранён; runtime integration tests, static analysis, syntax and style gates are green.
 +
 +Что осталось? Commit this coherent repair, then iteration 3 should inspect the resulting state for schema/migration and canon/documentation tails, including stale prefixed Objecting column references, without modifying sibling repositories.
+
+## 2026-09-11 — Iteration 3/5: verification and fix
+
+### Verification findings
+- Read-only RC diagnostic reports `rc_diagnostic_green` with zero canon issues for the current runtime tree.
+- Manual executable-surface review found a false-green tail in `app:attachment:migrate-identifiers`: the PostgreSQL rebuild path still emitted legacy `object_*` Objecting columns and both `status` plus `object_status`.
+- Historical Doctrine migration files still document the earlier transition shape. They were not rewritten in this iteration because they are irreversible migration history; the active maintenance command is the executable path that could recreate the stale schema and therefore required correction.
+
+### Implemented fix
+- Updated `MigrateAttachmentIdentifiersCommand` to recreate current Objecting physical columns: `uuid`, `slug`, title fields, audit fields, `active`, `enabled`, and canonical `status`.
+- Removed duplicate `object_status` persistence from the rebuild SQL and aligned `status` length to Objecting's 64-character mapping.
+- Updated attachment-link audit columns in the same rebuild path to current unprefixed Objecting names.
+- Added a regression assertion in `AttachmentTreeLayerTest` preventing reintroduction of key `object_*` columns in the executable identifier migration.
+- Updated README persistence-path wording to the actual `src/Entity/Persistence/Attachment/` location.
+
+### Verification
+- Changed-file PHP lint: PASS (2/2 PHP files).
+- `composer validate --strict`: PASS.
+- `composer test`: PASS — 31 tests, 228 assertions.
+- `composer phpstan`: PASS — no errors.
+- `composer cs:check`: PASS — 0 of 92 files require fixes.
+- RC diagnostic: GREEN, zero canon issues.
+
+Что имеем? Runtime и destructive maintenance path теперь описывают одну и ту же текущую Objecting physical schema; README также синхронизирован с runtime tree.
+
+Что осталось? Создать отдельный coherent iteration-3 commit; iteration 4 затем закрывает integration/release tails и Git publication posture.
