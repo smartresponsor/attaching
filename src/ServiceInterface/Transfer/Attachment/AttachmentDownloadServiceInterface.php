@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Attaching\ServiceInterface\Transfer\Attachment;
+
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+interface AttachmentDownloadServiceInterface
+{
+    public function download(int $attachmentId): BinaryFileResponse|StreamedResponse;
+}

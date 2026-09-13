@@ -13,31 +13,34 @@ services:
       - '../../src/DependencyInjection/'
       - '../../src/Entity/'
 
-  App\Attaching\Contract\Attachment\AttachmentStorageInterface: '@App\Attaching\Service\Storage\LocalAttachmentStorage'
-  App\Attaching\Contract\Attachment\AttachmentPathGeneratorInterface: '@App\Attaching\Service\Attachment\AttachmentPathGenerator'
-  App\Attaching\Contract\Attachment\AttachmentChecksumGeneratorInterface: '@App\Attaching\Service\Attachment\AttachmentChecksumGenerator'
-  App\Attaching\Contract\Attachment\AttachmentMimeTypeGuesserInterface: '@App\Attaching\Service\Attachment\AttachmentMimeTypeGuesser'
+  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface: '@App\Attaching\Service\Storage\Attachment\LocalAttachmentStorage'
+  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentPathGeneratorInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentPathGenerator'
+  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentChecksumGeneratorInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentChecksumGenerator'
+  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentMimeTypeGuesserInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentMimeTypeGuesser'
 
-  App\Attaching\ServiceInterface\Attachment\AttachmentUploadServiceInterface: '@App\Attaching\Service\Attachment\AttachmentUploadService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentAttachServiceInterface: '@App\Attaching\Service\Attachment\AttachmentAttachService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentDetachServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDetachService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentListServiceInterface: '@App\Attaching\Service\Attachment\AttachmentListService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentDownloadServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDownloadService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentDeleteServiceInterface: '@App\Attaching\Service\Attachment\AttachmentDeleteService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentValidationServiceInterface: '@App\Attaching\Service\Attachment\AttachmentValidationService'
-  App\Attaching\ServiceInterface\Attachment\AttachmentOwnerPurgeServiceInterface:
-    alias: 'App\Attaching\Service\Attachment\AttachmentOwnerPurgeService'
+  App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentUploadServiceInterface: '@App\Attaching\Service\Transfer\Attachment\AttachmentUploadService'
+  App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface: '@App\Attaching\Service\Linking\Attachment\AttachmentAttachService'
+  App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDetachServiceInterface: '@App\Attaching\Service\Linking\Attachment\AttachmentDetachService'
+  App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface: '@App\Attaching\Service\Query\Attachment\AttachmentListService'
+  App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentDownloadServiceInterface: '@App\Attaching\Service\Transfer\Attachment\AttachmentDownloadService'
+  App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDeleteServiceInterface: '@App\Attaching\Service\Linking\Attachment\AttachmentDeleteService'
+  App\Attaching\ServiceInterface\Validation\Attachment\AttachmentValidationServiceInterface: '@App\Attaching\Service\Validation\Attachment\AttachmentValidationService'
+  App\Attaching\ServiceInterface\Linking\Attachment\AttachmentOwnerPurgeServiceInterface:
+    alias: 'App\Attaching\Service\Linking\Attachment\AttachmentOwnerPurgeService'
     public: true
-  App\Attaching\ServiceInterface\Attachment\AttachmentPrimaryLinkResolverServiceInterface:
-    alias: 'App\Attaching\Service\Attachment\AttachmentPrimaryLinkResolverService'
+  App\Attaching\ServiceInterface\Linking\Attachment\AttachmentPrimaryLinkResolverServiceInterface:
+    alias: 'App\Attaching\Service\Linking\Attachment\AttachmentPrimaryLinkResolverService'
     public: true
 
-  App\Attaching\Service\Storage\LocalAttachmentStorage:
+  App\Attaching\Service\Storage\Attachment\LocalAttachmentStorage:
     arguments:
       $rootPath: '%attachment.storage.local.root_path%'
 
-  App\Attaching\Service\Attachment\AttachmentValidationService:
+  App\Attaching\Service\Validation\Attachment\AttachmentValidationService:
     arguments:
       $maxFileSizeInBytes: '%attachment.upload.max_size%'
       $allowedMediaMimeTypes: '%attachment.upload.allowed_media_mime_types%'
       $allowedDocumentMimeTypes: '%attachment.upload.allowed_document_mime_types%'
+
+  App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository'
+  App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository'

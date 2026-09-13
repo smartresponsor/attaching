@@ -12,3 +12,8 @@ doctrine:
             dir: '%kernel.project_dir%/src/Entity'
             prefix: 'App\Attaching\Entity'
             is_bundle: false
+          ObjectingEmbeddable:
+            type: attribute
+            dir: '%kernel.project_dir%/vendor/objecting/object/src/Embeddable'
+            prefix: 'App\Objecting\Embeddable'
+            is_bundle: false

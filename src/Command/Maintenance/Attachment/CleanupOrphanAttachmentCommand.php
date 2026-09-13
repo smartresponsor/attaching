@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Attaching\Command\Maintenance\Attachment;
+
+use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
+use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
+#[AsCommand(name: 'app:attachment:cleanup-orphan', description: 'Remove deleted attachment record that no longer has owner link.')]
+final class CleanupOrphanAttachmentCommand extends Command
+{
+    public function __construct(
+        private readonly AttachmentRepositoryInterface $attachmentRepository,
+        private readonly AttachmentStorageInterface $attachmentStorage,
+    ) {
+        parent::__construct();
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $io = new SymfonyStyle($input, $output);
+        $deletedAttachments = $this->attachmentRepository->findDeletedWithoutLinks();
+
+        foreach ($deletedAttachments as $attachment) {
+            if ($this->attachmentStorage->exists($attachment->getStoragePath())) {
+                $this->attachmentStorage->delete($attachment->getStoragePath());
+            }
+
+            $this->attachmentRepository->remove($attachment);
+        }
+
+        $io->success(sprintf('Cleaned %d orphan attachment(s).', count($deletedAttachments)));
+
+        return Command::SUCCESS;
+    }
+}

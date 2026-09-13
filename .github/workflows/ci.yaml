@@ -7,17 +7,24 @@ on:
 jobs:
   qa:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://attaching:attaching@127.0.0.1:5432/attaching_ci?serverVersion=16&charset=utf8
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Start PostgreSQL
+        run: |
+          docker run --name attaching-postgres -e POSTGRES_DB=attaching_ci -e POSTGRES_USER=attaching -e POSTGRES_PASSWORD=attaching -p 5432:5432 -d postgres:16
+          until docker exec attaching-postgres pg_isready -U attaching -d attaching_ci; do sleep 1; done
 
       - name: Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           coverage: none
-          extensions: fileinfo, dom, mbstring, xml, xmlwriter, pdo_sqlite
+          extensions: fileinfo, dom, mbstring, xml, xmlwriter, pdo_sqlite, pdo_pgsql
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -40,6 +47,9 @@ jobs:
 
       - name: Run PHPUnit
         run: composer test -- --no-coverage
+
+      - name: Verify Doctrine schema parity
+        run: composer schema:parity
 
       - name: Run CS check
         run: composer cs:check -- --using-cache=no
