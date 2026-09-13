@@ -157,3 +157,65 @@ No further Attaching code, schema, documentation, dependency-security, or canon 
 Что имеем? Пять итераций materially completed; all owned changes are committed and local acceptance is green.
 
 Что осталось? Push the current branch, inspect PR #3 against the new head, and merge only if the safe merge gate permits it.
+
+## 2026-09-13 — Iteration 1/5: reconnaissance and canonical baseline
+
+### Scope and repository state
+- Write boundary remains `Attaching` only (`D:\PhpstormProjects\www\attaching`); sibling repositories are read-only contract sources.
+- Branch at baseline: `refactor/canonical-attachment-tree-v2`; worktree was clean before this run.
+- The previous 2026-09-11 RC wave is preserved as historical evidence but was not assumed current without verification.
+- Current repository is a dual-mode Symfony component because it exposes `bin/console`, `config/bundles.php`, and `App\Attaching\AttachingBundle`.
+
+### Material read surface
+- Attaching: `AGENTS.md`, `README.md`, `composer.json`, prior `CMCP_CHANGELOG.md`, standalone bundle/configuration surfaces, component service/route exports, PHPUnit/PHPStan/PHP-CS-Fixer configuration, CI, release and integration documentation, and RC inventory/diagnostic output.
+- Canonization: normative architecture rules Canon004, Canon005, Canon007, Canon008, Canon010, Canon017, Canon018, Canon019, Canon020, Canon021, Canon022, Canon023, Canon024, Canon025, Canon026, Canon029, Canon030, Canon031, Canon032, Canon033, Canon037, Canon039, and Canon040 plus the architecture guard matrix.
+- Gating: repository responsibility and package contract; treated as executable enforcement companion rather than the normative source.
+- Runtime dependency contour: Objecting, Cruding, Collectioning, Tabling, Viewing, and Interfacing package identities, responsibilities, bundle surfaces, and current Composer contracts were inspected. Objecting system-field ownership remains authoritative for lifecycle/system fields.
+- A bounded RC diagnostic reported green with zero canon findings, but direct comparison with current textual Canonization revealed missing hard requirements; this run therefore treats that diagnostic as incomplete rather than authoritative.
+
+### Target-to-canon mapping
+- Canon004/005/007/018/019/020: retain role-first `App\Attaching\` topology and literal PSR-4 identity; do not introduce alternative layer taxonomies or ceremonial subject folders.
+- Canon008/022: standalone Attaching must declare direct runtime dependencies on `cruding/crud`, `collectioning/collection`, `tabling/table`, `viewing/view`, `interfacing/interface`, `objecting/object`, and `easycorp/easyadmin-bundle`.
+- Canon021: attachment-specific upload/download/attach/detach operations stay component-owned; no generic CRUD engine is to be introduced locally.
+- Canon023: development SmartResponsor dependencies use sibling Composer path repositories with `symlink: true`.
+- Canon024/033: add a path-independent `composer.prod.json` that preserves package/type/PSR-4/PHP/Symfony identity parity with development.
+- Canon025/032: preserve both standalone and reusable-bundle execution; verify standalone bundle registration after dependency wiring changes.
+- Canon026: raise the Symfony platform floor from `^8.0` to `^8.1` while keeping PHP `^8.4`.
+- Canon029/039/040: existing PHPStan, PHP-CS-Fixer and PHPUnit surfaces are present; coverage execution/evidence requires explicit closure because the current Composer scripts expose no persistent branch-coverage summary.
+- Canon030: because Attaching owns Doctrine entities and migrations, an executable isolated schema-parity contract is required; current scripts do not yet expose one.
+- Canon037: tracked `config/reference.php` is prohibited generated source and must be untracked/ignored rather than maintained as authoritative configuration.
+- Canon010/017: all package/config/test/docs surfaces changed by this migration must remain synchronized.
+
+### Market / maturity opening mixin
+- Mature attachment systems baseline secure server-side validation, content-aware MIME handling, storage outside the public webroot or on a separate storage host, lifecycle-safe deletion, and reliable download authorization.
+- Advanced enterprise maturity commonly adds object storage, pre-signed/direct upload paths, malware/quarantine scanning, asynchronous processing, derivatives/conversions, and richer metadata/collection policies.
+- These advanced capabilities remain a separate growth track and do not block this RC unless a concrete current correctness or safety defect requires them.
+
+### RC-critical workstream selected
+Close the current Canonization packaging/runtime-contract drift without changing Attaching business responsibility: align development and production Composer manifests, direct platform dependencies, Symfony 8.1 baseline, standalone bundle/runtime registration, generated-artifact policy, test tooling evidence, and Doctrine schema-parity execution. Then run the complete affected validation surface.
+
+### Growth workstream (non-blocking for RC)
+- Flysystem/object-storage driver support and provider-neutral storage configuration.
+- Direct/pre-signed uploads where appropriate.
+- Malware scanning/quarantine and asynchronous post-upload processing.
+- Derivatives/conversions, richer metadata, and UX/API improvements after the canonical RC baseline is green.
+
+### Risks and safeguards
+- Do not modify dirty sibling worktrees such as Objecting; only consume their published/local package contracts.
+- Avoid dependency lock drift beyond the explicitly required baseline packages and Symfony 8.1 contour.
+- Do not register helper bundles speculatively; registration must follow actual standalone runtime needs and bundle contracts.
+- Generated artifacts are removed from tracking only after confirming Canon037 and ignore coverage.
+
+### Material implementation started
+- `composer.json` now declares the current Canon022 baseline packages directly, raises Symfony constraints to `^8.1`, uses local path/symlink repositories for the six SmartResponsor sibling dependencies, and enables development stability needed for local branch packages.
+
+### Gates planned
+- Composer validation and dependency resolution/audit.
+- PHP syntax, PHPStan, PHPUnit and CS check.
+- Symfony container/YAML/runtime boot validation.
+- Doctrine mapping and isolated schema/migration parity where the repository can execute it safely.
+- Current textual Canonization/Gating review plus final bounded RC validation.
+
+Что имеем? Current textual canon has been mapped explicitly and the first package-contract repair is already materialized in the development manifest; the earlier green RC diagnostic is known to be false-green for newly materialized canon rules.
+
+Что осталось? Complete the production manifest, runtime/bundle and hard-canon tails, update the lock safely, verify the executable repository state, then commit/publish/integrate only from a fully green result.

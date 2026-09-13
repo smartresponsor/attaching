@@ -6,24 +6,32 @@
   "require": {
     "php": "^8.4",
     "ext-fileinfo": "*",
+    "collectioning/collection": "dev-main || dev-master",
+    "cruding/crud": "dev-tabling-action-boundary-refactor-v2 || dev-main || dev-master",
     "doctrine/dbal": "^4.3",
     "doctrine/orm": "^3.3",
     "doctrine/doctrine-bundle": "^3.2",
-    "symfony/config": "^8.0",
-    "symfony/console": "^8.0",
-    "symfony/dependency-injection": "^8.0",
-    "symfony/filesystem": "^8.0",
-    "symfony/form": "^8.0",
-    "symfony/framework-bundle": "^8.0",
-    "symfony/http-foundation": "^8.0",
-    "symfony/http-kernel": "^8.0",
-    "symfony/mime": "^8.0",
-    "symfony/routing": "^8.0",
-    "symfony/security-bundle": "^8.0",
-    "symfony/serializer": "^8.0",
-    "symfony/validator": "^8.0",
-    "symfony/yaml": "^8.0",
-    "objecting/object": "dev-master"
+    "doctrine/doctrine-migrations-bundle": "^4.0",
+    "easycorp/easyadmin-bundle": "^5.0",
+    "interfacing/interface": "dev-main || dev-master",
+    "objecting/object": "dev-release/objecting-field-pack-normalization-20260910 || dev-main || dev-master",
+    "symfony/config": "^8.1",
+    "symfony/console": "^8.1",
+    "symfony/dependency-injection": "^8.1",
+    "symfony/event-dispatcher": "^8.1",
+    "symfony/filesystem": "^8.1",
+    "symfony/form": "^8.1",
+    "symfony/framework-bundle": "^8.1",
+    "symfony/http-foundation": "^8.1",
+    "symfony/http-kernel": "^8.1",
+    "symfony/mime": "^8.1",
+    "symfony/routing": "^8.1",
+    "symfony/security-bundle": "^8.1",
+    "symfony/serializer": "^8.1",
+    "symfony/validator": "^8.1",
+    "symfony/yaml": "^8.1",
+    "tabling/table": "dev-backend-table-actions || dev-backend-table-metadata || dev-initial-platform-primitive || dev-main || dev-master",
+    "viewing/view": "dev-rc/viewing-master-sync-20260911 || dev-main || dev-master"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^4.3",
@@ -31,8 +39,8 @@
     "friendsofphp/php-cs-fixer": "^3.75",
     "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^11.5",
-    "symfony/browser-kit": "^8.0",
-    "symfony/css-selector": "^8.0"
+    "symfony/browser-kit": "^8.1",
+    "symfony/css-selector": "^8.1"
   },
   "autoload": {
     "psr-4": {
@@ -49,16 +57,55 @@
     "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
     "cs:fix": "php-cs-fixer fix --verbose",
     "phpstan": "phpstan analyse",
-    "test": "phpunit"
+    "test": "phpunit",
+    "test:diagnose": "phpunit --stop-on-error --display-errors",
+    "test:coverage": "php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text=var/coverage/summary.txt"
   },
   "repositories": [
+    {
+      "type": "path",
+      "url": "../Collectioning",
+      "options": {
+        "symlink": true
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Cruding",
+      "options": {
+        "symlink": true
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Interfacing",
+      "options": {
+        "symlink": true
+      }
+    },
     {
       "type": "path",
       "url": "../Objecting",
       "options": {
         "symlink": true
       }
+    },
+    {
+      "type": "path",
+      "url": "../Tabling",
+      "options": {
+        "symlink": true
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Viewing",
+      "options": {
+        "symlink": true
+      }
     }
-  ]
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
 
