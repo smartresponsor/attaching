@@ -20,6 +20,13 @@ final class Version20260819170000 extends AbstractMigration
     {
         $this->abortIf(!$this->connection->getDatabasePlatform() instanceof PostgreSQLPlatform, 'Attaching production schema requires PostgreSQL.');
 
+        $attachment = $schema->getTable('attachment');
+        $attachmentLink = $schema->getTable('attachment_link');
+
+        if (!$attachment->hasColumn('updated_at') && !$attachmentLink->hasColumn('updated_at')) {
+            return;
+        }
+
         foreach (['attachment', 'attachment_link'] as $tableName) {
             $this->abortIf(!$schema->hasTable($tableName), sprintf('%s table is required.', $tableName));
             $table = $schema->getTable($tableName);

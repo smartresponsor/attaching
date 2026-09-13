@@ -7,6 +7,22 @@ on:
 jobs:
   qa:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: attaching_ci
+          POSTGRES_USER: attaching
+          POSTGRES_PASSWORD: attaching
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U attaching -d attaching_ci"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      DATABASE_URL: postgresql://attaching:attaching@127.0.0.1:5432/attaching_ci?serverVersion=17&charset=utf8
 
     steps:
       - name: Checkout
@@ -17,7 +33,7 @@ jobs:
         with:
           php-version: '8.4'
           coverage: none
-          extensions: fileinfo, dom, mbstring, xml, xmlwriter, pdo_sqlite
+          extensions: fileinfo, dom, mbstring, xml, xmlwriter, pdo_sqlite, pdo_pgsql
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -40,6 +56,9 @@ jobs:
 
       - name: Run PHPUnit
         run: composer test -- --no-coverage
+
+      - name: Verify Doctrine schema parity
+        run: composer schema:parity
 
       - name: Run CS check
         run: composer cs:check -- --using-cache=no

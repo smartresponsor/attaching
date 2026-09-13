@@ -219,3 +219,84 @@ Close the current Canonization packaging/runtime-contract drift without changing
 Что имеем? Current textual canon has been mapped explicitly and the first package-contract repair is already materialized in the development manifest; the earlier green RC diagnostic is known to be false-green for newly materialized canon rules.
 
 Что осталось? Complete the production manifest, runtime/bundle and hard-canon tails, update the lock safely, verify the executable repository state, then commit/publish/integrate only from a fully green result.
+
+## 2026-09-13 — Iteration 2/5: material implementation
+
+### Implemented
+- Aligned development and production Composer contracts to the current Canon022/023/024/026 dependency and Symfony 8.1 baseline.
+- Added the direct `symfony/event-dispatcher` runtime dependency and explicitly registered Symfony 8.1 `ServicesBundle` in the standalone and embedded-test bundle maps; this closes the manual `registerBundles()` gap exposed by FrameworkBundle's `RequiredBundle` contract.
+- Untracked generated `config/reference.php` while preserving the local generated file under ignore policy.
+- Added persistent PHPUnit path/branch coverage configuration and a stable `test:coverage` artifact at `var/coverage-summary.txt`.
+- Added Doctrine Migrations Bundle, an overrideable `DATABASE_URL`, migration namespace configuration, and a clean-install PostgreSQL baseline migration.
+
+### Verification
+- PHPUnit after the ServicesBundle repair: PASS — 31 tests, 228 assertions at the repair checkpoint.
+- PHPStan: PASS.
+- CS check: PASS.
+- `debug:container event_dispatcher`: PASS; the Symfony 8.1 dispatcher service is now present.
+
+Что имеем? Symfony 8.1 standalone/test runtime is functional and the hard package/runtime canon gaps are materially closed.
+
+Что осталось? Close Canon030 migration-chain parity and verify the complete resulting state rather than relying on the previous false-green RC wrapper.
+
+## 2026-09-13 — Iteration 3/5: verification and fix
+
+### Canon030 findings and repair
+- Existing migrations could not reproduce current metadata from an empty database: the first historical migration required pre-existing attachment tables, and historical Objecting adoption used stale `object_*` and snake_case physical columns.
+- Added `Version20260818000000` as an idempotent clean-install PostgreSQL baseline matching current Doctrine physical metadata.
+- Hardened the two historical migrations so they become no-ops when the canonical baseline is already present.
+- Added `Version20260913000000` to converge legacy snake_case and `object_*` deployments to the current physical schema.
+- Updated `MigrateAttachmentIdentifiersCommand` so its destructive rebuild path emits the same current Doctrine physical columns, indexes, FK identity, nullable status, and camelCase business-column names instead of recreating drift.
+- Updated the architecture regression test to assert the current maintenance-command DDL contract.
+
+### Executable schema-parity contract
+- Added Composer `schema:parity`: full migration chain, `doctrine:migrations:up-to-date`, then `doctrine:schema:validate`.
+- Added disposable PostgreSQL 17 service and `pdo_pgsql` to CI; the CI job now executes `composer schema:parity`.
+- Fixed the Doctrine Migrations YAML namespace after executable discovery exposed doubled literal backslashes; `doctrine:migrations:list` now sees all four migrations.
+- Local PostgreSQL is not configured in this workspace, so production migration execution is intentionally delegated to the new disposable PostgreSQL CI contract rather than falsely proven against SQLite.
+- Local `doctrine:schema:validate`: mapping PASS; existing local SQLite schema remains out of sync, as expected for a non-disposable pre-existing database.
+
+### Verification
+- Changed PHP lint: PASS — 8/8.
+- Composer strict/check-lock: PASS.
+- PHPUnit: PASS — 31 tests, 231 assertions.
+- PHPStan: PASS — 0 errors.
+- CS check: PASS — 0 of 92 files require fixes.
+- Composer audit: PASS — no advisories.
+
+Что имеем? Migration discovery, current metadata, maintenance DDL and CI schema-parity execution now describe one canonical schema model.
+
+Что осталось? Measure final coverage, run bounded RC validation, record debt correctly, then integrate only if the repository gate is otherwise green.
+
+## 2026-09-13 — Iteration 4/5: debt closure and integration readiness
+
+### Coverage and RC evidence
+- `test:coverage`: PASS with Xdebug 3.5.1 and persistent summary.
+- Final measured coverage: lines 67.32%, methods 56.94%, branches 71.31%, paths 29.90%.
+- Canon040 target 80/80/70 is not fully reached; branches exceed target while line/method coverage remains measured debt. The result is above the HIGH_TEST_DEBT floor and is recorded as non-hard remediation debt rather than hidden or misreported as target attainment.
+- Bounded RC validator: Composer validation PASS, PHPStan PASS, PHPUnit PASS, coverage execution PASS, canon issue count 0. The only readiness blocker is the expected dirty-worktree state before integration.
+
+### Integration posture
+- Branch `refactor/canonical-attachment-tree-v2` tracks `origin/refactor/canonical-attachment-tree-v2`, ahead by one and behind by zero before the final commit.
+- One earlier signed helper commit `2ace4c7` has an undesirably temporary message `tmp`; no amend capability is exposed by Console MCP, so history is not destructively rewritten. The final coherent commit will carry the meaningful RC closure and the handoff records this hygiene tail explicitly.
+
+Что имеем? All locally executable RC gates are green; remaining readiness blocker is only uncommitted owned work. Coverage shortfall is explicit measured debt, not a hidden blocker.
+
+Что осталось? Commit the owned closure batch, push, inspect PR checks/mergeability against the new head, and merge only if the remote safe-merge gate is green.
+
+## 2026-09-13 — Iteration 5/5: final acceptance and handoff
+
+### Acceptance before publication
+- Composer strict/check-lock: PASS.
+- PHP syntax: PASS for all changed/untracked PHP files.
+- PHPUnit: PASS — 31 tests, 231 assertions.
+- PHPStan: PASS — no errors.
+- PHP-CS-Fixer check: PASS — 0/92 files require fixes.
+- Composer audit: PASS — no security advisories.
+- Doctrine migrations are registered and discoverable: four versions listed.
+- Doctrine mapping validation: PASS; disposable PostgreSQL full-chain parity is materialized as a CI gate because no local PostgreSQL alias/DATABASE_URL is available.
+- RC validator: zero canon issues and zero executable validation failures; only pre-commit dirty state blocks readiness.
+
+Что имеем? Attaching is locally acceptance-green with an executable production schema-parity contract and explicit coverage debt accounting.
+
+Что осталось? Publish the final signed commit and re-evaluate the existing remote PR at its new head; do not claim remote merge completion until checks and safe-merge inspection confirm it.

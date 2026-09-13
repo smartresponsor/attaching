@@ -23,6 +23,11 @@ final class Version20260819054000 extends AbstractMigration
         $this->abortIf(!$schema->hasTable('attachment_link'), 'Attachment link table is required before Objecting adoption.');
 
         $attachment = $schema->getTable('attachment');
+        $link = $schema->getTable('attachment_link');
+
+        if ($attachment->hasColumn('uuid') && $attachment->hasColumn('slug') && $link->hasColumn('created_at') && !$attachment->hasColumn('object_uuid')) {
+            return;
+        }
         foreach ([
             'object_uuid' => 'BYTEA DEFAULT NULL',
             'object_slug' => 'VARCHAR(190) DEFAULT NULL',
