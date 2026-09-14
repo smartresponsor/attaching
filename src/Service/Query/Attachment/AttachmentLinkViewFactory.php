@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Query\Attachment;
 
-use App\Attaching\Dto\Output\Attachment\AttachmentLinkView;
+use App\Attaching\DTO\Output\Attachment\AttachmentLinkViewDTO;
 use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
 
 final class AttachmentLinkViewFactory
 {
-    public function create(AttachmentLink $attachmentLink): AttachmentLinkView
+    public function create(AttachmentLink $attachmentLink): AttachmentLinkViewDTO
     {
-        return new AttachmentLinkView(
+        return new AttachmentLinkViewDTO(
             id: $attachmentLink->getId(),
             attachmentId: $attachmentLink->getAttachment()->getId(),
             ownerType: $attachmentLink->getOwnerType(),

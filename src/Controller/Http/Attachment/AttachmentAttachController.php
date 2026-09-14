@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Controller\Http\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\AttachAttachmentInput;
+use App\Attaching\DTO\Input\Attachment\AttachmentAttachInputDTO;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachment/attach', name: 'attachment_attach', methods: ['POST'])]
-final readonly class AttachAttachmentController
+final readonly class AttachmentAttachController
 {
     public function __construct(private AttachmentAttachServiceInterface $attachmentAttachService)
     {
@@ -20,7 +20,7 @@ final readonly class AttachAttachmentController
 
     public function __invoke(Request $request): JsonResponse
     {
-        $view = $this->attachmentAttachService->attach(new AttachAttachmentInput(
+        $view = $this->attachmentAttachService->attach(new AttachmentAttachInputDTO(
             attachmentId: (int) $request->request->get('attachmentId', 0),
             ownerType: (string) $request->request->get('ownerType', ''),
             ownerId: (string) $request->request->get('ownerId', ''),

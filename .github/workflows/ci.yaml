@@ -11,8 +11,106 @@ jobs:
       DATABASE_URL: postgresql://attaching:attaching@127.0.0.1:5432/attaching_ci?serverVersion=16&charset=utf8
 
     steps:
-      - name: Checkout
+      - name: Check Automater credentials
+        id: creds
+        shell: bash
+        env:
+          APP_ID: ${{ vars.AUTOMATER_APP_ID }}
+          PEM: ${{ secrets.AUTOMATER_APP_PRIVATE_KEY }}
+          B64: ${{ secrets.AUTOMATER_APP_PRIVATE_KEY_B64 }}
+        run: |
+          if [ -z "$APP_ID" ] || { [ -z "$PEM" ] && [ -z "$B64" ]; }; then
+            echo "Attaching CI requires AUTOMATER_APP_ID and an Automater private key for sibling repository checkout." >&2
+            exit 1
+          fi
+
+      - name: Normalize GitHub App private key
+        id: app-key
+        shell: pwsh
+        env:
+          PEM: ${{ secrets.AUTOMATER_APP_PRIVATE_KEY }}
+          B64: ${{ secrets.AUTOMATER_APP_PRIVATE_KEY_B64 }}
+        run: |
+          $key = $env:PEM
+          if ([string]::IsNullOrWhiteSpace($key) -and -not [string]::IsNullOrWhiteSpace($env:B64)) {
+            $key = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($env:B64))
+          }
+          if ([string]::IsNullOrWhiteSpace($key)) {
+            throw "AUTOMATER_APP_PRIVATE_KEY is empty (and AUTOMATER_APP_PRIVATE_KEY_B64 is empty)."
+          }
+          if ($key.StartsWith('"') -and $key.EndsWith('"')) { $key = $key.Trim('"') }
+          $key = $key -replace "`r",""
+          $key = $key -replace "\\n","`n"
+          if ($key -notmatch "BEGIN (RSA )?PRIVATE KEY") {
+            throw "Private key does not look like PEM."
+          }
+          "private-key<<EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          $key | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Create scoped GitHub App token
+        id: app
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.AUTOMATER_APP_ID }}
+          private-key: ${{ steps.app-key.outputs.private-key }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            attaching
+            collectioning
+            cruding
+            interfacing
+            objecting
+            tabling
+            viewing
+
+      - name: Checkout Attaching
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app.outputs.token }}
+          path: Attaching
+
+      - name: Checkout Collectioning
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/collectioning
+          token: ${{ steps.app.outputs.token }}
+          path: Collectioning
+
+      - name: Checkout Cruding
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/cruding
+          token: ${{ steps.app.outputs.token }}
+          path: Cruding
+
+      - name: Checkout Interfacing
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/interfacing
+          token: ${{ steps.app.outputs.token }}
+          path: Interfacing
+
+      - name: Checkout Objecting
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/objecting
+          token: ${{ steps.app.outputs.token }}
+          path: Objecting
+
+      - name: Checkout Tabling
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/tabling
+          token: ${{ steps.app.outputs.token }}
+          path: Tabling
+
+      - name: Checkout Viewing
+        uses: actions/checkout@v4
+        with:
+          repository: smartresponsor/viewing
+          token: ${{ steps.app.outputs.token }}
+          path: Viewing
 
       - name: Start PostgreSQL
         run: |
@@ -31,25 +129,31 @@ jobs:
         with:
           path: |
             ~/.composer/cache/files
-            vendor
-          key: ${{ runner.os }}-php-8.4-${{ hashFiles('composer.lock') }}
+            Attaching/vendor
+          key: ${{ runner.os }}-php-8.4-${{ hashFiles('Attaching/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-8.4-
 
       - name: Validate composer.json
+        working-directory: Attaching
         run: composer validate --strict
 
       - name: Install dependencies
+        working-directory: Attaching
         run: composer install --no-interaction --prefer-dist
 
       - name: Run PHPStan
+        working-directory: Attaching
         run: composer phpstan -- --no-progress
 
       - name: Run PHPUnit
+        working-directory: Attaching
         run: composer test -- --no-coverage
 
       - name: Verify Doctrine schema parity
+        working-directory: Attaching
         run: composer schema:parity
 
       - name: Run CS check
+        working-directory: Attaching
         run: composer cs:check -- --using-cache=no

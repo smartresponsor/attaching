@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class MarketplaceAttachmentFixture extends Fixture implements FixtureGroupInterface
+final class AttachmentMarketplaceFixture extends Fixture implements FixtureGroupInterface
 {
     public function __construct(private readonly Filesystem $filesystem = new Filesystem())
     {

@@ -20,7 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'app:attachment:bootstrap-runtime',
     description: 'Rebuild the standalone Attaching runtime schema from entities and load demo attachment fixtures.'
 )]
-final class BootstrapAttachmentRuntimeCommand extends Command
+final class AttachmentBootstrapRuntimeCommand extends Command
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {

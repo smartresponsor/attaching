@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Query\Attachment;
 
-use App\Attaching\Dto\Output\Attachment\AttachmentView;
+use App\Attaching\DTO\Output\Attachment\AttachmentViewDTO;
 use App\Attaching\Entity\Persistence\Attachment\Attachment;
 
 final class AttachmentViewFactory
@@ -16,8 +16,8 @@ final class AttachmentViewFactory
         ?string $slot = null,
         bool $isPrimary = false,
         int $position = 0,
-    ): AttachmentView {
-        return new AttachmentView(
+    ): AttachmentViewDTO {
+        return new AttachmentViewDTO(
             id: $attachment->getId(),
             type: $attachment->getType(),
             mediaKind: $attachment->getMediaKind(),

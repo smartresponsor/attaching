@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Output\Attachment;
+namespace App\Attaching\DTO\Output\Attachment;
 
-final readonly class AttachmentListView
+final readonly class AttachmentListViewDTO
 {
     /**
-     * @param list<AttachmentView> $items
+     * @param list<AttachmentViewDTO> $items
      */
     public function __construct(
         public string $ownerType,

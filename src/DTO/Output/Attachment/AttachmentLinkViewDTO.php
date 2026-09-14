@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Output\Attachment;
+namespace App\Attaching\DTO\Output\Attachment;
 
-final readonly class AttachmentLinkView
+final readonly class AttachmentLinkViewDTO
 {
     public function __construct(
         public int $id,

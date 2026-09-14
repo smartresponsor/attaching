@@ -6,15 +6,15 @@
   "require": {
     "php": "^8.4",
     "ext-fileinfo": "*",
-    "collectioning/collection": "dev-main || dev-master",
-    "cruding/crud": "dev-tabling-action-boundary-refactor-v2 || dev-main || dev-master",
+    "collectioning/collection": "dev-master",
+    "cruding/crud": "dev-master",
     "doctrine/dbal": "^4.3",
     "doctrine/orm": "^3.3",
     "doctrine/doctrine-bundle": "^3.2",
     "doctrine/doctrine-migrations-bundle": "^4.0",
     "easycorp/easyadmin-bundle": "^5.0",
-    "interfacing/interface": "dev-main || dev-master",
-    "objecting/object": "dev-release/objecting-field-pack-normalization-20260910 || dev-main || dev-master",
+    "interfacing/interface": "dev-master",
+    "objecting/object": "dev-master",
     "symfony/config": "^8.1",
     "symfony/console": "^8.1",
     "symfony/dependency-injection": "^8.1",
@@ -30,8 +30,8 @@
     "symfony/serializer": "^8.1",
     "symfony/validator": "^8.1",
     "symfony/yaml": "^8.1",
-    "tabling/table": "dev-backend-table-actions || dev-backend-table-metadata || dev-initial-platform-primitive || dev-main || dev-master",
-    "viewing/view": "dev-rc/viewing-master-sync-20260911 || dev-main || dev-master"
+    "tabling/table": "dev-master",
+    "viewing/view": "dev-master"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^4.3",
@@ -70,42 +70,60 @@
       "type": "path",
       "url": "../Collectioning",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "collectioning/collection": "dev-master"
+        }
       }
     },
     {
       "type": "path",
       "url": "../Cruding",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "cruding/crud": "dev-master"
+        }
       }
     },
     {
       "type": "path",
       "url": "../Interfacing",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "interfacing/interface": "dev-master"
+        }
       }
     },
     {
       "type": "path",
       "url": "../Objecting",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "objecting/object": "dev-master"
+        }
       }
     },
     {
       "type": "path",
       "url": "../Tabling",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "tabling/table": "dev-master"
+        }
       }
     },
     {
       "type": "path",
       "url": "../Viewing",
       "options": {
-        "symlink": true
+        "symlink": true,
+        "versions": {
+          "viewing/view": "dev-master"
+        }
       }
     }
   ],

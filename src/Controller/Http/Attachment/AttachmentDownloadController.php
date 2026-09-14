@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
     methods: ['GET'],
     priority: 100,
 )]
-final readonly class DownloadAttachmentController
+final readonly class AttachmentDownloadController
 {
     public function __construct(private AttachmentDownloadServiceInterface $attachmentDownloadService)
     {

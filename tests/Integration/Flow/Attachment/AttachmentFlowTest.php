@@ -6,7 +6,7 @@ namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
-use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
+use App\Attaching\DTO\Input\Attachment\AttachmentListInputDTO;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDeleteServiceInterface;
 use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
 use App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentDownloadServiceInterface;
@@ -29,7 +29,7 @@ final class AttachmentFlowTest extends DoctrineIntegrationTestCase
         self::assertInstanceOf(AttachmentDownloadServiceInterface::class, $downloadService);
         self::assertInstanceOf(AttachmentDeleteServiceInterface::class, $deleteService);
 
-        $before = $listService->list(new ListAttachmentInput(
+        $before = $listService->list(new AttachmentListInputDTO(
             ownerType: 'message',
             ownerId: 'msg-fixture-1',
             context: 'message',
@@ -44,7 +44,7 @@ final class AttachmentFlowTest extends DoctrineIntegrationTestCase
 
         $deleteService->delete($attachmentId);
 
-        $after = $listService->list(new ListAttachmentInput(
+        $after = $listService->list(new AttachmentListInputDTO(
             ownerType: 'message',
             ownerId: 'msg-fixture-1',
             context: 'message',

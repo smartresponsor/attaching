@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Linking\Attachment;
 
-use App\Attaching\Dto\Output\Attachment\AttachmentPrimaryLinkView;
-use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
+use App\Attaching\DTO\Output\Attachment\AttachmentPrimaryLinkViewDTO;
+use App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentLinkRepositoryInterface;
 use App\Attaching\Service\Query\Attachment\AttachmentLinkViewFactory;
 use App\Attaching\Service\Query\Attachment\AttachmentViewFactory;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentPrimaryLinkResolverServiceInterface;
@@ -22,7 +22,7 @@ final readonly class AttachmentPrimaryLinkResolverService implements AttachmentP
     ) {
     }
 
-    public function resolvePrimary(string $ownerType, string $ownerId, string $context, string $slot): ?AttachmentPrimaryLinkView
+    public function resolvePrimary(string $ownerType, string $ownerId, string $context, string $slot): ?AttachmentPrimaryLinkViewDTO
     {
         $attachmentLink = $this->attachmentLinkRepository->findPrimaryForOwnerSlot($ownerType, $ownerId, $context, $slot);
 
@@ -32,7 +32,7 @@ final readonly class AttachmentPrimaryLinkResolverService implements AttachmentP
 
         $attachment = $attachmentLink->getAttachment();
 
-        return new AttachmentPrimaryLinkView(
+        return new AttachmentPrimaryLinkViewDTO(
             link: $this->attachmentLinkViewFactory->create($attachmentLink),
             attachment: $this->attachmentViewFactory->create(
                 $attachment,

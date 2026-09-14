@@ -47,7 +47,7 @@ final class AttachmentTreeLayerTest extends TestCase
 
     public function testIdentifierMigrationUsesCurrentObjectingPhysicalColumnNames(): void
     {
-        $commandFile = __DIR__.'/../../../../src/Command/Maintenance/Attachment/MigrateAttachmentIdentifiersCommand.php';
+        $commandFile = __DIR__.'/../../../../src/Command/Maintenance/Attachment/AttachmentMigrateIdentifiersCommand.php';
         $contents = file_get_contents($commandFile);
 
         self::assertNotFalse($contents);

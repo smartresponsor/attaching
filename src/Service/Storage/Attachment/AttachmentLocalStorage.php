@@ -7,7 +7,7 @@ namespace App\Attaching\Service\Storage\Attachment;
 use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-final readonly class LocalAttachmentStorage implements AttachmentStorageInterface
+final readonly class AttachmentLocalStorage implements AttachmentStorageInterface
 {
     public function __construct(
         private string $rootPath,
