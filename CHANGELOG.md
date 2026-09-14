@@ -13,6 +13,7 @@ The format is based on Keep a Changelog and this component follows a pre-release
 - Aligned Doctrine DQL embedded-property paths with the current Objecting `dev-master` metadata (`objectState.status`, `objectAudit.createdAt`)
 
 ### Fixed
+- Repaired GitHub Actions CI so the canonical sibling `path` repositories are checked out with the shared Automater GitHub App before Composer install
 - Canonicalized attachment lifecycle persistence on Objecting state fields and removed duplicate status mapping
 - Aligned identifier-migration rebuild SQL with current Objecting physical column names
 

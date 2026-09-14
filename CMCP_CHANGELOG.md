@@ -364,3 +364,12 @@ Post-RC: provider-neutral object storage, resumable upload semantics, optional s
 Что имеем? Attaching is locally RC-green under the authoritative textual canon, with one known external Gating false positive for the valid `Voter` role root and non-blocking coverage debt.
 
 Что осталось? Integrate the verified change set through Git, publish it, inspect remote checks/merge safety if a PR is required, and finish with a clean synchronized worktree.
+
+### Remote CI integration repair
+- PR #4 was created from `rc/attaching-canon-hardening-20260914` and is GitHub-mergeable, but its initial CI runs failed before application gates because the workflow checked out only Attaching while the canonical development manifest requires sibling Composer `path` repositories.
+- Attaching CI now follows the established SmartResponsor Automater GitHub App pattern: it obtains a scoped token, checks out Collectioning, Cruding, Interfacing, Objecting, Tabling, and Viewing adjacent to the nested Attaching checkout, caches `Attaching/vendor`, and executes Composer/quality commands from `Attaching`.
+- The modified workflow passes local Symfony YAML syntax validation.
+
+Что имеем? Local implementation gates remain green and the remote CI environment now materializes the same sibling dependency topology required by the canonical development Composer contract.
+
+Что осталось? Commit and push the CI repair, then re-inspect PR #4 checks and merge only after remote validation is green.
