@@ -7,7 +7,7 @@ namespace App\Attaching\Repository\Doctrine\Attachment;
 use App\Attaching\Entity\Persistence\Attachment\Attachment;
 use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
 use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
-use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
+use App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class AttachmentRepository implements AttachmentRepositoryInterface
@@ -86,7 +86,7 @@ final readonly class AttachmentRepository implements AttachmentRepositoryInterfa
             ->select('attachment')
             ->from(Attachment::class, 'attachment')
             ->leftJoin(AttachmentLink::class, 'attachmentLink', 'WITH', 'attachmentLink.attachment = attachment')
-            ->where('attachment.objectState.objectStatus = :status')
+            ->where('attachment.objectState.status = :status')
             ->andWhere('attachmentLink.id IS NULL')
             ->setParameter('status', AttachmentStatus::Deleted->value)
             ->orderBy('attachment.deletedAt', 'ASC');

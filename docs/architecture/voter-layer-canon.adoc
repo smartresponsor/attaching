@@ -6,8 +6,8 @@ Canonical location:
 
 [source,text]
 ----
-src/Voter/Attachment/AttachmentVoter.php
-App\Attaching\Voter\Attachment\AttachmentVoter
+src/Voter/Authorization/Attachment/AttachmentVoter.php
+App\Attaching\Voter\Authorization\Attachment\AttachmentVoter
 ----
 
 The `Security` concept remains a runtime concern, but the source tree should keep class purpose readable from the first layer after `src/`.

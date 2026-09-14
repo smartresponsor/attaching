@@ -6,13 +6,14 @@ Attaching follows a Symfony-oriented structure based on the default `App\\` name
 
 The current repository exposes these main technical surfaces:
 
-* HTTP controllers under `src/Controller/Attachment/`
-* application services under `src/Service/Attachment/`
-* service contracts under `src/ServiceInterface/Attachment/`
-* persistence entities under `src/Entity/Attachment/`
-* repositories under `src/Repository/Attachment/`
-* local storage implementation under `src/Service/Storage/`
-* cleanup operations under `src/Command/Attachment/`
+* HTTP controllers under `src/Controller/Http/Attachment/`
+* application services under role branches such as `src/Service/Linking/Attachment/`, `src/Service/Query/Attachment/`, `src/Service/Storage/Attachment/`, `src/Service/Transfer/Attachment/`, and `src/Service/Validation/Attachment/`
+* service contracts under the corresponding `src/ServiceInterface/.../Attachment/` role branches
+* transport DTOs under `src/DTO/Input/Attachment/` and `src/DTO/Output/Attachment/`, with canonical `*DTO` type suffixes
+* persistence entities under `src/Entity/Persistence/Attachment/`
+* Doctrine repositories under `src/Repository/Doctrine/Attachment/`
+* maintenance and runtime commands under `src/Command/Maintenance/Attachment/` and `src/Command/Runtime/Attachment/`
+* authorization voter under `src/Voter/Authorization/Attachment/`
 
 == Boundary notes
 

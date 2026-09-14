@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Output\Attachment;
+namespace App\Attaching\DTO\Output\Attachment;
 
-final readonly class AttachmentOwnerPurgeResult
+final readonly class AttachmentOwnerPurgeResultDTO
 {
     public function __construct(
         public string $ownerType,

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Query\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
-use App\Attaching\Dto\Output\Attachment\AttachmentListView;
-use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
+use App\Attaching\DTO\Input\Attachment\AttachmentListInputDTO;
+use App\Attaching\DTO\Output\Attachment\AttachmentListViewDTO;
+use App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentLinkRepositoryInterface;
 use App\Attaching\Service\Validation\Attachment\AttachmentValidationService;
 use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
 
@@ -19,7 +19,7 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
     ) {
     }
 
-    public function list(ListAttachmentInput $input): AttachmentListView
+    public function list(AttachmentListInputDTO $input): AttachmentListViewDTO
     {
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);
         $this->attachmentValidationService->validateLinkScope($input->context, $input->slot);
@@ -37,7 +37,7 @@ final readonly class AttachmentListService implements AttachmentListServiceInter
             );
         }
 
-        return new AttachmentListView(
+        return new AttachmentListViewDTO(
             ownerType: $input->ownerType,
             ownerId: $input->ownerId,
             context: $input->context,

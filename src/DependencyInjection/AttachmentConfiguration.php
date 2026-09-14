@@ -7,7 +7,7 @@ namespace App\Attaching\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-final class Configuration implements ConfigurationInterface
+final class AttachmentConfiguration implements ConfigurationInterface
 {
     /**
      * @noinspection PhpPossiblePolymorphicInvocationInspection Symfony config nodes intentionally use a fluent builder API.

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Attaching\Controller\Http\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
+use App\Attaching\DTO\Input\Attachment\AttachmentListInputDTO;
 use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachment', name: 'attachment_list', methods: ['GET'])]
-final readonly class ListAttachmentController
+final readonly class AttachmentListController
 {
     public function __construct(private AttachmentListServiceInterface $attachmentListService)
     {
@@ -19,7 +19,7 @@ final readonly class ListAttachmentController
 
     public function __invoke(Request $request): JsonResponse
     {
-        $view = $this->attachmentListService->list(new ListAttachmentInput(
+        $view = $this->attachmentListService->list(new AttachmentListInputDTO(
             ownerType: (string) $request->query->get('ownerType', ''),
             ownerId: (string) $request->query->get('ownerId', ''),
             context: $request->query->get('context') ? (string) $request->query->get('context') : null,

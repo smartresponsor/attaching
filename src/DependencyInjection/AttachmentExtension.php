@@ -14,7 +14,7 @@ final class AttachmentExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = new Configuration();
+        $configuration = new AttachmentConfiguration();
 
         /**
          * @var array{

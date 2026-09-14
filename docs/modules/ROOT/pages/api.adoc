@@ -2,7 +2,7 @@
 
 == Current committed API surface
 
-The repository currently exposes HTTP endpoints through Symfony controllers under `src/Controller/Attachment/`.
+The repository currently exposes HTTP endpoints through Symfony controllers under `src/Controller/Http/Attachment/`.
 Committed endpoint surfaces include:
 
 * upload

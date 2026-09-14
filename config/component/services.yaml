@@ -13,7 +13,7 @@ services:
       - '../../src/DependencyInjection/'
       - '../../src/Entity/'
 
-  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface: '@App\Attaching\Service\Storage\Attachment\LocalAttachmentStorage'
+  App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentLocalStorage'
   App\Attaching\ServiceInterface\Storage\Attachment\AttachmentPathGeneratorInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentPathGenerator'
   App\Attaching\ServiceInterface\Storage\Attachment\AttachmentChecksumGeneratorInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentChecksumGenerator'
   App\Attaching\ServiceInterface\Storage\Attachment\AttachmentMimeTypeGuesserInterface: '@App\Attaching\Service\Storage\Attachment\AttachmentMimeTypeGuesser'
@@ -32,7 +32,7 @@ services:
     alias: 'App\Attaching\Service\Linking\Attachment\AttachmentPrimaryLinkResolverService'
     public: true
 
-  App\Attaching\Service\Storage\Attachment\LocalAttachmentStorage:
+  App\Attaching\Service\Storage\Attachment\AttachmentLocalStorage:
     arguments:
       $rootPath: '%attachment.storage.local.root_path%'
 
@@ -42,5 +42,5 @@ services:
       $allowedMediaMimeTypes: '%attachment.upload.allowed_media_mime_types%'
       $allowedDocumentMimeTypes: '%attachment.upload.allowed_document_mime_types%'
 
-  App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository'
-  App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository'
+  App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository'
+  App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentLinkRepositoryInterface: '@App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository'

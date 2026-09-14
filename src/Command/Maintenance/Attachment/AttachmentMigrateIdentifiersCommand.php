@@ -16,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'app:attachment:migrate-identifiers',
     description: 'Rewrite legacy UUID attachment identifiers to integer identifiers.',
 )]
-final class MigrateAttachmentIdentifiersCommand extends Command
+final class AttachmentMigrateIdentifiersCommand extends Command
 {
     public function __construct(
         private readonly Connection $connection,

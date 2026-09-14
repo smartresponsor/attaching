@@ -300,3 +300,67 @@ Close the current Canonization packaging/runtime-contract drift without changing
 Что имеем? Attaching is locally acceptance-green with an executable production schema-parity contract and explicit coverage debt accounting.
 
 Что осталось? Publish the final signed commit and re-evaluate the existing remote PR at its new head; do not claim remote merge completion until checks and safe-merge inspection confirm it.
+
+## 2026-09-14 — Current master RC reconnaissance
+
+### Scope and factual baseline
+- Write boundary: `Attaching` only (`D:\PhpstormProjects\www\attaching`); Canonization, Gating, Objecting, Cruding, Viewing, Interfacing, Collectioning, and Tabling are read-only contract sources.
+- Current repository state was re-read rather than inherited from historical journal entries: branch `master`, HEAD `8c5750170804ea87008be9a041188e4bec3ebdbd`, tracking `origin/master`, ahead 0 / behind 0, clean worktree.
+- Package identity is `attaching/attachment`; component namespace is `App\Attaching\`; PHP floor is `^8.4` and current Symfony dependency floor is `^8.1`.
+- The development manifest declares local symlink path repositories for Collectioning, Cruding, Interfacing, Objecting, Tabling, and Viewing; those packages are also direct runtime dependencies in the current standalone component contour.
+- Reachable local dependency closure is present at the root: Cruding's Collectioning/Tabling edges and Viewing's Interfacing edge are all discoverable from Attaching's root Composer repositories.
+
+### Material read surface
+- Attaching: `AGENTS.md`, `README.md`, `composer.json`, `composer.prod.json`, `CMCP_CHANGELOG.md`, `CHANGELOG.md`, PHPUnit config, CI workflow, current source/test namespace inventory, architecture/release docs, primary-slot architecture, voter-layer canon, and ERC mobile boundary document.
+- Objecting, Cruding, Viewing, Interfacing: current `README.md` and `composer.json` package/responsibility contracts.
+- Canonization: architecture authority README, guard matrix, canonical-rules journal, and normative rules Canon000, Canon001, Canon002, Canon003, Canon004, Canon017, Canon043, and Canon045; the guard matrix was used to distinguish normative meaning from executable Gating coverage.
+- Gating: current README and Composer package contract as executable enforcement companion.
+- Local memory graph presence was observed under `.codebase-memory/`; it is generated evidence, not used as a substitute for current textual/runtime reconnaissance.
+
+### Target-to-canon mapping
+- Canon000: `Attachment*` remains the component subject vocabulary for component-owned PHP types.
+- Canon001/004: current source tree is technical-role-first; `Attachment` subject folders generally occur only after contextual role branches, with the documented Entity grouping exception.
+- Canon002: dedicated service/repository interface trees remain mirrored contracts; no new generic `Contract/` taxonomy is introduced.
+- Canon003: semantic inspection confirmed the nine `src/Dto/` Input/View/Result records are readonly transport DTOs. They therefore require canonical `src/DTO/` placement, `App\Attaching\DTO\...` namespaces, and `*DTO` type/file suffixes while retaining meaningful `Input`, `View`, and `Result` qualifiers.
+- Canon017: current architecture and voter documentation contains stale source/namespace paths that no longer match the runtime tree and must be corrected as current authoritative documentation.
+- Canon043: **hard current failure**. Each of the six local first-party path dependencies uses a branch union/feature-branch constraint instead of exact `dev-master`, and none of those path repositories declares `options.versions[package] = dev-master`.
+- Canon045: root repository closure is currently satisfied for the reachable first-party dependency graph; no extra direct dependency is added merely for repository discovery.
+
+### Market / maturity opening mixin
+- RC baseline follows mature upload-system expectations: server-side allowlist/content validation, bounded size, generated storage identity, authorization, non-public storage, lifecycle-safe deletion, reliable downloads, and explicit failure behavior.
+- Advanced growth capabilities include resumable/chunked uploads, checksums/expiration, object-storage and direct/pre-signed uploads, quarantine/malware scanning, asynchronous processing, derivatives, and richer metadata policies.
+- RC remains separated from speculative growth: resumability, object storage, scanning pipeline, and derivative processing are roadmap items unless a present correctness/safety defect makes one mandatory.
+
+### RC-critical workstream selected
+Restore deterministic local Composer identity under Canon043 without changing production package policy: convert each locally linked first-party development dependency to exact `dev-master`, add matching `options.versions` declarations, reconcile `composer.lock` only as required, correct stale current architecture/voter documentation under Canon017, then run the full affected quality/security/runtime contour.
+
+### Growth workstream (non-blocking)
+Post-RC: provider-neutral object storage, resumable upload semantics, optional scanning/quarantine, async post-upload processing, derivatives/conversions, and richer API/UX diagnostics while preserving Attaching's attachment-lifecycle boundary.
+
+### Material risks and planned gates
+- Do not copy generic CRUD mechanics from Cruding or presentation/template ownership from Viewing/Interfacing into Attaching.
+- Do not mutate sibling repositories or force their current Git branches; Canon043 `options.versions` exists specifically to decouple local Composer package identity from sibling checkout branch.
+- Production `composer.prod.json` is not governed by Canon043 and will not be changed solely to mirror the development-only constraint.
+- Gates: strict Composer validation/check-lock, dependency resolution, Composer audit, changed PHP lint when applicable, PHPStan, PHPUnit, CS check, schema parity where safely executable, Canon/Gating validation, and final Git/upstream inspection.
+
+Что имеем? Current master has one deterministic hard Composer-canon defect plus factual current-documentation drift; the reachable repository closure itself is complete.
+
+Что осталось? Materialize the development-manifest and documentation repair, reconcile the lock safely, execute the full gate contour, then integrate/publish only from a verified clean result.
+
+### Implementation and acceptance result
+- Canon043 closed: all six local first-party path dependencies now use exact `dev-master`; each path repository declares a matching `options.versions` override; strict Composer validate/check-lock and audit pass.
+- Canon003 closed: nine readonly transport records moved to canonical `src/DTO/` / `App\\Attaching\\DTO\\...` locations and now use `*DTO` suffixes; callers and tests were updated.
+- Canon000 closed for current component-owned PHP types: controllers, commands, marketplace fixture, DTOs, dependency-injection configuration, and local storage implementation now use the `Attachment*` subject prefix.
+- Canon002 closed: repository-interface paths now literally mirror `Repository/Doctrine/Attachment` under `RepositoryInterface/Doctrine/Attachment`.
+- Canon017 closed: architecture/API/voter documentation now matches current runtime paths.
+- Canon043 exposed a real Objecting compatibility drift: current Objecting `dev-master` maps embedded fields as `objectState.status` and `objectAudit.createdAt`; Attaching DQL was updated accordingly. The full PHPUnit suite is green again at 31 tests / 231 assertions.
+- Accidental broad-replacement audit is clean: `AttachmentConfiguration` occurs only in its own class declaration and `AttachmentExtension` construction site.
+- Verification green: changed-PHP lint (46 files), PHPStan max (0 errors), CS check (0 fixable files), PHPUnit (31/31, 231 assertions), coverage execution, strict Composer validation/check-lock, Composer audit, Symfony YAML lint (16 files), Symfony container lint, and Doctrine mapping validation.
+- Coverage remains non-blocking Canon040 debt: lines 67.32% (828/1230), methods 56.94% (82/144), branches 71.31% (266/373). Branch target passes; line/method targets remain warning-level and above the high-debt floor.
+- Scoped Gating result: Canon000/002/003/004/017/043/045 pass; Canon040 warns as above. Executable `canon.001.technical_role_first` reports `src/Voter/Authorization/Attachment/AttachmentVoter.php`, but authoritative Canonization explicitly lists `Voter` as a valid technical role root while the current Gating ROOTS array omits `Voter`; this is recorded as an external Gating companion discrepancy and Attaching is not distorted to satisfy it.
+- Console RC validator independently reports `rc_diagnostic_green` with no blockers or suspicious findings.
+- Local production database synchronicity was intentionally not claimed: Doctrine mapping passes with `--skip-sync`; PostgreSQL schema parity remains the CI/isolated-environment contract.
+
+Что имеем? Attaching is locally RC-green under the authoritative textual canon, with one known external Gating false positive for the valid `Voter` role root and non-blocking coverage debt.
+
+Что осталось? Integrate the verified change set through Git, publish it, inspect remote checks/merge safety if a PR is required, and finish with a clean synchronized worktree.

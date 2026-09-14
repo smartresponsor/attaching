@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Controller\Http\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\UploadAttachmentInput;
+use App\Attaching\DTO\Input\Attachment\AttachmentUploadInputDTO;
 use App\Attaching\Exception\Validation\Attachment\AttachmentValidationException;
 use App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentUploadServiceInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/attachment/upload', name: 'attachment_upload', methods: ['POST'])]
-final readonly class UploadAttachmentController
+final readonly class AttachmentUploadController
 {
     public function __construct(private AttachmentUploadServiceInterface $attachmentUploadService)
     {
@@ -28,7 +28,7 @@ final readonly class UploadAttachmentController
             throw new AttachmentValidationException('Attachment upload requires a file field.');
         }
 
-        $view = $this->attachmentUploadService->upload(new UploadAttachmentInput(
+        $view = $this->attachmentUploadService->upload(new AttachmentUploadInputDTO(
             uploadedFile: $uploadedFile,
             ownerType: (string) $request->request->get('ownerType', ''),
             ownerId: (string) $request->request->get('ownerId', ''),

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\RepositoryInterface\Persistence\Attachment;
+namespace App\Attaching\RepositoryInterface\Doctrine\Attachment;
 
 use App\Attaching\Entity\Persistence\Attachment\Attachment;
 

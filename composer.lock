@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a88c0121bd07f348ab7e6f757a7dd145",
+    "content-hash": "83ab82fe160a2dfa8f347c0e4275f520",
     "packages": [
         {
             "name": "collectioning/collection",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "../Collectioning",
-                "reference": "44d7c7263ed9ef9144c78556281ea44e41c01a8c"
+                "reference": "4aaf4248e328488baa9f0654d32e96db7edacee4"
             },
             "require": {
                 "doctrine/doctrine-bundle": "^3.2",
@@ -22,7 +22,8 @@
                 "symfony/framework-bundle": "^8.1",
                 "symfony/http-foundation": "^8.1",
                 "symfony/http-kernel": "^8.1",
-                "symfony/mercure": "^0.8.0 || ^0.9.0"
+                "symfony/mercure": "^0.8.0 || ^0.9.0",
+                "symfony/yaml": "^8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.95",
@@ -151,14 +152,14 @@
         },
         {
             "name": "cruding/crud",
-            "version": "dev-tabling-action-boundary-refactor-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "../Cruding",
-                "reference": "bc8c92fcea3c83fa6521d61b738641b5686d0487"
+                "reference": "46cfe44c3f0e8a9f7284c89742556c96400dec5f"
             },
             "require": {
-                "collectioning/collection": "dev-main || dev-master",
+                "collectioning/collection": "dev-master",
                 "doctrine/doctrine-bundle": "^3.2",
                 "doctrine/orm": "^3.0",
                 "php": "^8.4",
@@ -174,7 +175,7 @@
                 "symfony/twig-bundle": "^8.1",
                 "symfony/validator": "^8.1",
                 "symfony/yaml": "^8.1",
-                "tabling/table": "dev-backend-table-actions || dev-backend-table-metadata || dev-initial-platform-primitive || dev-main || dev-master"
+                "tabling/table": "dev-master"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.95",
@@ -1624,20 +1625,20 @@
         },
         {
             "name": "objecting/object",
-            "version": "dev-release/objecting-field-pack-normalization-20260910",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "../Objecting",
-                "reference": "afc3e25cb7d17cf6b6a5b985b2af0fe8a05c7943"
+                "reference": "a0433d1921c132732709ba3306d181a80debadad"
             },
             "require": {
                 "doctrine/orm": "^3.3",
                 "php": "^8.4",
-                "symfony/config": "^8.0",
-                "symfony/dependency-injection": "^8.0",
-                "symfony/http-kernel": "^8.0",
-                "symfony/uid": "^8.0",
-                "symfony/yaml": "^8.0"
+                "symfony/config": "^8.1",
+                "symfony/dependency-injection": "^8.1",
+                "symfony/http-kernel": "^8.1",
+                "symfony/uid": "^8.1",
+                "symfony/yaml": "^8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": ">=3.95 <4.0",
@@ -1647,7 +1648,7 @@
             "type": "library",
             "extra": {
                 "symfony": {
-                    "require": "^8.0"
+                    "require": "^8.1"
                 }
             },
             "autoload": {
@@ -1718,6 +1719,10 @@
                 ],
                 "test": [
                     "phpunit --testdox"
+                ],
+                "test:coverage": [
+                    "@php -r \"if (!is_dir('var/coverage')) { mkdir('var/coverage', 0777, true); }\"",
+                    "@php -d xdebug.mode=coverage vendor/bin/phpunit --path-coverage --coverage-text=var/coverage/summary.txt"
                 ],
                 "test:backend-adoption": [
                     "@php tools/test/objecting_backend_adoption_manifest_check.php"
@@ -7171,14 +7176,14 @@
         },
         {
             "name": "tabling/table",
-            "version": "dev-backend-table-actions",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "../Tabling",
-                "reference": "8f955eb727015eab889719900644fc92b4dc68c8"
+                "reference": "bc26adf0a9f7a2dbe88b7929ec44338493f47ce4"
             },
             "require": {
-                "collectioning/collection": "dev-main || dev-master",
+                "collectioning/collection": "dev-master",
                 "php": "^8.4",
                 "symfony/dependency-injection": "^8.1",
                 "symfony/framework-bundle": "^8.1",
@@ -7205,14 +7210,28 @@
                 "test": [
                     "phpunit tests"
                 ],
+                "test:coverage": [
+                    "@php -r \"if (!is_dir('var/coverage')) { mkdir('var/coverage', 0777, true); }\"",
+                    "@php -d xdebug.mode=coverage vendor/bin/phpunit --branch-coverage --coverage-text=var/coverage/summary.txt"
+                ],
+                "validate:prod": [
+                    "composer validate --strict --no-check-all composer.prod.json"
+                ],
                 "phpstan": [
-                    "phpstan analyse src tests --level=8"
+                    "phpstan analyse -c phpstan.neon"
                 ],
                 "cs:check": [
                     "php-cs-fixer fix --dry-run --diff"
                 ],
                 "cs:fix": [
                     "php-cs-fixer fix"
+                ],
+                "quality": [
+                    "@test",
+                    "@test:coverage",
+                    "@phpstan",
+                    "@cs:check",
+                    "@validate:prod"
                 ]
             },
             "license": [
@@ -7448,7 +7467,7 @@
         },
         {
             "name": "viewing/view",
-            "version": "dev-rc/viewing-master-sync-20260911",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "../Viewing",

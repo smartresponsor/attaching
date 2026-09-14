@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Input\Attachment;
+namespace App\Attaching\DTO\Input\Attachment;
 
-final readonly class DetachAttachmentInput
+final readonly class AttachmentAttachInputDTO
 {
     public function __construct(
         public int $attachmentId,
@@ -12,6 +12,8 @@ final readonly class DetachAttachmentInput
         public string $ownerId,
         public ?string $context = null,
         public ?string $slot = null,
+        public int $position = 0,
+        public bool $isPrimary = false,
     ) {
     }
 }

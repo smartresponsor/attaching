@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Attaching\Service\Transfer\Attachment;
 
 use App\Attaching\Exception\Lookup\Attachment\AttachmentNotFoundException;
-use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
+use App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentRepositoryInterface;
 use App\Attaching\Service\Validation\Attachment\AttachmentValidationService;
 use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface;
 use App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentDownloadServiceInterface;

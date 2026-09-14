@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Input\Attachment;
+namespace App\Attaching\DTO\Input\Attachment;
 
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-final readonly class UploadAttachmentInput
+final readonly class AttachmentUploadInputDTO
 {
     public function __construct(
         public UploadedFile $uploadedFile,

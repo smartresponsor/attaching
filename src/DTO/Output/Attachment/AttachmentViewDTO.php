@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Dto\Output\Attachment;
+namespace App\Attaching\DTO\Output\Attachment;
 
 use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentType;
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 
-final readonly class AttachmentView
+final readonly class AttachmentViewDTO
 {
     public function __construct(
         public int $id,

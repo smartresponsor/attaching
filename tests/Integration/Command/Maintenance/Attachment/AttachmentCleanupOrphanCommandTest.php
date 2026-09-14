@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Tests\Integration\Command\Maintenance\Attachment;
 
-use App\Attaching\Command\Maintenance\Attachment\CleanupOrphanAttachmentCommand;
+use App\Attaching\Command\Maintenance\Attachment\AttachmentCleanupOrphanCommand;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
 use App\Attaching\Entity\Persistence\Attachment\Attachment;
@@ -13,7 +13,7 @@ use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDeleteServiceInt
 use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-final class CleanupOrphanAttachmentCommandTest extends DoctrineIntegrationTestCase
+final class AttachmentCleanupOrphanCommandTest extends DoctrineIntegrationTestCase
 {
     public function testCleanupRemovesDeletedOrphanAttachmentFileAndRecord(): void
     {
@@ -31,11 +31,11 @@ final class CleanupOrphanAttachmentCommandTest extends DoctrineIntegrationTestCa
 
         $deleteService = $this->getRequiredService(AttachmentDeleteServiceInterface::class);
         $repository = $this->getRequiredService(AttachmentRepository::class);
-        $command = $this->getRequiredService(CleanupOrphanAttachmentCommand::class);
+        $command = $this->getRequiredService(AttachmentCleanupOrphanCommand::class);
 
         self::assertInstanceOf(AttachmentDeleteServiceInterface::class, $deleteService);
         self::assertInstanceOf(AttachmentRepository::class, $repository);
-        self::assertInstanceOf(CleanupOrphanAttachmentCommand::class, $command);
+        self::assertInstanceOf(AttachmentCleanupOrphanCommand::class, $command);
 
         $deleteService->delete($attachmentId);
         self::assertNotNull($repository->find($attachmentId));
