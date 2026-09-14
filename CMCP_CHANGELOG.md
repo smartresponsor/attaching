@@ -365,11 +365,14 @@ Post-RC: provider-neutral object storage, resumable upload semantics, optional s
 
 Что осталось? Integrate the verified change set through Git, publish it, inspect remote checks/merge safety if a PR is required, and finish with a clean synchronized worktree.
 
-### Remote CI integration repair
-- PR #4 was created from `rc/attaching-canon-hardening-20260914` and is GitHub-mergeable, but its initial CI runs failed before application gates because the workflow checked out only Attaching while the canonical development manifest requires sibling Composer `path` repositories.
-- Attaching CI now follows the established SmartResponsor Automater GitHub App pattern: it obtains a scoped token, checks out Collectioning, Cruding, Interfacing, Objecting, Tabling, and Viewing adjacent to the nested Attaching checkout, caches `Attaching/vendor`, and executes Composer/quality commands from `Attaching`.
+### Remote CI integration repair and external blocker
+- PR #4 was created from `rc/attaching-canon-hardening-20260914` and remains GitHub-mergeable.
+- Independent of the observed GitHub failure, the previous workflow had an objective topology defect: it checked out only Attaching although the canonical development manifest resolves six sibling Composer `path` repositories. Attaching CI now follows the established SmartResponsor Automater GitHub App pattern, checks out Collectioning, Cruding, Interfacing, Objecting, Tabling, and Viewing adjacent to the nested Attaching checkout, caches `Attaching/vendor`, and executes quality commands from `Attaching`.
 - The modified workflow passes local Symfony YAML syntax validation.
+- Remote CI still terminates before any recorded job step. GitHub reports `steps: []` and exposes no job log for both push and pull-request runs at the current head `c9a5db3af889fe59d79478c2cb71abbc6b71dc6f`.
+- This no-step failure is demonstrably pre-existing: historical master run `34789991844` at baseline head `8c5750170804ea87008be9a041188e4bec3ebdbd` on 2026-09-13 also failed in roughly one second with `steps: []`. Therefore the current red check cannot be attributed to this RC change set; it is an external GitHub Actions job-start/configuration/account runner blocker that must be repaired outside Attaching source code before remote validation can execute.
+- Because the repository task contract requires green remote checks before merge, PR #4 is intentionally left open and unmerged despite GitHub reporting it as mergeable.
 
-Что имеем? Local implementation gates remain green and the remote CI environment now materializes the same sibling dependency topology required by the canonical development Composer contract.
+Что имеем? Attaching is locally RC-green, the branch is published, PR #4 is structurally mergeable, and the workflow now models the required sibling dependency topology. Remote Actions cannot currently start the job, a blocker proven to predate this work.
 
-Что осталось? Commit and push the CI repair, then re-inspect PR #4 checks and merge only after remote validation is green.
+Что осталось? Restore GitHub Actions job execution for `smartresponsor/attaching` at the repository/organization/account level, rerun PR #4 CI, obtain green checks/review, then merge. No further safe Attaching source-code repair is indicated by current evidence.
