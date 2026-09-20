@@ -1,5 +1,45 @@
 # CMCP Orchestration Journal
 
+## 2026-09-20 — RC storage confinement and documentation parity
+
+### Baseline
+- Target/write boundary: `Attaching` only; sibling repositories remain read-only references.
+- Branch at reconnaissance: `rc/attaching-canon-hardening-20260914`; worktree was clean.
+- Read target governance, README, Composer manifests, core persistence/transfer/storage/validation code, representative tests, configuration, and Antora documentation.
+- Verified Objecting, Cruding, Viewing, and Interfacing are declared as real development Composer dependencies with local symlink path repositories.
+- Consulted Canonization rules Canon017, Canon018, Canon023, Canon024, Canon030, Canon033, Canon038 and the architecture guard matrix; Gating remains the executable enforcement companion.
+
+### RC-critical work selected
+- Harden `AttachmentLocalStorage` so every storage operation is confined to the configured root and rejects traversal, absolute paths, null bytes, and ambiguous dot/empty segments.
+- Repair stale operational documentation that still referenced pre-canonical command and storage class paths.
+
+### Material risks and safeguards
+- Persisted storage paths are later consumed by download/delete/read operations, so confinement belongs at the storage boundary rather than being assumed from the current path generator.
+- Existing `AttachmentStorageInterface` and Symfony-oriented placement are preserved; no Port/Adapter taxonomy or generic CRUD ownership is introduced.
+- Resumable/chunked upload protocols, malware/CDR processing, remote storage backends, and media transformations remain growth work and are not RC blockers.
+
+### Gates to run
+- PHP lint for changed PHP files.
+- PHPUnit, PHPStan, PHP CS Fixer dry-run, Composer validation/audit.
+- Available Canon/Gating/RC diagnostic checks.
+- Final Git diff/status and branch/upstream verification.
+
+### Verification
+- `composer validate --strict --check-lock`: PASS.
+- Changed PHP lint before formatting: PASS; full tracked PHP lint: PASS.
+- `composer test`: PASS — 41 tests, 241 assertions.
+- `composer phpstan`: PASS — no errors.
+- `composer cs:check`: PASS after applying the repository formatter to the new regression test.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- `git diff --check`: PASS.
+- Canon017 stale-path search: old command/storage class names remain only in ignored PHPUnit cache artifacts, not current source or documentation.
+- Code Memory scope script is not declared; the available graph planner resolves the Attaching repository plus read-only global navigation scope, but no callable graph-query backend is exposed by the current console tool surface.
+- RC diagnostic against the owned dirty paths reports only `workspace_has_uncommitted_changes` as readiness blocker; no repair action is indicated before Git integration.
+
+Что имеем? Storage path confinement, regression coverage and current documentation parity are implemented; functional, static, style, Composer, security-audit and diff-hygiene gates are green.
+
+Что осталось? Create the coherent signed commit, publish the current RC branch, then rerun the clean-tree RC diagnostic and confirm final HEAD/upstream state.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state

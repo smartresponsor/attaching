@@ -19,6 +19,7 @@ The format is based on Keep a Changelog and this component follows a pre-release
 
 ### Security
 - Refresh Symfony dependency locks to patched releases resolving current Composer audit advisories
+- Confine local attachment storage paths to safe relative paths under the configured storage root
 
 ### Added
 - Antora-compatible producer documentation surface
