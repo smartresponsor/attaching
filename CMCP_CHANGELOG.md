@@ -36,9 +36,15 @@
 - Code Memory scope script is not declared; the available graph planner resolves the Attaching repository plus read-only global navigation scope, but no callable graph-query backend is exposed by the current console tool surface.
 - RC diagnostic against the owned dirty paths reports only `workspace_has_uncommitted_changes` as readiness blocker; no repair action is indicated before Git integration.
 
-Что имеем? Storage path confinement, regression coverage and current documentation parity are implemented; functional, static, style, Composer, security-audit and diff-hygiene gates are green.
+### Integration follow-up
+- Signed commit `f4daf3d` (`fix: confine attachment storage paths`) was created and pushed to `origin/rc/attaching-canon-hardening-20260914`; the subsequent clean-tree RC diagnostic was green with zero canon issues, blockers, or warnings.
+- Existing PR #4 targets `master`, is Git-mergeable, and points at the pushed head. Review inspection exposed two material findings: stale operations paths (already fixed by `f4daf3d`) and a production Objecting constraint that still permitted obsolete embedded-field metadata.
+- `composer.prod.json` now pins `objecting/object` to `dev-master`, matching the development contract; the obsolete `dev-release/objecting-field-pack-normalization-20260910` token is absent from the current tree. Composer strict/check-lock validation and `git diff --check` remain green; dirty-tree RC diagnostic reports zero canon issues and only the expected uncommitted-change blocker.
+- GitHub Actions remains an external integration blocker: current PR/push `qa` jobs fail before any step starts (`steps`/logs absent). A manual failed-job rerun reproduced the same admission failure. The previous PR run 49 at head `c7c8c7f` shows the same no-step/no-log failure, confirming this predates the current storage/production-contract changes.
 
-Что осталось? Create the coherent signed commit, publish the current RC branch, then rerun the clean-tree RC diagnostic and confirm final HEAD/upstream state.
+Что имеем? Attaching-owned RC defects found in this run are repaired and locally/canonically green; PR #4 is mergeable at Git level, but GitHub Actions runner admission is not green.
+
+Что осталось? Commit and push the production Objecting compatibility fix. Do not merge PR #4 while the external `qa` check remains failed; remote integration requires the GitHub Actions admission/policy condition to be restored.
 
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 

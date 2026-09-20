@@ -7,6 +7,7 @@ The format is based on Keep a Changelog and this component follows a pre-release
 ## [Unreleased]
 
 ### Changed
+- Pin the production Objecting contract to `dev-master` so deployment cannot resolve obsolete embedded-field metadata
 - Canonicalized public attachment transport records under `App\Attaching\DTO\...` with `*DTO` type/file suffixes; consumers of the previous `App\Attaching\Dto\...` unsuffixed classes must update imports and type names
 - Canonicalized local first-party development Composer path dependencies to exact `dev-master` identities with explicit path repository version overrides
 - Canonicalized component-owned Attachment class names, DTO names/paths, repository-interface mirror paths, and local-storage naming to the current subject-first/type-explicit platform rules
