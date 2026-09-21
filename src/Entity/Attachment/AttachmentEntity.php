@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'attachment')]
-class Attachment implements ObjectEntityInterface
+class AttachmentEntity implements ObjectEntityInterface
 {
     use ObjectIdentityEmbeddableTrait;
     use ObjectTitleEmbeddableTrait;

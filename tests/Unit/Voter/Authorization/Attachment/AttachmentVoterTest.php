@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Tests\Unit\Voter\Authorization\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
 use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentType;
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;

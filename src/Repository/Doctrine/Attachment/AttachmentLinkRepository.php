@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\Repository\Doctrine\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

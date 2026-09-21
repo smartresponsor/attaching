@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\RepositoryInterface\Persistence\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 
 interface AttachmentLinkRepositoryInterface
 {
