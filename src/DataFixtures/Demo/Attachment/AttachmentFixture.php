@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\DataFixtures\Demo\Attachment;
 
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\Attachment;
 use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
