@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Attaching\Service\Query\Attachment;
 
 use App\Attaching\Dto\Output\Attachment\AttachmentLinkView;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 
 final class AttachmentLinkViewFactory
 {

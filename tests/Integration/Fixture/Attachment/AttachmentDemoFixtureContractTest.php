@@ -6,8 +6,8 @@ namespace App\Attaching\Tests\Integration\Fixture\Attachment;
 
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\DriverManager;

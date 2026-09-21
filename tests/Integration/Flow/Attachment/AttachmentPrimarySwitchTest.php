@@ -7,7 +7,7 @@ namespace App\Attaching\Tests\Integration\Flow\Attachment;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
 use App\Attaching\Dto\Input\Attachment\AttachAttachmentInput;
 use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
-use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
 use App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface;
 use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;

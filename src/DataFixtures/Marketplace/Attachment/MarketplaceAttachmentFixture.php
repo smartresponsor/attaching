@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\DataFixtures\Marketplace\Attachment;
 
-use App\Attaching\Entity\Attachment\Attachment;
-use App\Attaching\Entity\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentType;

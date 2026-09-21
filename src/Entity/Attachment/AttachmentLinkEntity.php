@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'attachment_link')]
-class AttachmentLink implements ObjectRelationEntityInterface
+class AttachmentLinkEntity implements ObjectRelationEntityInterface
 {
     use ObjectAuditEmbeddableTrait;
     #[ORM\Id]
@@ -25,9 +25,9 @@ class AttachmentLink implements ObjectRelationEntityInterface
     // @phpstan-ignore property.onlyRead
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Attachment::class)]
+    #[ORM\ManyToOne(targetEntity: AttachmentEntity::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private Attachment $attachment;
+    private AttachmentEntity $attachment;
 
     #[ORM\Column(length: 191)]
     private string $ownerType;
@@ -48,7 +48,7 @@ class AttachmentLink implements ObjectRelationEntityInterface
     private bool $isPrimary;
 
     public function __construct(
-        Attachment $attachment,
+        AttachmentEntity $attachment,
         string $ownerType,
         string $ownerId,
         ?string $context = null,
@@ -78,7 +78,7 @@ class AttachmentLink implements ObjectRelationEntityInterface
         return $this->id;
     }
 
-    public function getAttachment(): Attachment
+    public function getAttachment(): AttachmentEntity
     {
         return $this->attachment;
     }
