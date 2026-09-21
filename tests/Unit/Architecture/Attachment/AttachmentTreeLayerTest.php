@@ -24,10 +24,14 @@ final class AttachmentTreeLayerTest extends TestCase
             $relativePath = str_replace('\\', '/', substr($fileInfo->getPathname(), strlen($sourceDirectory) + 1));
             $directorySegments = explode('/', dirname($relativePath));
             foreach ($directorySegments as $index => $segment) {
-                if ('Attachment' === $segment && $index < 2) {
+                if ('Attachment' === $segment && $index < 2 && !('Entity' === $directorySegments[0] && 1 === $index)) {
                     $violations[] = $relativePath;
                     break;
                 }
+            }
+
+            if ('Entity' === $directorySegments[0] && count($directorySegments) > 2) {
+                $violations[] = $relativePath;
             }
         }
 

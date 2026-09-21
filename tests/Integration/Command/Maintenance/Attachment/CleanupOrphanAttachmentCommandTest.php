@@ -7,7 +7,7 @@ namespace App\Attaching\Tests\Integration\Command\Maintenance\Attachment;
 use App\Attaching\Command\Maintenance\Attachment\CleanupOrphanAttachmentCommand;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentLinkFixture;
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\Attachment;
 use App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentDeleteServiceInterface;
 use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;

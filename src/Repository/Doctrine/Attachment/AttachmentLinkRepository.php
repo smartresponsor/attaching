@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Attaching\Repository\Doctrine\Attachment;
 
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
-use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
 use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,12 +40,12 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->join('attachmentLink.attachment', 'attachment')
             ->where('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
-            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
+            ->andWhere('attachment.objectState.status != :deletedStatus')
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
             ->setParameter('deletedStatus', AttachmentStatus::Deleted->value)
             ->orderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC');
+            ->addOrderBy('attachmentLink.objectAudit.createdAt', 'ASC');
 
         if (null !== $context) {
             $qb->andWhere('attachmentLink.context = :context')->setParameter('context', $context);
@@ -75,7 +75,7 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->where('attachment.id = :attachmentId')
             ->andWhere('attachmentLink.ownerType = :ownerType')
             ->andWhere('attachmentLink.ownerId = :ownerId')
-            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
+            ->andWhere('attachment.objectState.status != :deletedStatus')
             ->setParameter('attachmentId', $attachmentId)
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
@@ -107,14 +107,14 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->andWhere('attachmentLink.context = :context')
             ->andWhere('attachmentLink.slot = :slot')
             ->andWhere('attachmentLink.isPrimary = true')
-            ->andWhere('attachment.objectState.objectStatus != :deletedStatus')
+            ->andWhere('attachment.objectState.status != :deletedStatus')
             ->setParameter('ownerType', $ownerType)
             ->setParameter('ownerId', $ownerId)
             ->setParameter('context', $context)
             ->setParameter('slot', $slot)
             ->setParameter('deletedStatus', AttachmentStatus::Deleted->value)
             ->orderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'DESC')
+            ->addOrderBy('attachmentLink.objectAudit.createdAt', 'DESC')
             ->setMaxResults(1);
 
         /** @var ?AttachmentLink $result */
@@ -144,7 +144,7 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->setParameter('attachmentIds', $attachmentIds)
             ->orderBy('attachment.id', 'ASC')
             ->addOrderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
+            ->addOrderBy('attachmentLink.objectAudit.createdAt', 'ASC')
             ->getQuery()
             ->getResult();
 
@@ -164,7 +164,7 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->where('attachment.id = :attachmentId')
             ->setParameter('attachmentId', $attachmentId)
             ->orderBy('attachmentLink.position', 'ASC')
-            ->addOrderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
+            ->addOrderBy('attachmentLink.objectAudit.createdAt', 'ASC')
             ->getQuery()
             ->getResult();
 
@@ -182,7 +182,7 @@ final readonly class AttachmentLinkRepository implements AttachmentLinkRepositor
             ->from(AttachmentLink::class, 'attachmentLink')
             ->where('attachmentLink.attachment = :attachment')
             ->setParameter('attachment', $attachment)
-            ->orderBy('attachmentLink.objectAudit.objectCreatedAt', 'ASC')
+            ->orderBy('attachmentLink.objectAudit.createdAt', 'ASC')
             ->getQuery()
             ->getResult();
 
