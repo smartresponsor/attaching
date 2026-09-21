@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Attaching\Service\Query\Attachment;
 
 use App\Attaching\DTO\Output\Attachment\AttachmentViewDTO;
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\Attachment;
 
 final class AttachmentViewFactory
 {

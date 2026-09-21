@@ -6,7 +6,7 @@ namespace App\Attaching\Service\Linking\Attachment;
 
 use App\Attaching\DTO\Input\Attachment\AttachmentAttachInputDTO;
 use App\Attaching\DTO\Output\Attachment\AttachmentLinkViewDTO;
-use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\AttachmentLink;
 use App\Attaching\Exception\Linking\Attachment\AttachmentLinkException;
 use App\Attaching\Exception\Lookup\Attachment\AttachmentNotFoundException;
 use App\Attaching\RepositoryInterface\Doctrine\Attachment\AttachmentLinkRepositoryInterface;

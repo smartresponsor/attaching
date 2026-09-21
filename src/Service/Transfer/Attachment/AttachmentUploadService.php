@@ -6,8 +6,8 @@ namespace App\Attaching\Service\Transfer\Attachment;
 
 use App\Attaching\DTO\Input\Attachment\AttachmentUploadInputDTO;
 use App\Attaching\DTO\Output\Attachment\AttachmentViewDTO;
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
-use App\Attaching\Entity\Persistence\Attachment\AttachmentLink;
+use App\Attaching\Entity\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\AttachmentLink;
 use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use App\Attaching\Exception\Storage\Attachment\AttachmentStorageException;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Voter\Authorization\Attachment;
 
-use App\Attaching\Entity\Persistence\Attachment\Attachment;
+use App\Attaching\Entity\Attachment\Attachment;
 use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;

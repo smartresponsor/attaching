@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Attaching\Entity\Persistence\Attachment;
+namespace App\Attaching\Entity\Attachment;
 
 use App\Attaching\Enum\Classification\Attachment\AttachmentDocumentKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentMediaKind;
