@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Attaching\ServiceInterface\Query\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
-use App\Attaching\Dto\Output\Attachment\AttachmentListView;
+use App\Attaching\DTO\Input\Attachment\AttachmentListInputDTO;
+use App\Attaching\DTO\Output\Attachment\AttachmentListViewDTO;
 
 interface AttachmentListServiceInterface
 {
-    public function list(ListAttachmentInput $input): AttachmentListView;
+    public function list(AttachmentListInputDTO $input): AttachmentListViewDTO;
 }

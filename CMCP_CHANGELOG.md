@@ -300,3 +300,39 @@ Close the current Canonization packaging/runtime-contract drift without changing
 Что имеем? Attaching is locally acceptance-green with an executable production schema-parity contract and explicit coverage debt accounting.
 
 Что осталось? Publish the final signed commit and re-evaluate the existing remote PR at its new head; do not claim remote merge completion until checks and safe-merge inspection confirm it.
+
+## 2026-09-22 — Canonical structure debt closure
+
+### Reconnaissance baseline
+- Repository was clean before this pass.
+- Blocking Gating rules: Canon001, Canon002, Canon003, Canon006, Canon018, Canon020, and Canon038.
+- DTOs still use the legacy `Dto` root and lack the canonical `DTO` suffix; several declarations also violate the Composer subject prefix `Attachment`.
+- Repository implementations use `Repository/Doctrine/Attachment` while their interfaces require the mirrored `Repository/Persistence/Attachment` tree.
+- Query factories are under `Service/`, one service uses the mixed `ResolverService` role suffix, and the voter uses the now-noncanonical top-level `Voter` root.
+- Five component-owned YAML files do not use the required `attachment_` subject prefix; runtime/tests/delivery manifests contain references to those paths.
+
+### Selected bounded migration
+- Normalize DTO casing/names, subject-prefixed declarations, technical-role roots, repository mirroring, and component YAML filenames in one symbol-safe migration.
+- Update tests, service wiring, delivery metadata, and documentation references with the same symbol/path mapping.
+- Preserve business behavior and database schema; no Entity or migration semantics are changed.
+
+### Gates
+- Composer validation, PHP-CS-Fixer, PHPStan, PHPUnit, and full Gating after the migration.
+### Canonical structure migration completed
+- Migrated legacy `Dto` DTOs to canonical `DTO` root with explicit `DTO` suffixes and `Attachment` subject-prefix naming.
+- Aligned repository implementation trees with `RepositoryInterface` mirrors under typed `Persistence`, `Marketplace`, and `Runtime` roles.
+- Moved query factories to `Factory/`, removed mixed `ResolverService` naming, normalized storage/service/command/controller/fixture subject prefixes, and synchronized callers/tests/docs.
+- Renamed component-owned YAML surfaces to `attachment_*` filenames and updated service/runtime/delivery references.
+- Added/updated behavioral UI test tooling surfaces required by the current Symfony testing canon.
+- Hardened marketplace query scalar extraction for PHPStan-safe DBAL handling.
+- Fixed SQLite integration-test isolation by resetting the whole test database with `SchemaTool::dropDatabase()` before recreating current metadata.
+- Canon053 topology was committed separately: forbidden Collectioning/Objecting/Tabling live sibling symlinks were replaced with VCS package repositories while canonical Gating/Cruding/Viewing/Interfacing symlinks remain available.
+
+### Final verification
+- PHP-CS-Fixer: PASS.
+- PHPStan: PASS, 0 errors.
+- PHPUnit: PASS, 31 tests / 231 assertions.
+- Full `composer quality`: PASS.
+- Gating: PASS, 69 rules / 0 failures.
+- Canon001/002/003/006/018/020/038/045/052/053 all PASS.
+- Remaining Canon031/034/040/042 findings are warning-level documentation/evidence/gitignore debt and do not block the current quality contract.
