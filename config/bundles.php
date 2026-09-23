@@ -10,4 +10,5 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     App\Attaching\AttachingBundle::class => ['all' => true],
+    App\Objecting\ObjectBundle::class => ['all' => true],
 ];
