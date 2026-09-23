@@ -353,10 +353,14 @@ Close the current Canonization packaging/runtime-contract drift without changing
 - PHP-CS-Fixer: PASS after normalizing one mixed line ending introduced during reconciliation.
 - Gating: PASS — 69 rules / 0 failures; Canon031/034/040/042 remain warning-level debt only.
 - Composer audit: PASS — no security advisories.
-- Strict Composer validation currently FAILS because the canonical `dev-master` constraints introduced by the active branch cannot be resolved for unpublished dependency masters: Collectioning and Tabling expose only feature branches to Composer, while the existing lock still records pre-master feature versions for Cruding/Objecting/Tabling/Viewing and lacks the newly declared Panther/Test Pack entries.
-- A package-scoped Composer update was attempted and correctly refused dependency resolution; no lockfile mutation was produced by that failed update.
-- Sibling repositories are intentionally not modified from the Attaching execution boundary.
+- Initial strict Composer validation exposed a topology mismatch introduced earlier in this branch: Collectioning/Objecting/Tabling had been switched to VCS repositories, making exact `dev-master` constraints depend on remote branches that do not exist for Collectioning/Tabling.
+- Re-read current Canon043 and Canon053. Canon053 explicitly allows symlinked sibling repositories for Gating, Cruding, Viewing, Interfacing, Collectioning, Objecting, and Tabling; Canon043 requires local `path` dependencies to expose exact `dev-master` identity through `options.versions` even when the sibling checkout is on a feature branch.
+- Restored all seven canonical first-party development dependencies to `path` + `symlink: true` + explicit `options.versions[package] = dev-master` identity.
+- Regenerated the lock successfully; Panther/Test Pack are now present and all first-party dependencies resolve under canonical `dev-master` identity without modifying sibling repositories.
+- Final strict `composer validate --strict --check-lock`: PASS.
+- Final `composer audit --format=summary`: PASS, no advisories.
+- Final `composer quality`: PASS — PHPUnit 41/241, PHPStan 0 errors, PHP-CS-Fixer clean, Gating 69 rules / 0 failures.
 
-Что имеем? The active canonical branch now contains the substantive RC value of the superseded conflicting PR without replaying its obsolete tree; local code-quality, test, static-analysis, security-audit, and Gating contracts are green.
+Что имеем? The canonical branch is rebased on current master, conflict-free, strict-lock reproducible, locally acceptance-green, and contains the substantive RC value of superseded PR #4.
 
-Что осталось? Publish this reconciliation. Final strict-lock closure and merge require the referenced first-party dependencies to publish Composer-resolvable `dev-master` heads; then regenerate the lock and re-run strict validation locally.
+Что осталось? Commit/publish this Composer-topology correction and merge the conflict-free replacement PR #8; GitHub Actions remain intentionally non-blocking by repository policy.
