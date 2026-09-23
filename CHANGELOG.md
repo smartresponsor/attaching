@@ -9,9 +9,12 @@ The format is based on Keep a Changelog and this component follows a pre-release
 ### Fixed
 - Canonicalized attachment lifecycle persistence on Objecting state fields and removed duplicate status mapping
 - Aligned identifier-migration rebuild SQL with current Objecting physical column names
+- Pin the production Objecting contract to `dev-master` so deployment cannot resolve obsolete embedded-field metadata
+- Synchronize operational documentation with canonical maintenance-command and storage implementation paths
 
 ### Security
 - Refresh Symfony dependency locks to patched releases resolving current Composer audit advisories
+- Reject absolute, traversal, dot-segment, empty-segment, and NUL-containing local attachment storage paths at the storage boundary
 
 ### Added
 - Antora-compatible producer documentation surface
