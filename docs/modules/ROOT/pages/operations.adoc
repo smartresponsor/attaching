@@ -4,7 +4,7 @@
 
 The repository already contains an operational cleanup entry point:
 
-* `src/Command/Attachment/AttachmentCleanupOrphanCommand.php`
+* `src/Command/Maintenance/Attachment/AttachmentCleanupOrphanCommand.php`
 
 This command is the current operational anchor for orphan cleanup in local attachment storage flows.
 
@@ -15,7 +15,7 @@ Relevant runtime/configuration surfaces include:
 * `config/component/services.yaml`
 * `config/component/routes.yaml`
 * `config/component/doctrine.yaml`
-* local storage implementation in `src/Service/Storage/AttachmentLocalStorage.php`
+* local storage implementation in `src/Service/Storage/Attachment/AttachmentLocalStorage.php`
 
 Package verification uses the embedded test application under `tests/Application/`.
 Host-specific runtime composition stays outside the package root app surface.

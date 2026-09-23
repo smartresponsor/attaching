@@ -336,3 +336,27 @@ Close the current Canonization packaging/runtime-contract drift without changing
 - Gating: PASS, 69 rules / 0 failures.
 - Canon001/002/003/006/018/020/038/045/052/053 all PASS.
 - Remaining Canon031/034/040/042 findings are warning-level documentation/evidence/gitignore debt and do not block the current quality contract.
+
+### Superseded PR #4 reconciliation
+- GitHub PR #4 is closed and conflicts with the advanced `master`; it must not be merged wholesale.
+- Compared its RC-critical fixes against the current canonical branch after the entity-suffix/Gating migration.
+- Carried forward the missing storage-boundary path confinement and its traversal regression test onto the current canonical `AttachmentLocalStorage` path.
+- Carried forward the production `objecting/object` `dev-master` pin.
+- Corrected operations documentation to the canonical maintenance command and storage implementation paths.
+- Local GitHub Actions failures are intentionally non-blocking by repository policy; acceptance is local.
+
+### Reconciliation verification
+- Changed PHP lint: PASS.
+- `composer quality`: PASS.
+- PHPUnit: PASS — 41 tests / 241 assertions.
+- PHPStan: PASS — 0 errors.
+- PHP-CS-Fixer: PASS after normalizing one mixed line ending introduced during reconciliation.
+- Gating: PASS — 69 rules / 0 failures; Canon031/034/040/042 remain warning-level debt only.
+- Composer audit: PASS — no security advisories.
+- Strict Composer validation currently FAILS because the canonical `dev-master` constraints introduced by the active branch cannot be resolved for unpublished dependency masters: Collectioning and Tabling expose only feature branches to Composer, while the existing lock still records pre-master feature versions for Cruding/Objecting/Tabling/Viewing and lacks the newly declared Panther/Test Pack entries.
+- A package-scoped Composer update was attempted and correctly refused dependency resolution; no lockfile mutation was produced by that failed update.
+- Sibling repositories are intentionally not modified from the Attaching execution boundary.
+
+Что имеем? The active canonical branch now contains the substantive RC value of the superseded conflicting PR without replaying its obsolete tree; local code-quality, test, static-analysis, security-audit, and Gating contracts are green.
+
+Что осталось? Publish this reconciliation. Final strict-lock closure and merge require the referenced first-party dependencies to publish Composer-resolvable `dev-master` heads; then regenerate the lock and re-run strict validation locally.
