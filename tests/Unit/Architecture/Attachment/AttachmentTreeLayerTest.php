@@ -49,7 +49,7 @@ final class AttachmentTreeLayerTest extends TestCase
         self::assertFileDoesNotExist(__DIR__.'/../../../../src/Security/Attachment/Voter/AttachmentVoter.php');
     }
 
-    public function testIdentifierMigrationUsesCurrentObjectingPhysicalColumnNames(): void
+    public function testIdentifierMigrationUsesCanonicalSnakeCasePhysicalColumnNames(): void
     {
         $commandFile = __DIR__.'/../../../../src/Command/Maintenance/Attachment/AttachmentMigrateIdentifiersCommand.php';
         $contents = file_get_contents($commandFile);
@@ -59,10 +59,12 @@ final class AttachmentTreeLayerTest extends TestCase
         self::assertStringNotContainsString('object_status', $contents);
         self::assertStringNotContainsString('object_created_at', $contents);
         self::assertStringContainsString('uuid bytea NOT NULL', $contents);
-        self::assertStringContainsString('CREATE UNIQUE INDEX "UNIQ_795FD9BBD17F50A6" ON attachment (uuid)', $contents);
+        self::assertStringContainsString('CREATE UNIQUE INDEX uniq_attachment_uuid ON attachment (uuid)', $contents);
         self::assertStringContainsString('status varchar(64) DEFAULT NULL', $contents);
-        self::assertStringContainsString('"mediaKind" varchar(255) DEFAULT NULL', $contents);
-        self::assertStringContainsString('"deletedAt" timestamp(0) without time zone DEFAULT NULL', $contents);
+        self::assertStringContainsString('media_kind varchar(255) DEFAULT NULL', $contents);
+        self::assertStringContainsString('deleted_at timestamp(0) without time zone DEFAULT NULL', $contents);
         self::assertStringContainsString('created_at timestamp(0) without time zone NOT NULL', $contents);
+        self::assertStringNotContainsString('"mediaKind"', $contents);
+        self::assertStringNotContainsString('"deletedAt"', $contents);
     }
 }

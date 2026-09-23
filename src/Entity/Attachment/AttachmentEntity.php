@@ -40,28 +40,28 @@ class AttachmentEntity implements ObjectEntityInterface
     #[ORM\Column(enumType: AttachmentType::class)]
     private AttachmentType $type;
 
-    #[ORM\Column(nullable: true, enumType: AttachmentMediaKind::class)]
+    #[ORM\Column(name: 'media_kind', nullable: true, enumType: AttachmentMediaKind::class)]
     private ?AttachmentMediaKind $mediaKind;
 
-    #[ORM\Column(nullable: true, enumType: AttachmentDocumentKind::class)]
+    #[ORM\Column(name: 'document_kind', nullable: true, enumType: AttachmentDocumentKind::class)]
     private ?AttachmentDocumentKind $documentKind;
 
-    #[ORM\Column(enumType: AttachmentStorageKind::class)]
+    #[ORM\Column(name: 'storage_kind', enumType: AttachmentStorageKind::class)]
     private AttachmentStorageKind $storageKind;
 
     #[ORM\Column(enumType: AttachmentVisibility::class)]
     private AttachmentVisibility $visibility;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'original_name', length: 255)]
     private string $originalName;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name: 'stored_name', length: 255)]
     private string $storedName;
 
     #[ORM\Column(length: 32, nullable: true)]
     private ?string $extension;
 
-    #[ORM\Column(length: 191)]
+    #[ORM\Column(name: 'mime_type', length: 191)]
     private string $mimeType;
 
     #[ORM\Column]
@@ -70,7 +70,7 @@ class AttachmentEntity implements ObjectEntityInterface
     #[ORM\Column(length: 128)]
     private string $checksum;
 
-    #[ORM\Column(length: 1024)]
+    #[ORM\Column(name: 'storage_path', length: 1024)]
     private string $storagePath;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -79,7 +79,7 @@ class AttachmentEntity implements ObjectEntityInterface
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(name: 'alt_text', type: 'text', nullable: true)]
     private ?string $altText;
 
     #[ORM\Column(nullable: true)]
@@ -88,13 +88,13 @@ class AttachmentEntity implements ObjectEntityInterface
     #[ORM\Column(nullable: true)]
     private ?int $height;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(name: 'duration_ms', nullable: true)]
     private ?int $durationMs;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(name: 'page_count', nullable: true)]
     private ?int $pageCount;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(name: 'deleted_at', nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
     public function __construct(

@@ -26,13 +26,13 @@ class AttachmentLinkEntity implements ObjectRelationEntityInterface
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: AttachmentEntity::class)]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'attachment_id', nullable: false, onDelete: 'CASCADE')]
     private AttachmentEntity $attachment;
 
-    #[ORM\Column(length: 191)]
+    #[ORM\Column(name: 'owner_type', length: 191)]
     private string $ownerType;
 
-    #[ORM\Column(length: 191)]
+    #[ORM\Column(name: 'owner_id', length: 191)]
     private string $ownerId;
 
     #[ORM\Column(length: 191, nullable: true)]
@@ -44,7 +44,7 @@ class AttachmentLinkEntity implements ObjectRelationEntityInterface
     #[ORM\Column]
     private int $position;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'is_primary')]
     private bool $isPrimary;
 
     public function __construct(
