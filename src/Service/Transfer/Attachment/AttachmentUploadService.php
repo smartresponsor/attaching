@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Transfer\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\UploadAttachmentInput;
-use App\Attaching\Dto\Output\Attachment\AttachmentView;
+use App\Attaching\DTO\Input\Attachment\AttachmentUploadInputDTO;
+use App\Attaching\DTO\Output\Attachment\AttachmentViewDTO;
 use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
 use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use App\Attaching\Exception\Storage\Attachment\AttachmentStorageException;
+use App\Attaching\Factory\Query\Attachment\AttachmentViewFactory;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
-use App\Attaching\Service\Query\Attachment\AttachmentViewFactory;
 use App\Attaching\Service\Validation\Attachment\AttachmentValidationService;
 use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentChecksumGeneratorInterface;
 use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentMimeTypeGuesserInterface;
@@ -35,7 +35,7 @@ final readonly class AttachmentUploadService implements AttachmentUploadServiceI
     ) {
     }
 
-    public function upload(UploadAttachmentInput $input): AttachmentView
+    public function upload(AttachmentUploadInputDTO $input): AttachmentViewDTO
     {
         $this->attachmentValidationService->validateUploadedFile($input->uploadedFile);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);

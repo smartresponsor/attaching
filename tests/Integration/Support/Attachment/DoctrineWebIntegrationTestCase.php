@@ -102,7 +102,7 @@ abstract class DoctrineWebIntegrationTestCase extends WebTestCase
     {
         $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);
-        $schemaTool->dropSchema($metadata);
+        $schemaTool->dropDatabase();
 
         if ([] !== $metadata) {
             $schemaTool->createSchema($metadata);

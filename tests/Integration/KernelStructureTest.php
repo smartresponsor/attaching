@@ -16,7 +16,7 @@ final class KernelStructureTest extends TestCase
         self::assertFileExists(__DIR__.'/../../bin/console');
         self::assertFileExists(__DIR__.'/../../config/bundles.php');
         self::assertFileExists(__DIR__.'/../../config/services.yaml');
-        self::assertFileExists(__DIR__.'/../../config/routes/attachment.yaml');
+        self::assertFileExists(__DIR__.'/../../config/routes/attachment_routes.yaml');
         self::assertFileExists(__DIR__.'/../../config/packages/framework.yaml');
         self::assertFileExists(__DIR__.'/../../config/packages/doctrine.yaml');
         self::assertFileExists(__DIR__.'/../../config/packages/security.yaml');

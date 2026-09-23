@@ -28,7 +28,7 @@ final class AttachmentExtension extends Extension
          */
         $config = $this->processConfiguration($configuration, $configs);
 
-        $runtimeFile = __DIR__.'/../../config/component/runtime.yaml';
+        $runtimeFile = __DIR__.'/../../config/component/attachment_runtime.yaml';
         if (is_file($runtimeFile)) {
             $runtime = Yaml::parseFile($runtimeFile);
             if (is_array($runtime)) {
