@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Attaching\Factory\Query\Attachment;
+
+use App\Attaching\DTO\Output\Attachment\AttachmentLinkViewDTO;
+use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
+
+final class AttachmentLinkViewFactory
+{
+    public function create(AttachmentLink $attachmentLink): AttachmentLinkViewDTO
+    {
+        return new AttachmentLinkViewDTO(
+            id: $attachmentLink->getId(),
+            attachmentId: $attachmentLink->getAttachment()->getId(),
+            ownerType: $attachmentLink->getOwnerType(),
+            ownerId: $attachmentLink->getOwnerId(),
+            context: $attachmentLink->getContext(),
+            slot: $attachmentLink->getSlot(),
+            position: $attachmentLink->getPosition(),
+            isPrimary: $attachmentLink->isPrimary(),
+            createdAt: $attachmentLink->getCreatedAt(),
+        );
+    }
+}

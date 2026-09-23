@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Linking\Attachment;
 
-use App\Attaching\Dto\Input\Attachment\AttachAttachmentInput;
-use App\Attaching\Dto\Output\Attachment\AttachmentLinkView;
+use App\Attaching\DTO\Input\Attachment\AttachmentAttachInputDTO;
+use App\Attaching\DTO\Output\Attachment\AttachmentLinkViewDTO;
 use App\Attaching\Entity\Attachment\AttachmentLinkEntity as AttachmentLink;
 use App\Attaching\Exception\Linking\Attachment\AttachmentLinkException;
 use App\Attaching\Exception\Lookup\Attachment\AttachmentNotFoundException;
+use App\Attaching\Factory\Query\Attachment\AttachmentLinkViewFactory;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
-use App\Attaching\Service\Query\Attachment\AttachmentLinkViewFactory;
 use App\Attaching\Service\Validation\Attachment\AttachmentValidationService;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface;
 
@@ -26,13 +26,13 @@ final readonly class AttachmentAttachService implements AttachmentAttachServiceI
     }
 
     /**
-     * @param AttachAttachmentInput $input
+     * @param AttachmentAttachInputDTO $input
      *
-     * @return AttachmentLinkView
+     * @return AttachmentLinkViewDTO
      *
      * @throws \Throwable
      */
-    public function attach(AttachAttachmentInput $input): AttachmentLinkView
+    public function attach(AttachmentAttachInputDTO $input): AttachmentLinkViewDTO
     {
         $this->attachmentValidationService->validateAttachmentIdentifier($input->attachmentId);
         $this->attachmentValidationService->validateOwnerReference($input->ownerType, $input->ownerId);

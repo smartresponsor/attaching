@@ -10,8 +10,8 @@ use App\Attaching\Enum\Classification\Attachment\AttachmentStorageKind;
 use App\Attaching\Enum\Classification\Attachment\AttachmentType;
 use App\Attaching\Enum\Classification\Attachment\AttachmentVisibility;
 use App\Attaching\Enum\Lifecycle\Attachment\AttachmentStatus;
-use App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository;
-use App\Attaching\Repository\Doctrine\Attachment\AttachmentRepository;
+use App\Attaching\Repository\Persistence\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Persistence\Attachment\AttachmentRepository;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentOwnerPurgeServiceInterface;
 use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
 

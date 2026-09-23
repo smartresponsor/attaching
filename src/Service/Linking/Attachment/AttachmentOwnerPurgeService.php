@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attaching\Service\Linking\Attachment;
 
-use App\Attaching\Dto\Output\Attachment\AttachmentOwnerPurgeResult;
+use App\Attaching\DTO\Output\Attachment\AttachmentOwnerPurgeResultDTO;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentLinkRepositoryInterface;
 use App\Attaching\RepositoryInterface\Persistence\Attachment\AttachmentRepositoryInterface;
 use App\Attaching\Service\Validation\Attachment\AttachmentValidationService;
@@ -19,7 +19,7 @@ final readonly class AttachmentOwnerPurgeService implements AttachmentOwnerPurge
     ) {
     }
 
-    public function purge(string $ownerType, string $ownerId): AttachmentOwnerPurgeResult
+    public function purge(string $ownerType, string $ownerId): AttachmentOwnerPurgeResultDTO
     {
         $this->attachmentValidationService->validateOwnerReference($ownerType, $ownerId);
 
@@ -45,7 +45,7 @@ final readonly class AttachmentOwnerPurgeService implements AttachmentOwnerPurge
             ++$deletedOrphanCount;
         }
 
-        return new AttachmentOwnerPurgeResult(
+        return new AttachmentOwnerPurgeResultDTO(
             ownerType: $ownerType,
             ownerId: $ownerId,
             detachedLinkCount: count($linkList),

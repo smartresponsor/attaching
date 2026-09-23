@@ -16,7 +16,7 @@ Producer components own the business meaning of their slots. For example, Vendor
 
 == Resolver contract
 
-`AttachmentPrimaryLinkResolverServiceInterface::resolvePrimary()` returns the active primary attachment link for:
+`AttachmentPrimaryLinkServiceInterface::resolvePrimary()` returns the active primary attachment link for:
 
 [source,text]
 ----
@@ -62,4 +62,4 @@ position = 0..n
 
 == Consumer boundary
 
-A producer such as Vendoring should consume `AttachmentPrimaryLinkResolverServiceInterface` through an optional host bridge. It should not duplicate canonical avatar/cover file paths in its own profile tables.
+A producer such as Vendoring should consume `AttachmentPrimaryLinkServiceInterface` through an optional host bridge. It should not duplicate canonical avatar/cover file paths in its own profile tables.

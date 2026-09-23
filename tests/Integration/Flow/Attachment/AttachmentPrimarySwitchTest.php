@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Attaching\Tests\Integration\Flow\Attachment;
 
 use App\Attaching\DataFixtures\Demo\Attachment\AttachmentFixture;
-use App\Attaching\Dto\Input\Attachment\AttachAttachmentInput;
-use App\Attaching\Dto\Input\Attachment\ListAttachmentInput;
+use App\Attaching\DTO\Input\Attachment\AttachmentAttachInputDTO;
+use App\Attaching\DTO\Input\Attachment\AttachmentListInputDTO;
 use App\Attaching\Entity\Attachment\AttachmentEntity as Attachment;
-use App\Attaching\Repository\Doctrine\Attachment\AttachmentLinkRepository;
+use App\Attaching\Repository\Persistence\Attachment\AttachmentLinkRepository;
 use App\Attaching\ServiceInterface\Linking\Attachment\AttachmentAttachServiceInterface;
 use App\Attaching\ServiceInterface\Query\Attachment\AttachmentListServiceInterface;
 use App\Attaching\Tests\Integration\Support\Attachment\DoctrineIntegrationTestCase;
@@ -38,7 +38,7 @@ final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
         self::assertInstanceOf(Attachment::class, $firstAttachment);
         self::assertInstanceOf(Attachment::class, $secondAttachment);
 
-        $first = $attachService->attach(new AttachAttachmentInput(
+        $first = $attachService->attach(new AttachmentAttachInputDTO(
             attachmentId: $firstAttachment->getId(),
             ownerType: 'product',
             ownerId: 'prod-primary-1',
@@ -47,7 +47,7 @@ final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
             isPrimary: true,
         ));
 
-        $second = $attachService->attach(new AttachAttachmentInput(
+        $second = $attachService->attach(new AttachmentAttachInputDTO(
             attachmentId: $secondAttachment->getId(),
             ownerType: 'product',
             ownerId: 'prod-primary-1',
@@ -69,7 +69,7 @@ final class AttachmentPrimarySwitchTest extends DoctrineIntegrationTestCase
 
         self::assertSame(1, $primaryCount);
 
-        $list = $listService->list(new ListAttachmentInput(
+        $list = $listService->list(new AttachmentListInputDTO(
             ownerType: 'product',
             ownerId: 'prod-primary-1',
             context: 'gallery',
