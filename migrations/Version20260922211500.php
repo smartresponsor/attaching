@@ -91,3 +91,4 @@ final class Version20260922211500 extends AbstractMigration
 
         $this->addSql(sprintf('ALTER INDEX "%s" RENAME TO %s', $legacy, $canonical));
     }
+}
