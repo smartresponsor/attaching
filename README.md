@@ -1,6 +1,6 @@
 # Attaching
 
-Symfony-oriented attachment component for Smart Responsor.
+Symfony-oriented attachment component for the multi-domain SaaS platform.
 
 ## Current scope
 - package-oriented attachment and attachment-link business logic
@@ -18,7 +18,7 @@ Symfony-oriented attachment component for Smart Responsor.
 
 ## Runtime baseline
 - PHP `^8.4`
-- Symfony `^8.0`
+- Symfony `^8.1`
 - Doctrine ORM `^3.3`
 
 ## Quality gates

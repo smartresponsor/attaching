@@ -1,5 +1,50 @@
 # CMCP Orchestration Journal
 
+## 2026-09-26 — Autonomous RC reconnaissance and Canon055 closure
+
+### Baseline and contract reads
+- Target boundary: Attaching only; sibling repositories remain read-only references.
+- Current branch: `rc/attaching-canonical-merge-20260922`, tracking its origin branch with no ahead/behind divergence at baseline.
+- Pre-existing dirty paths were `.gating/README.md` and `composer.json`; they are preserved as pre-existing work and are not folded into this RC repair.
+- Mandatory dependency contour is declared in the current development Composer manifest: Objecting, Cruding, Viewing, and Interfacing, with local path/symlink wiring; Collectioning, Tabling, and Gating complete the current first-party development contour.
+- Canonization textual rules consulted for this pass include Canon001, Canon007, Canon018, Canon019, Canon021, Canon022, Canon043, Canon044, Canon045, Canon047, Canon049, Canon051, Canon052, Canon053, Canon054, and Canon055, plus the architecture README and guard matrix.
+- Gating was treated as executable enforcement while Canonization remained normative.
+
+### Market and maturity contour
+- RC baseline for attachment handling remains deterministic validation, integrity-safe storage, lifecycle-safe association/deletion, authorization-aware downloads, and explicit storage boundaries.
+- Growth remains separate: object storage/direct upload, multipart transfer for large objects, malware/quarantine scanning, asynchronous processing, derivatives, and richer metadata.
+
+### RC-critical workstream selected
+- Run the actual aggregate quality gate and repair only factual Attaching-owned failures.
+- `composer quality` found one hard failure: Canon055 detected three human-facing documentation lines that used the Smart Responsor consumer identity as shared platform/ecosystem identity.
+- PHP-CS-Fixer, PHPStan, and PHPUnit were already green at this checkpoint (41 tests, 243 assertions); Composer strict validation and audit were also green.
+
+### Material repair
+- Reframed the Attaching AGENTS heading to neutral platform/consumer terminology.
+- Reframed README and Antora landing text to neutral multi-domain SaaS platform terminology.
+- Corrected README's documented Symfony floor from `^8.0` to the actual Composer `^8.1` constraint.
+
+### Gates to close
+- Re-run `composer quality` and verify Canon055 is green.
+- Re-check strict Composer validation/audit and final Git worktree/branch state.
+- Preserve the two pre-existing dirty paths unless repository evidence proves they belong to this task.
+
+Что имеем? Фактический hard-gate Canon055 локализован и исправлен в Attaching-owned documentation без изменения runtime behavior.
+
+Что осталось? Повторить aggregate quality и финальный Git/integration review, затем интегрировать только новые coherent owned paths.
+
+### Acceptance verification
+- `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 9 rules / 0 failures / 0 warnings.
+- Canon055 now passes: no consumer identity is promoted to platform identity in current human-facing documentation.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- No runtime, browser-flow, form, navigation, template, or mobile behavior changed; Playwright/Panther and visual evidence are therefore not applicable to this repair.
+- Git ownership review confirms only `AGENTS.md`, `README.md`, `docs/modules/ROOT/pages/index.adoc`, and this journal belong to the current repair. Pre-existing `.gating/README.md` and `composer.json` remain preserved and unstaged.
+
+Что имеем? Aggregate quality, Canon055, strict lock validation, tests, static analysis and dependency audit are green for the repaired working tree.
+
+Что осталось? Создать и опубликовать отдельный signed commit только из четырёх owned paths; затем проверить post-push branch/upstream state.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state
