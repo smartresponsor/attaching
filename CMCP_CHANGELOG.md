@@ -55,6 +55,27 @@
 
 Что осталось? Human-owned disposition of the consumer `.gating/README.md` copy and the development-only license change; no further autonomous Attaching code repair is justified from repository evidence.
 
+### Explicit residual resolution
+- User explicitly authorized resolving the two residual paths.
+- `.gating/README.md` was restored to the Canon052-compliant consumer artifact-only README.
+- The existing development-manifest license change to `PolyForm-Noncommercial-1.0.0` was retained intentionally. This matches the current development manifests of Objecting, Cruding, Viewing, Interfacing, Collectioning, Tabling, and Gating.
+- `composer.prod.json` remains `proprietary`, matching the prevailing development/production licensing split across those sibling platform packages except Objecting, whose production manifest also uses PolyForm.
+- No runtime/UI behavior changed.
+
+Что имеем? The two residual Attaching paths now have an explicit, evidence-backed disposition.
+
+Что осталось? Re-run quality, strict Composer validation, audit, inspect final diff, then publish the residual-resolution commit.
+
+### Residual-resolution acceptance
+- `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 9 rules with 0 failures and 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Final dirty scope before commit: `composer.json` plus this CMCP journal only; `.gating/README.md` is back to canonical HEAD content and no longer dirty.
+
+Что имеем? Residual cleanup is fully validated and limited to the intended license metadata plus orchestration journal.
+
+Что осталось? Signed commit, push, and post-push branch/upstream verification.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state
