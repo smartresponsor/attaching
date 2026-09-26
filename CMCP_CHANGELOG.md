@@ -45,6 +45,16 @@
 
 Что осталось? Создать и опубликовать отдельный signed commit только из четырёх owned paths; затем проверить post-push branch/upstream state.
 
+### Post-publication residual classification
+- Signed commit `a84096eeee87f72bca3fafeb8ac8baa6691faaef` was pushed successfully; branch is synchronized with upstream (ahead 0 / behind 0).
+- Residual `.gating/README.md` is pre-existing user work and conflicts with current Canon052 textual authority: consumer-local `.gating/` is artifact-only and may contain only a non-executable README describing that boundary, while the dirty version copies owner-level Gating package/policy documentation. It must not be silently overwritten under the preservation/destructive-operation constraints.
+- Residual `composer.json` changes package license from `proprietary` to `PolyForm-Noncommercial-1.0.0`, while `composer.prod.json` remains `proprietary`. Canon033 does not define license as identity parity, so there is no deterministic canon rule authorizing a production-license rewrite. This is a product/legal licensing decision rather than an RC code repair.
+- Neither residual path blocks the already-published Canon055 repair, and neither is safe to absorb into an autonomous commit without changing ownership or legal intent.
+
+Что имеем? Task-owned RC repair is fully published and upstream-synchronized; the only remaining dirty state is precisely classified pre-existing work.
+
+Что осталось? Human-owned disposition of the consumer `.gating/README.md` copy and the development-only license change; no further autonomous Attaching code repair is justified from repository evidence.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state
