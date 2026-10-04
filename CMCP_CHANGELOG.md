@@ -1,5 +1,53 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004182414-attaching-b00482 reconnaissance and Canon052 closure
+
+### Baseline
+- WRITE_ALLOWED scope is Attaching only; sibling repositories are read-only contract/evidence sources.
+- Branch `rc/attaching-canonical-merge-20260922` is synchronized with its upstream at baseline (ahead 0 / behind 0) and already contains six pre-existing dirty paths: deleted `.gating/README.md`, plus modified `AGENTS.md`, `composer.json`, `composer.lock`, `composer.prod.json`, and `config/bundles.php`.
+- Upstream CanonScanning fingerprint `55666093fc0d0246608665b8726c46d264d00c585cf511cdb1213b296fe542d4` was RED only on Canon052; supplied Inspecting evidence contains five medium maintainability/design observations and no hard blocker.
+
+### Canon and dependency mapping
+- Normative Canon052 was read directly from Canonization. It requires `gating/gate` as a development dependency, sibling `../Gating` symlink wiring pinned to `dev-master`, standard `gate` plus aggregate `quality`, a path-independent production Gating package declaration, and consumer `.gating/` limited to generated artifact state (optionally a non-executable boundary README).
+- Objecting, Cruding, Viewing, Interfacing, Gating, and Canonization root contracts were re-read. Attaching declares the mandatory application dependency contour and keeps attachment responsibility local.
+- Current `.gitignore` ignores `/.gating/`; therefore deleting the tracked `.gating/README.md` is a valid Canon052-conformant consumer topology (the README is optional, not required).
+
+### Opening market / maturity split
+- RC baseline: validated attachment metadata/content, checksum integrity, lifecycle-safe link/delete behavior, path confinement, deterministic failures, reproducible package wiring, and executable quality gates.
+- Growth remains non-blocking: object storage/direct uploads, resumable transfer, malware/quarantine processing, derivatives/previews, richer metadata, and UX/API capability growth.
+
+### RC-critical workstream
+- Preserve the already-materialized Canon052 remediation and pre-existing dependency/Fallback wiring without destructive reset; prove the current working tree with aggregate quality, strict Composer validation, audit, and post-mutation Inspecting.
+- No browser/mobile UI source is being changed by this pass; visual/behavioral execution is applicability-driven and expected to be not applicable unless verification exposes UI-affecting changes.
+
+Что имеем? Canon052 root cause is factually understood and the live tree already contains the canonical consumer `.gating/` cleanup posture.
+
+Что осталось? Execute current deterministic gates, inspect post-verification findings, then reconcile/commit/publish only coherent authorized work without destroying unrelated changes.
+
+### Acceptance verification
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan analyzer 0 errors; the same five medium php-structure findings remain (four long-method advisories and one AttachmentEntity public-surface advisory), with no new finding introduced by this Canon052 closure.
+- Behavioral/UI verification is not applicable: this task changes repository policy topology/journal only and does not change templates, forms, navigation, controllers, browser interactions, or mobile UI behavior.
+
+### Git ownership classification
+- Task-owned coherent Canon052 batch: deletion of tracked `.gating/README.md` plus this `CMCP_CHANGELOG.md` entry.
+- Preserved pre-existing unrelated/mixed work remains unstaged: `AGENTS.md`, `composer.json`, `composer.lock`, `composer.prod.json`, and `config/bundles.php` (including Failing adoption and other canon projection updates).
+
+Что имеем? Canon052 is closed by current executable evidence and the exact consumer `.gating/` topology is canonical without requiring a tracked README.
+
+Что осталось? Commit and push only `.gating/README.md` deletion plus `CMCP_CHANGELOG.md`, then inspect final branch/upstream/worktree state.
+
+### Integration capability note
+- Console MCP signed-commit staging cannot stage the already-deleted tracked `.gating/README.md` because its parent is ignored by `/.gating/`; the explicit stage operation fails at `git add` with the ignore guard.
+- The index-only untrack capability also refuses because the working-tree path is already absent. No exposed Git capability in this execution plane provides the required explicit `git add -u -- .gating/README.md` equivalent.
+- This is a tooling-capability integration blocker only; repository quality/Canon052 verification is GREEN. The deletion is intentionally left in the working tree and no destructive reset/restoration is performed.
+
+Что имеем? Repository correctness and acceptance are green, while publication of the tracked ignored-path deletion is blocked by the current Console MCP Git staging capability.
+
+Что осталось? Preserve the verified deletion and publish it once the execution plane exposes a tracked-deletion staging operation; unrelated pre-existing dirty paths remain untouched.
+
 ## 2026-10-04 — engine-20261004120050-attaching-28e0ae factual documentation reconciliation
 
 ### Baseline and ownership
