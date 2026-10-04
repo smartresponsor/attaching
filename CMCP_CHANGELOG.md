@@ -1,5 +1,45 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004094857-attaching-205dde lifecycle API normalization
+
+### Baseline and ownership
+- WRITE_ALLOWED scope is Attaching only; Objecting, Cruding, Viewing, Interfacing, Gating, Canonization, and Inspecting were consumed as read-only contract/evidence sources.
+- Canonical workspace is `D:\\PhpstormProjects\\www\\Attaching`; the worktree was clean at baseline on `rc/attaching-canonical-merge-20260922`.
+- The supplied 2026-09-29 CanonScanning report is RED only on historical Canon052 consumer `.gating/` owner-copy topology. The live `composer gate` is GREEN with 0 failures / 0 warnings, so that failure is stale for current HEAD.
+- The supplied Inspecting report contained four long-method findings plus one `AttachmentEntity` large-public-api observation. Current repository history had already closed all four long-method findings; a fresh post-change Inspecting run before final API cleanup confirmed only the entity public-surface observation remained.
+
+### Contract and canon mapping
+- Read current Attaching AGENTS/README/Composer/package/test/config/component documentation and the orchestration journal.
+- Read Objecting, Cruding, Viewing, Interfacing, and Gating root AGENTS/README/Composer contracts. Objecting owns canonical lifecycle/system-field vocabulary; Cruding owns generic CRUD; Viewing owns the rendering boundary; Interfacing owns interface-shell concerns.
+- Read Canonization root contracts, Guard Matrix, and normative Canon031, Canon034, Canon040, Canon042, and Canon052 rules. Canonization is normative; Gating remains executable enforcement.
+- Objecting lifecycle vocabulary favors canonical `getCreatedAt()`, `getModifiedAt()`, `getDeletedAt()`, `delete()`, and `restore()` surfaces; unused created/updated/modified/deleted aliases add no component-owned semantics.
+
+### Market / maturity split
+- RC-critical expectations for attachment systems remain deterministic metadata/content validation, checksum integrity, lifecycle-safe association/deletion, storage-path confinement, authorization-aware delivery, reproducible package wiring, and deterministic quality evidence.
+- Growth remains non-blocking: resumable/direct object-storage transfer, malware/quarantine workflows, asynchronous derivatives/previews, richer metadata, and upload UX/API expansion.
+
+### RC-critical workstream
+- Remove unused legacy lifecycle aliases from `AttachmentEntity` and route Attaching-owned delete callers through one canonical `delete()` path without changing persistence semantics.
+- Preserve Objecting state/status behavior, local `deleted_at` behavior, authorization behavior, service transaction boundaries, and all existing tests.
+- No controller, route, form, template, navigation, browser interaction, or mobile UI source is changed; browser/mobile visual verification is therefore not applicable.
+
+Что имеем? Historical hard Canon052 debt is stale on live HEAD, helper/canon ownership is mapped, and the remaining fresh Inspecting debt is narrowed to redundant `AttachmentEntity` public lifecycle aliases.
+
+Что осталось? Verify the normalized API with lint, aggregate quality, strict Composer validation/audit, and post-mutation Inspecting; then create/push one coherent signed commit and inspect final Git state.
+
+### Acceptance verification
+- Changed-file PHP lint: PASS for all four changed PHP files.
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan 0 errors and one medium design observation remains; `AttachmentEntity` public methods decreased from the supplied baseline 31 to 25. The four historical long-method findings remain absent.
+- The remaining large-public-api observation is non-actionable/advisory evidence rather than a hard Canon/Gating blocker. Further deletion of useful business getters merely to cross a heuristic threshold is not justified by current repository evidence.
+- Behavioral/UI and visual verification: not applicable because no controller, route, form, template, navigation, browser interaction, or mobile UI source changed.
+
+Что имеем? Canon052 is live-green, deterministic quality/security verification is green, and the only fresh Inspecting tail is a reduced non-blocking entity API design observation.
+
+Что осталось? Create and push one signed coherent commit, then verify final HEAD/upstream/worktree state.
+
 ## 2026-10-04 — engine-20261004094439-attaching-d59e26 reconnaissance and fixture hardening verification
 
 ### Baseline and ownership

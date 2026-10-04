@@ -40,7 +40,7 @@ final readonly class AttachmentOwnerPurgeService implements AttachmentOwnerPurge
                 continue;
             }
 
-            $attachment->markDeleted();
+            $attachment->delete();
             $this->attachmentRepository->save($attachment);
             ++$deletedOrphanCount;
         }

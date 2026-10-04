@@ -261,48 +261,18 @@ class AttachmentEntity implements ObjectEntityInterface
         return $this->pageCount;
     }
 
-    public function createdAt(): \DateTimeImmutable
-    {
-        return $this->getCreatedAt();
-    }
-
-    public function getUpdatedAt(): \DateTimeImmutable
-    {
-        return $this->getModifiedAt() ?? $this->getCreatedAt();
-    }
-
-    public function updatedAt(): \DateTimeImmutable
-    {
-        return $this->getUpdatedAt();
-    }
-
-    public function modifiedAt(): \DateTimeImmutable
-    {
-        return $this->getUpdatedAt();
-    }
-
     public function getDeletedAt(): ?\DateTimeImmutable
     {
         return $this->deletedAt;
     }
 
-    public function deletedAt(): ?\DateTimeImmutable
-    {
-        return $this->getDeletedAt();
-    }
-
-    public function markDeleted(): void
+    public function delete(): void
     {
         $now = new \DateTimeImmutable();
         $this->deletedAt = $now;
         $this->setObjectStatus(AttachmentStatus::Deleted->value);
         $this->setObjectActive(false);
         $this->touchModified($now);
-    }
-
-    public function delete(): void
-    {
-        $this->markDeleted();
     }
 
     public function restore(): void
