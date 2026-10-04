@@ -42,6 +42,26 @@
 
 Что осталось? Create one signed commit for the command documentation plus orchestration journal, push the current branch, and verify final HEAD/upstream/worktree state.
 
+### Continuation — production long-method remediation
+- Refactored `AttachmentMigrateIdentifiersCommand::execute()` into small private phases while preserving the exact SQL sequence, PostgreSQL-only guard, transaction begin/commit/rollback semantics, success/warning output, and exception propagation.
+- `execute()` now delegates to an atomic `migrateIdentifiers()` coordinator; preparation, attachment copy, link copy, and finalization are isolated as private methods.
+- PHP syntax PASS; PHP-CS-Fixer PASS; PHPStan PASS; PHPUnit PASS (41 tests / 243 assertions); Gating PASS (0 failures / 0 warnings).
+- Aggregate `composer quality` synchronous execution exceeded the console response window, and heavy async admission was temporarily denied by runtime-capacity policy. The same declared constituent scripts were therefore executed individually and all passed.
+
+Что имеем? The production long-method root cause has been structurally remediated without changing SQL or command behavior, and every constituent quality gate is green.
+
+Что осталось? Post-mutation Inspecting must confirm the long-method finding is gone, then commit/push and final Git verification.
+
+### Continuation acceptance
+- Final PHP lint: PASS.
+- Final constituent quality scripts: PHP-CS-Fixer PASS, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 0 failures / 0 warnings.
+- Post-mutation Inspecting: COMPLETE with 4 medium findings, down from 5. The `AttachmentMigrateIdentifiersCommand` long-method finding is gone; remaining findings are three fixture-only long-method observations and one `AttachmentEntity` large-public-api design observation.
+- No browser/mobile/UI behavior changed; visual evidence remains not applicable.
+
+Что имеем? The production maintenance path is structurally clean under Inspecting and deterministic gates remain green.
+
+Что осталось? Signed commit, push, final branch/upstream/worktree verification; residual non-hard debt is confined to fixtures and entity API design.
+
 ## 2026-10-04 — engine-20261004184440-attaching-1d83bc Failing adoption acceptance
 
 ### Baseline and reconnaissance
