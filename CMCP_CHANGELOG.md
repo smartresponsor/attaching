@@ -1,5 +1,45 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004094439-attaching-d59e26 reconnaissance and fixture hardening verification
+
+### Baseline and ownership
+- WRITE_ALLOWED boundary is Attaching only; sibling repositories are read-only contract/evidence sources.
+- Canonical workspace resolves to `D:\\PhpstormProjects\\www\\Attaching`; branch `rc/attaching-canonical-merge-20260922` is synchronized with origin at baseline (ahead 0 / behind 0).
+- Upstream CanonScanning report is RED only on historical Canon052 consumer `.gating/` topology; current repository history/journal records the artifact-only cleanup already published, so the report is stale for the live HEAD and must be checked against the executable gate rather than replayed as current failure.
+- Fresh upstream Inspecting evidence contains five medium observations. The production command long-method finding has already been closed by current history; the live working tree contains three pre-existing, coherent in-scope fixture refactors matching the three remaining fixture long-method findings. They are preserved and verified, not reset or silently overwritten.
+
+### Contract and canon mapping
+- Read Attaching README, development/production Composer manifests, ignore policy, existing CMCP journal, and current working-tree diffs.
+- Read mandatory Objecting, Cruding, Viewing, Interfacing package/responsibility contracts and Gating package contract.
+- Read normative Canon052 directly from Canonization: `gating/gate` is the executable owner, consumer `.gating/` is artifact-only, development uses the sibling symlink and standard Composer gate/quality entrypoints, and production must not depend on a local filesystem path.
+- Attaching currently declares Objecting, Cruding, Viewing, and Interfacing as real runtime dependencies with local development path/symlink wiring; Inspecting remains external verification, not an application dependency.
+
+### Market / maturity split
+- RC-critical baseline: deterministic content/metadata validation, checksum integrity, lifecycle-safe attachment linking/deletion, storage-path confinement, authorization-aware delivery, reproducible package wiring, and deterministic verification.
+- Growth remains non-blocking: resumable transfer, direct/presigned object-storage uploads, malware/quarantine processing, asynchronous derivatives/previews, and richer upload UX/API capability.
+
+### Selected RC-critical workstream
+- Validate the existing three fixture long-method refactors as one coherent structural hardening batch, preserving fixture semantics and repository boundaries.
+- Run aggregate quality, strict Composer validation/check-lock, dependency audit, and post-mutation Inspecting; fix only evidence-backed Attaching-owned failures.
+- Browser/mobile behavioral and visual evidence is applicability-driven; no UI-affecting source is currently in the diff.
+
+Что имеем? Historical Canon052 RED is understood against current canon, dependency boundaries are mapped, and the live in-scope fixture refactor batch is preserved for deterministic verification.
+
+Что осталось? Run deterministic gates and post-mutation Inspecting, repair any in-scope regressions, then reconcile/commit/push only the coherent verified batch and this journal entry if safe.
+
+### Acceptance verification
+- Initial aggregate quality exposed only PHP-CS-Fixer alignment and PHPStan loss of array-shape precision introduced by the extracted fixture constant; both were repaired in-scope using repository formatting plus a local `FixtureSpec` PHPStan type alias.
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan 0 errors and one remaining medium design observation only (`AttachmentEntity` large public API). All four upstream long-method observations are now absent; the three fixture findings covered by this batch are closed.
+- Current diff is structural fixture hardening plus this orchestration journal; fixture data, reference names, owner/link tuples, storage names/paths, checksum behavior, persistence order, and flush semantics remain preserved by the refactor and are covered by the passing test suite.
+- Browser/mobile behavioral and visual verification is not applicable: no controller, route, form, template, navigation, browser interaction, or mobile UI source changed.
+
+Что имеем? The fixture maintainability backlog is materially closed and the complete deterministic acceptance contour is green.
+
+Что осталось? Create one signed commit for the three coherent fixture refactors plus this journal, push the current branch, then verify final HEAD/upstream/worktree state.
+
 ## 2026-10-04 — engine-20261004093454-attaching-6c890d reconnaissance and RC hardening
 
 ### Baseline and reconnaissance
