@@ -39,14 +39,14 @@
 
 Что осталось? Commit and push only `.gating/README.md` deletion plus `CMCP_CHANGELOG.md`, then inspect final branch/upstream/worktree state.
 
-### Integration capability note
-- Console MCP signed-commit staging cannot stage the already-deleted tracked `.gating/README.md` because its parent is ignored by `/.gating/`; the explicit stage operation fails at `git add` with the ignore guard.
-- The index-only untrack capability also refuses because the working-tree path is already absent. No exposed Git capability in this execution plane provides the required explicit `git add -u -- .gating/README.md` equivalent.
-- This is a tooling-capability integration blocker only; repository quality/Canon052 verification is GREEN. The deletion is intentionally left in the working tree and no destructive reset/restoration is performed.
+### Integration result
+- The first combined signed-commit staging attempt reported an ignore-path staging error for `.gating/README.md`, and index-only untrack correctly refused the already-absent working-tree path.
+- A subsequent signed journal commit revealed the deletion was already staged and atomically committed it together with the journal: commit `b92ab3a` deletes tracked `.gating/README.md` and records this verification without touching the five unrelated pre-existing dirty paths.
+- No destructive reset/restoration was used.
 
-Что имеем? Repository correctness and acceptance are green, while publication of the tracked ignored-path deletion is blocked by the current Console MCP Git staging capability.
+Что имеем? Repository correctness and acceptance are green, and the Canon052 consumer `.gating/` remediation is now committed in signed history.
 
-Что осталось? Preserve the verified deletion and publish it once the execution plane exposes a tracked-deletion staging operation; unrelated pre-existing dirty paths remain untouched.
+Что осталось? Push the current branch and verify final HEAD/upstream/worktree state while preserving unrelated pre-existing dirty paths.
 
 ## 2026-10-04 — engine-20261004120050-attaching-28e0ae factual documentation reconciliation
 
