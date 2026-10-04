@@ -16,6 +16,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'app:attachment:migrate-identifiers',
     description: 'Rewrite legacy UUID attachment identifiers to integer identifiers.',
 )]
+/**
+ * Migrates the legacy PostgreSQL attachment schema from UUID primary keys to integer identities.
+ *
+ * The migration preserves attachment/link relationships inside one transaction and is a no-op once integer identifiers are active.
+ */
 final class AttachmentMigrateIdentifiersCommand extends Command
 {
     public function __construct(
@@ -24,6 +29,9 @@ final class AttachmentMigrateIdentifiersCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * Execute the idempotent PostgreSQL identifier migration.
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

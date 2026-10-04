@@ -1,5 +1,47 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004093454-attaching-6c890d reconnaissance and RC hardening
+
+### Baseline and reconnaissance
+- WRITE_ALLOWED boundary is Attaching only; sibling repositories were consumed read-only through Console MCP.
+- Canonical workspace resolved to `D:\\PhpstormProjects\\www\\Attaching`; branch `rc/attaching-canonical-merge-20260922` was clean and synchronized with origin at baseline (ahead 0 / behind 0).
+- The supplied 2026-09-29 Gating report was RED only on Canon052, but the current executable `composer gate` is GREEN with zero failures/warnings; the prior Canon052 failure is stale for the current HEAD.
+- Supplied Inspecting evidence has five medium observations: four long-method advisories and one `AttachmentEntity` public-surface advisory; no hard Inspecting blocker was present.
+
+### Canon / dependency mapping
+- Read current Attaching `AGENTS.md`, `README.md`, `composer.json`, production Composer manifest and ignore policy.
+- Read mandatory Objecting, Cruding, Viewing, Interfacing root contracts plus Gating and Canonization root contracts.
+- Normative Canon052 was read directly: consumer `.gating/` is artifact-only while Gating policy/executable ownership stays in `gating/gate`; current Attaching integration satisfies the live executable gate.
+- Canon024 confirms production Composer resolution must remain independent of sibling filesystem paths; current `composer.prod.json` uses package/VCS resolution rather than local path repositories.
+
+### Market / maturity split
+- RC baseline for attachment systems: deterministic content/metadata validation, integrity/checksum safeguards, lifecycle-safe association/deletion, confined storage paths, authorization-aware delivery, reproducible package wiring, and deterministic maintenance behavior.
+- Growth remains non-blocking: object-storage/direct uploads, resumable transfer, malware/quarantine processing, asynchronous derivatives/previews, richer metadata, and UX/API expansion.
+
+### Material RC hardening
+- Closed the specific Canon031 documentation debt identified on the production `AttachmentMigrateIdentifiersCommand` class and `execute()` contract with factual PHPDoc describing PostgreSQL scope, idempotence, transaction preservation, and relationship integrity.
+- No runtime behavior, SQL ordering, CLI name, command output, schema contract, UI, forms, navigation, or browser/mobile flow was changed.
+
+### Verification plan
+- Run changed-file PHP lint, PHP-CS-Fixer, PHPStan, PHPUnit, current Gating, strict Composer validation/check-lock, audit, and post-mutation Inspecting.
+- Behavioral/UI and visual verification are not applicable unless deterministic verification discovers a user-observable effect.
+
+Что имеем? Current Canon052 is executable-green and one concrete production PHPDoc gap from the supplied Canon031 evidence is materially closed without behavior change.
+
+Что осталось? Complete deterministic verification, post-mutation Inspecting, then signed commit/push and final HEAD/upstream/worktree inspection if all gates remain green.
+
+### Acceptance verification
+- Changed-file PHP lint: PASS.
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan 0 errors; the same five medium php-structure observations remain. The PHPDoc mutation closes the reported Canon031 documentation gap but does not address the separate long-method/design observations.
+- Behavioral/UI and visual verification: not applicable; no user-observable UI, navigation, form, interaction, or mobile/browser flow changed.
+
+Что имеем? The current RC-hardening batch is deterministic-green and the prior Canon052 RED is confirmed stale for the live repository state.
+
+Что осталось? Create one signed commit for the command documentation plus orchestration journal, push the current branch, and verify final HEAD/upstream/worktree state.
+
 ## 2026-10-04 — engine-20261004184440-attaching-1d83bc Failing adoption acceptance
 
 ### Baseline and reconnaissance
