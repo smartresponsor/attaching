@@ -1,5 +1,47 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — Autonomous reconnaissance and baseline hardening
+
+### Baseline
+- Target/write boundary: Attaching only; sibling repositories are read-only contract references.
+- CanonScanning input report from 2026-09-29 was RED only on Canon052; fresh Inspecting evidence for fingerprint `55666093fc0d0246608665b8726c46d264d00c585cf511cdb1213b296fe542d4` contained five medium maintainability observations and no hard finding.
+- Current worktree already contained pre-existing changes in `.gating/README.md`, `AGENTS.md`, `composer.json`, `composer.lock`, `composer.prod.json`, and `config/bundles.php`; those are preserved as existing work and are not silently rewritten by this pass.
+- Current `composer gate` and full `composer quality` are GREEN on the working tree: PHP-CS-Fixer clean, PHPStan zero errors, PHPUnit 41 tests / 243 assertions, and the available Gating contour has zero failures/warnings.
+
+### Contract reads and canon mapping
+- Canonization textual rules consulted: Canon031, Canon034, Canon042, and Canon052 plus Canonization root AGENTS/README. Gating is executable enforcement; Canonization remains normative.
+- Canon052 maps to the existing `gating/gate` dev dependency, sibling `../Gating` symlink repository, `gate`/`quality` Composer scripts, production package dependency, and artifact-only consumer `.gating/` boundary.
+- Canon034 maps to Attaching `.gitignore`; the upstream RED-era report identified missing local-environment, OS-noise, and Node dependency coverage.
+- Canon031 and Canon042 remain warning-level quality-growth debt; they do not block the current RC hardening pass.
+- Mandatory application contour was re-read from Objecting, Cruding, Viewing, and Interfacing package/docs contracts. Attaching keeps attachment business behavior local, Objecting owns system fields, Cruding owns generic application CRUD, Viewing owns rendering boundary, and Interfacing owns shell/interface integration.
+
+### Market / maturity contour
+- Baseline expectations: durable attachment metadata, content/type validation, checksum/integrity protection, lifecycle-safe linking/deletion, authorization-aware downloads, and storage abstraction.
+- Growth track remains separate: direct/presigned object-storage uploads, resumable large-file transfer, malware/quarantine workflows, asynchronous processing, derivatives/previews, and richer metadata.
+
+### Material RC hardening
+- Normalized `.gitignore` with explicit local-environment overrides, Windows/macOS noise, and `node_modules` coverage to close the concrete Canon034 warning without altering runtime behavior.
+
+### Verification plan
+- Re-run Gating and aggregate quality after the ignore-baseline mutation.
+- Run post-mutation Inspecting because the repository fingerprint has changed.
+- Inspect final diff/status/branch/upstream and publish only task-owned coherent files when safe; preserve unrelated pre-existing dirty work.
+
+Что имеем? Current runtime/static/test baseline is green, Canon052 is no longer failing in the executable current tree, and Canon034 has a minimal deterministic hardening patch.
+
+Что осталось? Post-mutation Gating/quality, Inspecting verification, then Git ownership/reconciliation and publication of only the task-owned hardening/journal files if safe.
+
+### Acceptance verification
+- `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, available Gating contour 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan analyzer 0 errors; the same five medium maintainability/design observations remain, with no new finding introduced by this pass.
+- No browser/mobile UI, navigation, form, template, interaction, or user-flow source changed; Panther/Playwright execution and visual screenshots are not applicable to this hardening pass.
+
+Что имеем? RC-critical mutation is regression-free under aggregate quality, strict Composer validation, dependency audit, and post-mutation Inspecting.
+
+Что осталось? Final Git ownership/branch reconciliation, then commit and publish only `.gitignore` and `CMCP_CHANGELOG.md` if the upstream synchronization plan is safe.
+
 ## 2026-09-26 — Autonomous RC reconnaissance and Canon055 closure
 
 ### Baseline and contract reads
