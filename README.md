@@ -1,6 +1,6 @@
 # Attaching
 
-Symfony-oriented attachment component for Smart Responsor.
+Symfony-oriented attachment component for the multi-domain SaaS platform.
 
 ## Current scope
 - package-oriented attachment and attachment-link business logic

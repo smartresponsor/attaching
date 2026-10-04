@@ -35,7 +35,7 @@ final readonly class AttachmentDeleteService implements AttachmentDeleteServiceI
             $this->attachmentLinkRepository->remove($attachmentLink);
         }
 
-        $attachment->markDeleted();
+        $attachment->delete();
         $this->attachmentRepository->save($attachment);
     }
 }
