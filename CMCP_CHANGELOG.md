@@ -1,5 +1,47 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004120050-attaching-28e0ae factual documentation reconciliation
+
+### Baseline and ownership
+- WRITE_ALLOWED boundary is Attaching only; Canonization, Gating, Objecting, Cruding, Viewing, Interfacing, and Inspecting were consumed as read-only contract/evidence sources.
+- Upstream CanonScanning fingerprint `55666093fc0d0246608665b8726c46d264d00c585cf511cdb1213b296fe542d4` was RED only on Canon052 and carried five medium Inspecting observations; current `composer gate` is GREEN with zero failures/warnings, confirming the hard Gating-integration failure is no longer present in the live tree.
+- Pre-existing dirty paths at this task baseline were `.gating/README.md`, `AGENTS.md`, `composer.json`, `composer.lock`, `composer.prod.json`, and `config/bundles.php`; this pass preserves their existing semantics and does not reset or overwrite them.
+
+### Canon and dependency contour consulted
+- Canonization root AGENTS/README, guard matrix, and normative Canon052 text were read. Canon052 maps Attaching to the `gating/gate` development dependency, canonical `../Gating` symlink repository, aggregate `quality`/`gate` scripts, production package dependency, and artifact-only consumer `.gating/` boundary.
+- Objecting, Cruding, Viewing, Interfacing, and Gating root AGENTS/README/Composer contracts were re-read. Attaching keeps attachment lifecycle behavior local, Objecting owns reusable system fields, Cruding owns generic application CRUD, Viewing owns the rendering boundary, and Interfacing owns interface-shell concerns.
+
+### Market and maturity split
+- RC baseline: validated attachment metadata/content, checksum integrity, lifecycle-safe link/delete behavior, storage confinement, predictable failure behavior, and deterministic operational verification.
+- Growth remains non-blocking: object-storage/direct uploads, resumable transfer, malware/quarantine workflows, asynchronous processing, derivatives/previews, and richer UX/API contracts.
+
+### Material RC repair
+- Corrected Antora architecture/API documentation from obsolete controller/service/repository/command paths to the current typed Symfony tree.
+- Corrected the documented Symfony floor from `^8.0` to the actual `^8.1` Composer baseline.
+- Replaced stale bundle-only/no-root-bootstrap language with the factual dual-runtime contract: reusable bundle exports plus repository-local `app/`, `bin/console`, and `config/` standalone verification runtime.
+- Updated operational documentation to expose the standalone runtime without assigning host composition or unrelated responsibilities to Attaching.
+
+### Verification plan
+- Run aggregate `composer quality`, strict Composer validation/check-lock, Composer audit, and post-mutation Inspecting.
+- No browser/mobile UI source, navigation, forms, templates, or interaction behavior changed; Panther/Playwright and visual screenshots are not expected to be applicable.
+- Inspect final diff/status and publish only coherent task-owned documentation/journal paths while preserving unrelated pre-existing dirty work.
+
+Что имеем? Canon052 is executable-green and a factual Canon017-style documentation drift has been materially repaired without runtime behavior change.
+
+Что осталось? Aggregate acceptance, post-mutation Inspecting, then Git ownership/reconciliation and publication of only the task-owned documentation/journal files if safe.
+
+### Acceptance verification
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan analyzer 0 errors; the same five medium php-structure observations remain (four long-method advisories and the AttachmentEntity public-surface advisory), with no new finding caused by the documentation repair.
+- Browser/mobile behavioral evidence is not applicable: this task changed repository/Antora documentation and the CMCP journal only, not templates, forms, navigation, controllers, browser interactions, or mobile UI behavior.
+- Git ownership review: task-owned changes are `CMCP_CHANGELOG.md` plus the four Antora pages. The six baseline dirty paths remain pre-existing and will stay unstaged.
+
+Что имеем? RC-critical factual documentation repair is regression-free under aggregate quality, strict lock validation, security audit, and post-mutation Inspecting; current branch is synchronized with upstream before publication (ahead 0 / behind 0).
+
+Что осталось? Create and push one signed commit containing only the five task-owned files, then inspect final branch/upstream/worktree state and any applicable pull-request integration evidence.
+
 ## 2026-10-04 — Autonomous reconnaissance and baseline hardening
 
 ### Baseline
