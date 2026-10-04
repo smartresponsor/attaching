@@ -8,6 +8,7 @@
     "ext-fileinfo": "*",
     "collectioning/collection": "dev-master",
     "cruding/crud": "dev-master",
+    "failing/failure": "dev-master",
     "doctrine/dbal": "^4.3",
     "doctrine/orm": "^3.3",
     "doctrine/doctrine-bundle": "^3.2",
@@ -133,6 +134,16 @@
         "symlink": true,
         "versions": {
           "viewing/view": "dev-master"
+        }
+      }
+    },
+    {
+      "type": "path",
+      "url": "../Failing",
+      "options": {
+        "symlink": true,
+        "versions": {
+          "failing/failure": "dev-master"
         }
       }
     },

@@ -1,5 +1,36 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004184440-attaching-1d83bc Failing adoption acceptance
+
+### Baseline and reconnaissance
+- WRITE_ALLOWED boundary is Attaching only; sibling repositories were consumed read-only through Console MCP.
+- Branch `rc/attaching-canonical-merge-20260922` was synchronized with origin at baseline (ahead 0 / behind 0) with five pre-existing dirty paths: `AGENTS.md`, `composer.json`, `composer.lock`, `composer.prod.json`, and `config/bundles.php`.
+- The supplied 2026-09-29 CanonScanning report was RED only on Canon052. Current repository history/journal shows that consumer `.gating/` owner-copy failure was subsequently remediated and published; current executable Gating is GREEN.
+- Canonization textual rules consulted directly: Canon052 plus Canon064-066 and the Guard Matrix. Mandatory Objecting, Cruding, Viewing, Interfacing and Gating root contracts were re-read. Failing exposes `failing/failure` as a Symfony bundle owning consumer-agnostic failure contracts/RFC 9457 integration.
+
+### Market / maturity split
+- RC baseline for attachment systems: deterministic validation, content integrity, storage confinement, lifecycle-safe association/deletion, authorization-aware delivery, deterministic failure semantics, and reproducible package/runtime wiring.
+- Growth remains non-blocking: object-storage/direct uploads, resumable transfer, malware/quarantine processing, derivatives/previews, richer metadata, and broader UX/API capability.
+
+### Material batch classified
+- `composer.json`: adopts `failing/failure` at canonical `dev-master` and exposes local `../Failing` path+symlink identity.
+- `composer.prod.json`: adopts the packaged production `failing/failure` dependency without workstation path coupling.
+- `config/bundles.php`: activates `App\Failing\FailingBundle` in standalone runtime.
+- `composer.lock`: resolves the Failing package and current first-party sibling package metadata consistently with the manifest change.
+- `AGENTS.md`: synchronizes the Canon021 EasyAdmin exception and Canon052 artifact-only `.gating/` projection with current textual Canonization.
+- No Attaching business failure vocabulary is centralized into Failing; dependency direction remains consumer -> Failing.
+
+### Acceptance verification
+- `composer quality`: PASS — PHP-CS-Fixer 0/97 fixes, PHPStan 0 errors, PHPUnit 41 tests / 243 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: COMPLETE — PHPStan analyzer 0 errors; five medium php-structure observations remain (four long-method advisories plus AttachmentEntity public-surface advisory), with no hard blocker.
+- Browser/mobile behavioral and visual verification is not applicable: this batch changes package/runtime wiring and agent-facing canon projection, not templates, forms, navigation, browser interactions, or mobile UI behavior.
+
+Что имеем? Current Failing adoption/canon-projection batch is deterministic-green and respects Attaching/Faling responsibility direction.
+
+Что осталось? Create one signed commit for the six coherent files, push the current branch, then verify final HEAD/upstream/worktree state.
+
 ## 2026-10-04 — engine-20261004182414-attaching-b00482 reconnaissance and Canon052 closure
 
 ### Baseline

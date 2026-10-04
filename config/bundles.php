@@ -11,4 +11,5 @@ return [
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     App\Attaching\AttachingBundle::class => ['all' => true],
     App\Objecting\ObjectBundle::class => ['all' => true],
+    App\Failing\FailingBundle::class => ['all' => true],
 ];
