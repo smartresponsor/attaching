@@ -1,5 +1,43 @@
 # CMCP Orchestration Journal
 
+## 2026-10-05 — engine-20261004120050-attaching-28e0ae fresh-master documentation integration
+
+### Isolation and reconciliation
+- The historical PR #9 path was conflicting because it carried older branch history; no destructive rebase or force-push was used.
+- A dedicated branch `rc/attaching-doc-runtime-drift-20261005` was created directly from current `origin/master` at `cbdb0972fa085cdd7c45e7f129dd6a227b1fbd83`.
+- The parallel lifecycle/API branch was left untouched; this branch contains only the factual documentation repair for the current engine task.
+
+### Material repair
+- Corrected Antora architecture/API paths to the current typed Symfony tree (`Controller/Http`, typed Service/Repository roots, Maintenance/Runtime command roots).
+- Corrected the documented Symfony floor from `^8.0` to the actual `^8.1` Composer baseline.
+- Replaced stale bundle-only/no-root-bootstrap wording with the factual dual-runtime contract: reusable bundle exports plus repository-local `app/`, `bin/console`, and `config/` standalone verification runtime.
+- Updated operations documentation to describe the standalone runtime while keeping host-specific composition outside Attaching business responsibility.
+
+### Verification plan
+- Run aggregate `composer quality`, strict Composer lock validation, Composer audit, and post-mutation Inspecting on this fresh-master branch.
+- No browser/mobile UI behavior changed, so Panther/Playwright and visual screenshots are not applicable.
+- If all local gates are green, create one signed commit, push the fresh branch, open a dedicated PR to `master`, and inspect the actual remote merge gate.
+
+Что имеем? The documentation repair is now isolated on current master with no historical conflict baggage.
+
+Что осталось? Deterministic acceptance, Inspecting, signed publication, and remote PR merge-safety verification.
+
+### Acceptance verification
+- Initial aggregate `composer quality` exposed one current-master hard blocker: Canon055 on `AGENTS.md`, `README.md`, and Antora index consumer-identity wording; CS, PHPStan, and PHPUnit were already green.
+- Repaired exactly those Canon055 findings and additionally synchronized README runtime/Symfony statements with the same factual dual-runtime model used by the Antora pages.
+- `composer gate`: PASS — 0 failures / 0 warnings; Canon055 is green.
+- `composer phpstan`: PASS — 0 errors.
+- `composer test`: PASS — 41 tests / 241 assertions.
+- `composer cs:check`: PASS — 0/97 files require fixes.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Post-mutation Inspecting: PHPStan analyzer 0 errors; five medium pre-existing structural observations remain on current master (four long-method findings and the 31-method AttachmentEntity advisory). No new finding was introduced by this documentation/canon repair.
+- No browser/mobile UI source changed, so behavioral/UI screenshots remain not applicable.
+
+Что имеем? Fresh-master documentation and Canon055 remediation is deterministic-green and externally inspected without historical branch conflict baggage.
+
+Что осталось? Create one signed commit containing only the eight task-owned documentation/journal files, push this fresh branch, open a dedicated PR to `master`, and inspect its actual merge gate.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state

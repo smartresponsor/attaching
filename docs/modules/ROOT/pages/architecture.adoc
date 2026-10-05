@@ -6,13 +6,15 @@ Attaching follows a Symfony-oriented structure based on the default `App\\` name
 
 The current repository exposes these main technical surfaces:
 
-* HTTP controllers under `src/Controller/Attachment/`
-* application services under `src/Service/Attachment/`
-* service contracts under `src/ServiceInterface/Attachment/`
+* HTTP controllers under `src/Controller/Http/Attachment/`
+* application services under typed `src/Service/*/Attachment/` roots
+* service contracts under mirrored `src/ServiceInterface/*/Attachment/` roots
 * persistence entities under `src/Entity/Attachment/`
-* repositories under `src/Repository/Attachment/`
-* local storage implementation under `src/Service/Storage/`
-* cleanup operations under `src/Command/Attachment/`
+* repositories under typed `src/Repository/*/Attachment/` roots
+* local storage implementation under `src/Service/Storage/Attachment/`
+* maintenance commands under `src/Command/Maintenance/Attachment/`
+* runtime/bootstrap commands under `src/Command/Runtime/Attachment/`
+* standalone Symfony bootstrap under `app/`, `bin/`, and `config/` alongside the reusable bundle surface
 
 == Boundary notes
 

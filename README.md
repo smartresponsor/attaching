@@ -1,13 +1,13 @@
 # Attaching
 
-Symfony-oriented attachment component for Smart Responsor.
+Symfony-oriented attachment component for the multi-domain SaaS platform.
 
 ## Current scope
 - package-oriented attachment and attachment-link business logic
 - inward-only attachment persistence layer under `src/Entity/Persistence/Attachment/`
 - mirrored `Service/` and `ServiceInterface/`
 - local storage driver baseline
-- embedded test application under `tests/Application/` instead of standalone root app bootstrap
+- standalone Symfony runtime under `app/`, `bin/`, and `config/`, plus embedded verification under `tests/Application/`
 - QA scaffolding: PHP CS Fixer, PHPStan, PHPUnit
 
 ## Package identity
@@ -18,7 +18,7 @@ Symfony-oriented attachment component for Smart Responsor.
 
 ## Runtime baseline
 - PHP `^8.4`
-- Symfony `^8.0`
+- Symfony `^8.1`
 - Doctrine ORM `^3.3`
 
 ## Quality gates

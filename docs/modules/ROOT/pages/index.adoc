@@ -1,6 +1,6 @@
 = Attaching
 
-Attaching is a Symfony-oriented producer repository for attachment lifecycle handling in the Smart Responsor ecosystem.
+Attaching is a Symfony-oriented producer repository for attachment lifecycle handling within the multi-domain SaaS platform.
 
 This documentation surface is intentionally minimal and producer-only.
 It is designed to be consumed by an external Antora aggregator and does not assemble or publish a standalone documentation portal from this repository.
