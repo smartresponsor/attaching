@@ -55,6 +55,25 @@
 
 Что осталось? Commit and push this bounded debt-closure batch, then verify final HEAD/upstream/worktree state. The remaining 25-method entity API observation is documented non-hard design debt rather than a safe mechanical RC edit.
 
+### Semantic disposition — `AttachmentEntity` public API
+- Reviewed the sole remaining Inspecting finding (`smell.large-public-api`, 25 public methods) against actual repository usages rather than treating the heuristic threshold as an RC target.
+- `AttachmentViewFactory` consumes the attachment presentation getters for id/type/media/document/name/mime/extension/size/checksum/visibility/title/description/alt text/dimensions/duration/page count plus Objecting audit time; these are the DTO projection boundary and are not redundant aliases.
+- `getStatus()` is required by repository filtering, authorization voter logic, and lifecycle integration tests. `getStoragePath()` is required by download, cleanup, and fixture-contract paths. `delete()` / `restore()` are the intentionally normalized lifecycle mutation API.
+- Repository grep found no in-repository callers for `getStorageKind()`, `getStoredName()`, or `getDeletedAt()`. However, deleting those three would still leave the class above the Inspecting heuristic threshold, would create unnecessary public-API compatibility risk, and `getDeletedAt()` was explicitly retained by the current lifecycle normalization contract.
+- Therefore no further entity mutation is justified for this RC. The remaining finding is accepted as an explicit non-hard design observation; any future reduction should come from a responsibility/API redesign with consumer migration, not metric-driven method deletion.
+
+Что имеем? Every actionable maintainability finding is closed, all entity methods with concrete runtime responsibilities are justified, and the sole residual Inspecting signal has been semantically reviewed rather than hidden.
+
+Что осталось? No safe RC-critical repository mutation remains from this task. Re-run the deterministic quality/Inspecting contour after this journal-only disposition, publish the journal commit, and verify clean synchronized Git state.
+
+### Final semantic acceptance
+- `composer quality` after the journal-only semantic disposition: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 241 assertions, Gating 0 failures / 0 warnings.
+- No source mutation was introduced by the final API review; the repository remains behaviorally identical to the previous green implementation commit.
+
+Что имеем? RC-critical and actionable maintainability work is complete; the only residual signal is a consciously accepted design heuristic with documented responsibility evidence.
+
+Что осталось? Persist this final semantic disposition in Git and verify branch/upstream cleanliness.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state
