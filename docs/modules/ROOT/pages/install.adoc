@@ -5,7 +5,7 @@
 Current repository baseline:
 
 * PHP `^8.4`
-* Symfony `^8.0`
+* Symfony `^8.1`
 * Doctrine ORM `^3.3`
 
 == Package-oriented setup surfaces
@@ -20,6 +20,7 @@ Current repository baseline:
 
 == Notes
 
-This repository is a Symfony bundle package, not a standalone application.
-Root application bootstrap files are intentionally absent.
-Runtime composition belongs to the host application, while package verification uses the embedded test application under `tests/Application/`.
+This repository supports both reusable-bundle and standalone Symfony execution.
+Host applications consume `App\\Attaching\\AttachingBundle` and the component exports under `config/component/`.
+The repository-local standalone runtime uses `app/`, `bin/console`, `config/bundles.php`, and the root `config/` tree for development and operational verification.
+Package verification also uses the embedded test application under `tests/Application/`.
