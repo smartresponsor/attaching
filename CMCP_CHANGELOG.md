@@ -1,5 +1,79 @@
 # CMCP Orchestration Journal
 
+## 2026-10-04 — engine-20261004094857-attaching-205dde isolated lifecycle API normalization
+
+### Baseline and ownership
+- WRITE_ALLOWED scope is Attaching only. Mandatory helper/canon contours were consumed read-only: Objecting, Cruding, Viewing, Interfacing, Gating, Canonization, and Inspecting.
+- The original RC branch was clean and locally green, but existing PR #9 was `CONFLICTING`; a guarded rebase showed the conflict begins in historical commit `ad702a4` across `composer.lock` and `composer.prod.json`, with 22 historical commits to replay.
+- The historical rebase was aborted without mutation. This task is isolated on `rc/attaching-lifecycle-api-20261004` created directly from current `origin/master` (`cbdb0972fa085cdd7c45e7f129dd6a227b1fbd83`).
+- The supplied 2026-09-29 Canon052 RED evidence is stale for current code: live Gating on the original working state passed with 0 failures / 0 warnings.
+
+### Canon mapping and selected RC work
+- Read Attaching repository docs/config/manifests and the mandatory Objecting/Cruding/Viewing/Interfacing/Gating contracts; read Canonization Guard Matrix plus normative Canon031, Canon034, Canon040, Canon042, and Canon052.
+- Objecting owns lifecycle/system-field vocabulary. Attaching had unused lifecycle aliases (`createdAt`, `getUpdatedAt`, `updatedAt`, `modifiedAt`, `deletedAt`, `markDeleted`) around canonical created/modified/delete behavior.
+- Removed those unused aliases, retained `getDeletedAt()`, `delete()`, and `restore()`, and moved the existing deletion mutation body into the single `delete()` path.
+- Retargeted Attaching delete/purge services and the voter regression test from `markDeleted()` to `delete()`.
+- No controller, route, form, template, navigation, browser interaction, or mobile UI source changed; behavioral/browser/visual verification is not applicable.
+
+### Market / maturity split
+- RC-critical baseline: deterministic validation, checksum integrity, lifecycle-safe association/deletion, storage confinement, authorization-aware delivery, explicit package wiring, and deterministic quality evidence.
+- Growth remains non-blocking: resumable/direct object-storage transfer, malware/quarantine, derivatives/previews, richer metadata, and upload UX/API expansion.
+
+Что имеем? Task-owned lifecycle normalization is now isolated on a clean current-master base, avoiding historical PR #9 conflict commingling.
+
+Что осталось? Re-run all affected quality/security/Inspecting gates on this fresh-base branch, then commit, push, open a dedicated PR, inspect mergeability/checks, and merge only if the safe merge gate is green.
+
+### Fresh-base verification and adjacent hard-gate repair
+- First `composer quality` on current `master` base exposed Canon055 as a hard failure in three current human-facing documentation lines (`AGENTS.md`, `README.md`, Antora index). PHP-CS-Fixer, PHPStan, and PHPUnit were already green.
+- Read normative `Canon055PlatformIdentityTerminologyRule`; replaced consumer-branded platform/ecosystem wording with neutral platform vocabulary in exactly those three detected documentation locations.
+- Changed-file PHP lint: PASS for all four changed PHP files.
+- Final `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 241 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Fresh Inspecting: PHPStan 0 errors; five medium observational findings remain. Four are pre-existing long-method findings in the maintenance command/fixtures present on current master; the fifth is the reduced `AttachmentEntity` public API observation at 25 methods versus 31 in the supplied baseline.
+- These medium Inspecting findings are not promoted by current Canonization/Gating to hard blockers. The task-owned API cleanup materially reduces the design signal without deleting useful business getters merely to satisfy a heuristic threshold.
+- No UI-affecting files changed, so behavioral/browser/mobile screenshots are not applicable.
+
+Что имеем? Current-master hard gates are green, Canon055 drift is repaired, security/lock validation is green, and Inspecting residuals are explicit non-blocking design/maintainability evidence.
+
+Что осталось? Commit and publish this isolated branch, create a dedicated PR, then inspect and satisfy the remote merge gate if policy permits.
+
+### 2026-10-05 continuation — Inspecting long-method debt closure
+- Re-ran Inspecting on current HEAD `aa73107af32bb91bdeeff980a748bf54f09a92e8`; baseline was 5 medium findings: four long-method maintainability observations and one `AttachmentEntity` large-public-api design observation at 25 public methods.
+- Refactored `AttachmentMigrateIdentifiersCommand::execute()` into focused transactional phases and moved immutable attachment-copy SQL to a typed class constant without changing current camelCase schema identifiers, SQL ordering, PostgreSQL guard, commit/rollback behavior, CLI output, or exception propagation.
+- Refactored `AttachmentFixture::load()` into typed static fixture definitions plus path/checksum/persistence helpers; preserved all fixture files, fallback sizes, entity values, storage paths, and references.
+- Refactored `AttachmentLinkFixture::load()` by extracting its static link definitions to a typed class constant; persisted link values and dependency ordering are unchanged.
+- Refactored `AttachmentMarketplaceFixture::attachRows()` into checksum validation, per-owner attachment work, and attachment construction helpers; owner filtering, storage paths, and persisted values are unchanged.
+- First aggregate quality run exposed only PHPDoc style drift; second exposed overly-wide fixture helper typing. Both were corrected locally with repository-style PHPDoc and a precise PHPStan fixture-shape alias.
+- Final `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 241 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Final Inspecting: 1 medium finding, down from 5. All four long-method findings are gone. The sole residual is `AttachmentEntity` large-public-api at 25 public methods; this remains a semantic design observation and is not mechanically reduced because the current lifecycle/API batch has already removed unused aliases and further API changes require responsibility-level review.
+- No controller, route, form, template, navigation, browser interaction, or mobile UI source changed; behavioral/browser/visual verification remains not applicable.
+
+Что имеем? Long-method maintainability debt is fully closed on the current lifecycle/API branch; deterministic quality, lock and security gates are green; Inspecting residual is one explicit design-only observation.
+
+Что осталось? Commit and push this bounded debt-closure batch, then verify final HEAD/upstream/worktree state. The remaining 25-method entity API observation is documented non-hard design debt rather than a safe mechanical RC edit.
+
+### Semantic disposition — `AttachmentEntity` public API
+- Reviewed the sole remaining Inspecting finding (`smell.large-public-api`, 25 public methods) against actual repository usages rather than treating the heuristic threshold as an RC target.
+- `AttachmentViewFactory` consumes the attachment presentation getters for id/type/media/document/name/mime/extension/size/checksum/visibility/title/description/alt text/dimensions/duration/page count plus Objecting audit time; these are the DTO projection boundary and are not redundant aliases.
+- `getStatus()` is required by repository filtering, authorization voter logic, and lifecycle integration tests. `getStoragePath()` is required by download, cleanup, and fixture-contract paths. `delete()` / `restore()` are the intentionally normalized lifecycle mutation API.
+- Repository grep found no in-repository callers for `getStorageKind()`, `getStoredName()`, or `getDeletedAt()`. However, deleting those three would still leave the class above the Inspecting heuristic threshold, would create unnecessary public-API compatibility risk, and `getDeletedAt()` was explicitly retained by the current lifecycle normalization contract.
+- Therefore no further entity mutation is justified for this RC. The remaining finding is accepted as an explicit non-hard design observation; any future reduction should come from a responsibility/API redesign with consumer migration, not metric-driven method deletion.
+
+Что имеем? Every actionable maintainability finding is closed, all entity methods with concrete runtime responsibilities are justified, and the sole residual Inspecting signal has been semantically reviewed rather than hidden.
+
+Что осталось? No safe RC-critical repository mutation remains from this task. Re-run the deterministic quality/Inspecting contour after this journal-only disposition, publish the journal commit, and verify clean synchronized Git state.
+
+### Final semantic acceptance
+- `composer quality` after the journal-only semantic disposition: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 241 assertions, Gating 0 failures / 0 warnings.
+- No source mutation was introduced by the final API review; the repository remains behaviorally identical to the previous green implementation commit.
+
+Что имеем? RC-critical and actionable maintainability work is complete; the only residual signal is a consciously accepted design heuristic with documented responsibility evidence.
+
+Что осталось? Persist this final semantic disposition in Git and verify branch/upstream cleanliness.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state

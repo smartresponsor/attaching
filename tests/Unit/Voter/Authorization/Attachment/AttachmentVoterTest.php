@@ -47,7 +47,7 @@ final class AttachmentVoterTest extends TestCase
             checksum: 'abc123',
             storagePath: 'document/2026/04/04/att-2-abc123.txt',
         );
-        $attachment->markDeleted();
+        $attachment->delete();
 
         $token = $this->createMock(TokenInterface::class);
         $voter = new AttachmentVoter();
