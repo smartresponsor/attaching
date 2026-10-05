@@ -38,6 +38,23 @@
 
 Что осталось? Commit and publish this isolated branch, create a dedicated PR, then inspect and satisfy the remote merge gate if policy permits.
 
+### 2026-10-05 continuation — Inspecting long-method debt closure
+- Re-ran Inspecting on current HEAD `aa73107af32bb91bdeeff980a748bf54f09a92e8`; baseline was 5 medium findings: four long-method maintainability observations and one `AttachmentEntity` large-public-api design observation at 25 public methods.
+- Refactored `AttachmentMigrateIdentifiersCommand::execute()` into focused transactional phases and moved immutable attachment-copy SQL to a typed class constant without changing current camelCase schema identifiers, SQL ordering, PostgreSQL guard, commit/rollback behavior, CLI output, or exception propagation.
+- Refactored `AttachmentFixture::load()` into typed static fixture definitions plus path/checksum/persistence helpers; preserved all fixture files, fallback sizes, entity values, storage paths, and references.
+- Refactored `AttachmentLinkFixture::load()` by extracting its static link definitions to a typed class constant; persisted link values and dependency ordering are unchanged.
+- Refactored `AttachmentMarketplaceFixture::attachRows()` into checksum validation, per-owner attachment work, and attachment construction helpers; owner filtering, storage paths, and persisted values are unchanged.
+- First aggregate quality run exposed only PHPDoc style drift; second exposed overly-wide fixture helper typing. Both were corrected locally with repository-style PHPDoc and a precise PHPStan fixture-shape alias.
+- Final `composer quality`: PASS — PHP-CS-Fixer clean, PHPStan 0 errors, PHPUnit 41 tests / 241 assertions, Gating 10 rules with 0 failures / 0 warnings.
+- `composer validate --strict --check-lock`: PASS.
+- `composer audit --format=summary`: PASS — no security vulnerability advisories.
+- Final Inspecting: 1 medium finding, down from 5. All four long-method findings are gone. The sole residual is `AttachmentEntity` large-public-api at 25 public methods; this remains a semantic design observation and is not mechanically reduced because the current lifecycle/API batch has already removed unused aliases and further API changes require responsibility-level review.
+- No controller, route, form, template, navigation, browser interaction, or mobile UI source changed; behavioral/browser/visual verification remains not applicable.
+
+Что имеем? Long-method maintainability debt is fully closed on the current lifecycle/API branch; deterministic quality, lock and security gates are green; Inspecting residual is one explicit design-only observation.
+
+Что осталось? Commit and push this bounded debt-closure batch, then verify final HEAD/upstream/worktree state. The remaining 25-method entity API observation is documented non-hard design debt rather than a safe mechanical RC edit.
+
 ## 2026-09-11 — Iteration 1/5: reconnaissance and baseline
 
 ### Scope and repository state
