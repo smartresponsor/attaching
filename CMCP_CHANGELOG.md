@@ -448,4 +448,18 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Full current CanonScanning/Inspecting acceptance where needed, targeted source remediation if actionable findings remain, and publication of coherent work.
 
+## 2026-10-11 — engine-20261004100124-attaching-b6645d storage path hardening
+
+- Continued from signed/published checkpoint `d5d1a0d` with a clean, upstream-synced branch.
+- Inspected `AttachmentLocalStorage`, its PHPUnit path traversal regression test, and current Inspecting's medium findings. Selected a bounded security hardening fix instead of speculative refactoring of unrelated fixtures or migration logic.
+- Hardened `AttachmentLocalStorage::normalizeRelativePath()` to reject any colon in a relative target. This closes Windows drive-relative `C:filename` and NTFS alternate data stream `filename:stream` spellings while preserving the existing absolute-path, traversal, empty-segment and NUL guards.
+- Added focused PHPUnit coverage for both previously accepted spellings.
+- Verified after mutation: `composer test` PASS (43 tests, 243 assertions); `composer phpstan` PASS (0 errors); `composer cs:check` PASS (0/97 fixable files); `composer gate` PASS (0 failures, 0 warnings).
+- No browser/mobile UI, navigation or form behavior changed, so Playwright/Panther screenshots are not applicable to this storage-only change.
+
+Что имеем? Tested rejection of additional Windows storage path escapes, with local deterministic gates green.
+
+Что осталось? Post-change Inspecting and Git integration; broader Inspecting medium maintainability observations remain separate nonblocking backlog.
+
+
 

@@ -61,7 +61,7 @@ final readonly class AttachmentLocalStorage implements AttachmentStorageInterfac
 
         $normalizedPath = str_replace('\\', '/', $path);
 
-        if (str_starts_with($normalizedPath, '/') || 1 === preg_match('/^[A-Za-z]:\//', $normalizedPath)) {
+        if (str_starts_with($normalizedPath, '/') || str_contains($normalizedPath, ':')) {
             throw new AttachmentStorageException('Absolute attachment storage paths are not allowed.');
         }
 
