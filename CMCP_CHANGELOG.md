@@ -473,6 +473,19 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Review and safely remediate four remaining medium structural observations, and complete integration acceptance.
 
+## 2026-10-11 — Attaching demo link fixture maintainability pass
+
+- Continued on clean branch from published `a1b8703`, leaving existing attachment references and fixture persistence untouched.
+- Refactored `AttachmentLinkFixture::load()` to use `linkDefinitions()`, with private `primaryLinkDefinitions()` and `additionalLinkDefinitions()` to keep the unchanged eight fixture records in their original order.
+- `composer test`: PASS, 43 tests / 243 assertions; `composer phpstan`: PASS, 0 errors; `composer gate`: PASS, 0 failures; `composer cs:check`: PASS after `composer cs:fix` normalized array layout.
+- Post-mutation Inspecting: 3 medium findings (down from 4), removing `AttachmentLinkFixture` long-method observation. Remaining: `AttachmentMigrateIdentifiersCommand::execute`, `AttachmentFixture::load`, and 31-method `AttachmentEntity` review.
+- No user-visible UI changes; visual artifacts not applicable.
+
+Что имеем? Two maintainability findings have been resolved over consecutive verified passes while preserving the 43-test baseline.
+
+Что осталось? Three more behavioral/contract-sensitive observations and final integration acceptance.
+
+
 
 
 
