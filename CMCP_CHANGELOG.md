@@ -461,5 +461,18 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Post-change Inspecting and Git integration; broader Inspecting medium maintainability observations remain separate nonblocking backlog.
 
+## 2026-10-11 — Attaching Inspecting maintainability remediation
+
+- Started from clean, published commit `8aa4d3f`.
+- Refactored `AttachmentMarketplaceFixture::attachRows()` to delegate per-owner materialization to `attachOwner()`, preserving validation, existing-link checks, storage copying, attachment persistence and final flush semantics.
+- Verification: PHPUnit PASS (43 tests, 243 assertions), PHPStan PASS (0 errors), Gating PASS (0 failures), PHP-CS-Fixer PASS after correcting one spacing discrepancy.
+- Post-mutation Inspecting: 4 medium findings versus 5 previously; marketplace long-method finding is resolved. Remaining findings: migration command long method, two demo-fixture long methods, and attachment entity public API breadth.
+- No UI change, so screenshots are not applicable. Remaining structural observations require separate behavior-aware remediation rather than deleting public contracts.
+
+Что имеем? One Inspecting maintainability finding resolved with deterministic local checks GREEN.
+
+Что осталось? Review and safely remediate four remaining medium structural observations, and complete integration acceptance.
+
+
 
 
