@@ -434,3 +434,18 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Publish the bounded change; broader PHPDoc/coverage maturity warnings remain separate nonblocking work.
 
+## 2026-10-11 — engine-20261004100124-attaching-b6645d verification baseline
+
+- Reconnaissance: confirmed clean `rc/attaching-doc-runtime-drift-publish-20261005` at `89f444979d327492d078dd0db5a5cc83b964acbf`, tracking origin without ahead/behind divergence.
+- Read Attaching `AGENTS.md`, `README.md`, `composer.json`, `.gitignore`, service and route exports, current CMCP journal; read README and Composer contracts of Canonization, Gating, Objecting, Cruding, Viewing, Interfacing.
+- Consulted Canonization `.canonization/Governance/Architecture/Rule/Canon052GatingIntegrationRule.md`: Attaching's `gating/gate` developer dependency, symlinked path repository, Composer gate and quality scripts, production package surface, and artifact-only `.gating/` are the mapping criteria.
+- Reused historical CanonScanning September 29 report, which showed Canon052 RED due to executable and policy files under `.gating/`; journal records subsequent remediation. Current `.gitignore` explicitly excludes `.gating/`, node dependencies, local environment and OS noise. Historical Inspecting identified five medium structural observations; no current freshness claim is made.
+- Current deterministic checks: `composer gate` PASS (10 rules, 0 failures); `composer phpstan` PASS (0 errors); `composer test` PASS (41 tests / 241 assertions); `composer cs:check` PASS (0 of 97 files); Inspecting capability is available.
+- RC-critical workstream: ensure full CanonScanning Canon052 evidence is current, maintain security of attachment storage and lifecycle, and complete applicable release verification. Growth workstream: optional remote storage and asynchronous media derivatives, separate from RC.
+- This journal entry records factual reconnaissance and verification, not a claim of completed RC or source remediation. No browser or user-observable UI changed in this pass.
+
+Что имеем? Clean branch and green local quick gates, with explicit historical Canon052 evidence and normative rule mapping.
+
+Что осталось? Full current CanonScanning/Inspecting acceptance where needed, targeted source remediation if actionable findings remain, and publication of coherent work.
+
+
