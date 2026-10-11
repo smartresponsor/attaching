@@ -14,6 +14,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * @phpstan-type AttachmentFixtureRow array{reference: string, type: AttachmentType, documentKind: ?AttachmentDocumentKind, mediaKind: ?AttachmentMediaKind, originalName: string, storedName: string, mimeType: string, extension: string, sourceFile: string, storagePath: string, size: int, checksum: string, title: string, description: string, width?: int, height?: int, pageCount?: int}
+ */
 final class AttachmentFixture extends Fixture
 {
     public function __construct(
@@ -55,148 +58,19 @@ final class AttachmentFixture extends Fixture
         }
 
         $fixtures = [
-            [
-                'reference' => 'attachment.message.1',
-                'type' => AttachmentType::Document,
-                'documentKind' => AttachmentDocumentKind::Text,
-                'mediaKind' => null,
-                'originalName' => 'sample-note.txt',
-                'storedName' => 'message-note.txt',
-                'mimeType' => 'text/plain',
-                'extension' => 'txt',
-                'sourceFile' => $noteFixtureFile,
-                'storagePath' => 'document/fixtures/message-note.txt',
-                'size' => filesize($noteFixtureFile) ?: 44,
-                'checksum' => $checksums['note'],
-                'title' => 'Message note',
-                'description' => 'Fixture text attachment for message owner.',
-            ],
-            [
-                'reference' => 'attachment.product.1',
-                'type' => AttachmentType::Media,
-                'documentKind' => null,
-                'mediaKind' => AttachmentMediaKind::Image,
-                'originalName' => 'sample-pixel.gif',
-                'storedName' => 'product-image.gif',
-                'mimeType' => 'image/gif',
-                'extension' => 'gif',
-                'sourceFile' => $gifFixtureFile,
-                'storagePath' => 'media/fixtures/product-image.gif',
-                'size' => filesize($gifFixtureFile) ?: 34,
-                'checksum' => $checksums['gif'],
-                'title' => 'Product image',
-                'description' => 'Fixture image attachment for product owner.',
-                'width' => 1,
-                'height' => 1,
-            ],
-            [
-                'reference' => 'attachment.vendor.avatar.1',
-                'type' => AttachmentType::Media,
-                'documentKind' => null,
-                'mediaKind' => AttachmentMediaKind::Image,
-                'originalName' => 'sample-avatar.png',
-                'storedName' => 'vendor-avatar.png',
-                'mimeType' => 'image/png',
-                'extension' => 'png',
-                'sourceFile' => $avatarFixtureFile,
-                'storagePath' => 'media/fixtures/vendor-avatar.png',
-                'size' => filesize($avatarFixtureFile) ?: 0,
-                'checksum' => $checksums['avatar'],
-                'title' => 'Vendor avatar',
-                'description' => 'Fixture avatar image attachment for vendor profile owner.',
-                'width' => 256,
-                'height' => 256,
-            ],
-            [
-                'reference' => 'attachment.vendor.cover.1',
-                'type' => AttachmentType::Media,
-                'documentKind' => null,
-                'mediaKind' => AttachmentMediaKind::Image,
-                'originalName' => 'sample-banner.png',
-                'storedName' => 'vendor-cover.png',
-                'mimeType' => 'image/png',
-                'extension' => 'png',
-                'sourceFile' => $bannerFixtureFile,
-                'storagePath' => 'media/fixtures/vendor-cover.png',
-                'size' => filesize($bannerFixtureFile) ?: 0,
-                'checksum' => $checksums['banner'],
-                'title' => 'Vendor cover image',
-                'description' => 'Fixture cover image attachment for vendor profile owner.',
-                'width' => 1200,
-                'height' => 400,
-            ],
-            [
-                'reference' => 'attachment.vendor.gallery.1',
-                'type' => AttachmentType::Media,
-                'documentKind' => null,
-                'mediaKind' => AttachmentMediaKind::Image,
-                'originalName' => 'sample-product.png',
-                'storedName' => 'vendor-gallery-image.png',
-                'mimeType' => 'image/png',
-                'extension' => 'png',
-                'sourceFile' => $productFixtureFile,
-                'storagePath' => 'media/fixtures/vendor-gallery-image.png',
-                'size' => filesize($productFixtureFile) ?: 0,
-                'checksum' => $checksums['product'],
-                'title' => 'Vendor gallery image',
-                'description' => 'Fixture general image attachment for vendor gallery.',
-                'width' => 640,
-                'height' => 480,
-            ],
-            [
-                'reference' => 'attachment.category.icon.1',
-                'type' => AttachmentType::Media,
-                'documentKind' => null,
-                'mediaKind' => AttachmentMediaKind::Image,
-                'originalName' => 'sample-category.png',
-                'storedName' => 'category-icon.png',
-                'mimeType' => 'image/png',
-                'extension' => 'png',
-                'sourceFile' => $categoryFixtureFile,
-                'storagePath' => 'media/fixtures/category-icon.png',
-                'size' => filesize($categoryFixtureFile) ?: 0,
-                'checksum' => $checksums['category'],
-                'title' => 'Category icon',
-                'description' => 'Fixture category icon image attachment.',
-                'width' => 320,
-                'height' => 320,
-            ],
-            [
-                'reference' => 'attachment.admin.identity.1',
-                'type' => AttachmentType::Document,
-                'documentKind' => AttachmentDocumentKind::Pdf,
-                'mediaKind' => null,
-                'originalName' => 'personal-identity-verification.pdf',
-                'storedName' => 'admin-personal-identity.pdf',
-                'mimeType' => 'application/pdf',
-                'extension' => 'pdf',
-                'sourceFile' => $verificationFixtureFile,
-                'storagePath' => 'document/fixtures/admin-personal-identity.pdf',
-                'size' => filesize($verificationFixtureFile) ?: 0,
-                'checksum' => $checksums['verification'],
-                'title' => 'Personal identity verification',
-                'description' => 'Fixture PDF representing a personal identity verification document for the bootstrap administrator.',
-                'pageCount' => 1,
-            ],
-            [
-                'reference' => 'attachment.admin.verification.1',
-                'type' => AttachmentType::Document,
-                'documentKind' => AttachmentDocumentKind::Pdf,
-                'mediaKind' => null,
-                'originalName' => 'account-verification.pdf',
-                'storedName' => 'admin-account-verification.pdf',
-                'mimeType' => 'application/pdf',
-                'extension' => 'pdf',
-                'sourceFile' => $verificationFixtureFile,
-                'storagePath' => 'document/fixtures/admin-account-verification.pdf',
-                'size' => filesize($verificationFixtureFile) ?: 0,
-                'checksum' => $checksums['verification'],
-                'title' => 'Account verification',
-                'description' => 'Fixture PDF representing a general account verification document for the bootstrap administrator.',
-                'pageCount' => 1,
-            ],
+            ...$this->messageAndProductFixtureDefinitions($files, $checksums),
+            ...$this->vendorProfileFixtureDefinitions($files, $checksums),
+            ...$this->catalogAndVerificationFixtureDefinitions($files, $checksums),
         ];
 
+        $this->persistFixtures($manager, $storageRoot, $fixtures);
+
+        $manager->flush();
+    }
+
+    /** @param list<AttachmentFixtureRow> $fixtures */
+    private function persistFixtures(ObjectManager $manager, string $storageRoot, array $fixtures): void
+    {
         foreach ($fixtures as $fixture) {
             $absoluteTargetPath = $storageRoot.'/'.str_replace('/', DIRECTORY_SEPARATOR, $fixture['storagePath']);
             $this->filesystem->mkdir(dirname($absoluteTargetPath));
@@ -225,7 +99,181 @@ final class AttachmentFixture extends Fixture
             $manager->persist($attachment);
             $this->addReference($fixture['reference'], $attachment);
         }
+    }
 
-        $manager->flush();
+    /**
+     * @param array<string, string> $files
+     * @param array<string, string> $checksums
+     *
+     * @return list<AttachmentFixtureRow>
+     */
+    private function messageAndProductFixtureDefinitions(array $files, array $checksums): array
+    {
+        return [
+            [
+                'reference' => 'attachment.message.1',
+                'type' => AttachmentType::Document,
+                'documentKind' => AttachmentDocumentKind::Text,
+                'mediaKind' => null,
+                'originalName' => 'sample-note.txt',
+                'storedName' => 'message-note.txt',
+                'mimeType' => 'text/plain',
+                'extension' => 'txt',
+                'sourceFile' => $files['note'],
+                'storagePath' => 'document/fixtures/message-note.txt',
+                'size' => filesize($files['note']) ?: 44,
+                'checksum' => $checksums['note'],
+                'title' => 'Message note',
+                'description' => 'Fixture text attachment for message owner.',
+            ],
+            [
+                'reference' => 'attachment.product.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-pixel.gif',
+                'storedName' => 'product-image.gif',
+                'mimeType' => 'image/gif',
+                'extension' => 'gif',
+                'sourceFile' => $files['gif'],
+                'storagePath' => 'media/fixtures/product-image.gif',
+                'size' => filesize($files['gif']) ?: 34,
+                'checksum' => $checksums['gif'],
+                'title' => 'Product image',
+                'description' => 'Fixture image attachment for product owner.',
+                'width' => 1,
+                'height' => 1,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, string> $files
+     * @param array<string, string> $checksums
+     *
+     * @return list<AttachmentFixtureRow>
+     */
+    private function vendorProfileFixtureDefinitions(array $files, array $checksums): array
+    {
+        return [
+            [
+                'reference' => 'attachment.vendor.avatar.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-avatar.png',
+                'storedName' => 'vendor-avatar.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $files['avatar'],
+                'storagePath' => 'media/fixtures/vendor-avatar.png',
+                'size' => filesize($files['avatar']) ?: 0,
+                'checksum' => $checksums['avatar'],
+                'title' => 'Vendor avatar',
+                'description' => 'Fixture avatar image attachment for vendor profile owner.',
+                'width' => 256,
+                'height' => 256,
+            ],
+            [
+                'reference' => 'attachment.vendor.cover.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-banner.png',
+                'storedName' => 'vendor-cover.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $files['banner'],
+                'storagePath' => 'media/fixtures/vendor-cover.png',
+                'size' => filesize($files['banner']) ?: 0,
+                'checksum' => $checksums['banner'],
+                'title' => 'Vendor cover image',
+                'description' => 'Fixture cover image attachment for vendor profile owner.',
+                'width' => 1200,
+                'height' => 400,
+            ],
+            [
+                'reference' => 'attachment.vendor.gallery.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-product.png',
+                'storedName' => 'vendor-gallery-image.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $files['product'],
+                'storagePath' => 'media/fixtures/vendor-gallery-image.png',
+                'size' => filesize($files['product']) ?: 0,
+                'checksum' => $checksums['product'],
+                'title' => 'Vendor gallery image',
+                'description' => 'Fixture general image attachment for vendor gallery.',
+                'width' => 640,
+                'height' => 480,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, string> $files
+     * @param array<string, string> $checksums
+     *
+     * @return list<AttachmentFixtureRow>
+     */
+    private function catalogAndVerificationFixtureDefinitions(array $files, array $checksums): array
+    {
+        return [
+            [
+                'reference' => 'attachment.category.icon.1',
+                'type' => AttachmentType::Media,
+                'documentKind' => null,
+                'mediaKind' => AttachmentMediaKind::Image,
+                'originalName' => 'sample-category.png',
+                'storedName' => 'category-icon.png',
+                'mimeType' => 'image/png',
+                'extension' => 'png',
+                'sourceFile' => $files['category'],
+                'storagePath' => 'media/fixtures/category-icon.png',
+                'size' => filesize($files['category']) ?: 0,
+                'checksum' => $checksums['category'],
+                'title' => 'Category icon',
+                'description' => 'Fixture category icon image attachment.',
+                'width' => 320,
+                'height' => 320,
+            ],
+            [
+                'reference' => 'attachment.admin.identity.1',
+                'type' => AttachmentType::Document,
+                'documentKind' => AttachmentDocumentKind::Pdf,
+                'mediaKind' => null,
+                'originalName' => 'personal-identity-verification.pdf',
+                'storedName' => 'admin-personal-identity.pdf',
+                'mimeType' => 'application/pdf',
+                'extension' => 'pdf',
+                'sourceFile' => $files['verification'],
+                'storagePath' => 'document/fixtures/admin-personal-identity.pdf',
+                'size' => filesize($files['verification']) ?: 0,
+                'checksum' => $checksums['verification'],
+                'title' => 'Personal identity verification',
+                'description' => 'Fixture PDF representing a personal identity verification document for the bootstrap administrator.',
+                'pageCount' => 1,
+            ],
+            [
+                'reference' => 'attachment.admin.verification.1',
+                'type' => AttachmentType::Document,
+                'documentKind' => AttachmentDocumentKind::Pdf,
+                'mediaKind' => null,
+                'originalName' => 'account-verification.pdf',
+                'storedName' => 'admin-account-verification.pdf',
+                'mimeType' => 'application/pdf',
+                'extension' => 'pdf',
+                'sourceFile' => $files['verification'],
+                'storagePath' => 'document/fixtures/admin-account-verification.pdf',
+                'size' => filesize($files['verification']) ?: 0,
+                'checksum' => $checksums['verification'],
+                'title' => 'Account verification',
+                'description' => 'Fixture PDF representing a general account verification document for the bootstrap administrator.',
+                'pageCount' => 1,
+            ],
+        ];
     }
 }
