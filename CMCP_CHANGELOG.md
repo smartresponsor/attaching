@@ -497,6 +497,21 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Review migration command and entity contract observations, and final branch integration.
 
+## 2026-10-11 — Migration command refactoring and Entity API review
+
+- Started from clean published `12793c5`; read the active migration command and attachment entity through Windows Console MCP.
+- Refactored `AttachmentMigrateIdentifiersCommand::execute()` into transactional helper phases for legacy table preparation, attachment row insertion, link row insertion and existing reseeding. Preserved existing SQL bodies, statement order, begin/commit/rollback flow and PostgreSQL guard. Moved long attachment row copy SQL into an immutable private typed constant without SQL logic changes.
+- Verified `composer phpstan`: 0 errors, `composer test`: 43 tests/243 assertions, and `composer gate`: 0 failures. Formatting normalized with `composer cs:fix`; repeat final cs check before commit.
+- Post-mutation Inspecting: exactly one medium design observation remains, namely 31 public methods on `AttachmentEntity`; the migration long-method finding is resolved.
+- Entity API review: getters, lifecycle methods and Objecting trait-backed status/audit form a public persistence contract; several timestamp aliases have no in-repository callers, but this does not establish absence of external package callers. Avoid deleting these methods merely to lower a numeric heuristic without a cross-repository compatibility inventory.
+- No PostgreSQL migration was executed against live data; transaction integration requires a controlled disposable PostgreSQL dataset before any behavioral acceptance claim.
+- No UI change; visual artifacts are not applicable.
+
+Что имеем? Long-method remediation verified; remaining large-public-API finding is a medium compatibility-review advisory, not a demonstrated runtime defect.
+
+Что осталось? Determine real external Entity method consumers before any public API reduction; optional isolated database migration exercise and final branch integration.
+
+
 
 
 

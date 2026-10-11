@@ -18,6 +18,81 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class AttachmentMigrateIdentifiersCommand extends Command
 {
+    private const string ATTACHMENT_ROW_COPY_SQL = <<<'SQL'
+        INSERT INTO attachment (
+            id,
+            type,
+            "mediaKind",
+            "documentKind",
+            "storageKind",
+            visibility,
+            status,
+            "originalName",
+            "storedName",
+            extension,
+            "mimeType",
+            size,
+            checksum,
+            "storagePath",
+            title,
+            description,
+            "altText",
+            width,
+            height,
+            "durationMs",
+            "pageCount",
+            uuid,
+            slug,
+            first_title,
+            middle_title,
+            last_title,
+            created_at,
+            modified_at,
+            created_by,
+            modified_by,
+            active,
+            enabled,
+            "deletedAt"
+        )
+        SELECT
+            m.new_id,
+            a.type,
+            a.media_kind,
+            a.document_kind,
+            a.storage_kind,
+            a.visibility,
+            a.status,
+            a.original_name,
+            a.stored_name,
+            a.extension,
+            a.mime_type,
+            a.size,
+            a.checksum,
+            a.storage_path,
+            a.title,
+            a.description,
+            a.alt_text,
+            a.width,
+            a.height,
+            a.duration_ms,
+            a.page_count,
+            decode(replace(a.id::text, '-', ''), 'hex'),
+            a.id::text,
+            COALESCE(a.title, a.original_name),
+            NULL,
+            NULL,
+            a.created_at,
+            a.updated_at,
+            NULL,
+            NULL,
+            CASE WHEN a.status = 'deleted' THEN false ELSE true END,
+            true,
+            a.deleted_at
+        FROM attachment_legacy a
+        INNER JOIN attachment_id_map m ON m.old_id = a.id::text
+        ORDER BY m.new_id
+        SQL;
+
     public function __construct(
         private readonly Connection $connection,
     ) {
@@ -43,142 +118,8 @@ final class AttachmentMigrateIdentifiersCommand extends Command
         $this->connection->beginTransaction();
 
         try {
-            $this->connection->executeStatement('CREATE TEMP TABLE attachment_id_map (old_id text PRIMARY KEY, new_id integer NOT NULL UNIQUE)');
-            $this->connection->executeStatement(
-                <<<'SQL'
-                INSERT INTO attachment_id_map (old_id, new_id)
-                SELECT a.id::text, row_number() OVER (ORDER BY a.created_at, a.updated_at, a.id::text)::integer
-                FROM attachment a
-                SQL
-            );
-
-            $this->connection->executeStatement('ALTER TABLE attachment RENAME TO attachment_legacy');
-            $this->connection->executeStatement('ALTER TABLE attachment_link RENAME TO attachment_link_legacy');
-
-            $this->recreateAttachmentTable();
-            $this->recreateAttachmentLinkTable();
-
-            $this->connection->executeStatement(
-                <<<'SQL'
-                INSERT INTO attachment (
-                    id,
-                    type,
-                    "mediaKind",
-                    "documentKind",
-                    "storageKind",
-                    visibility,
-                    status,
-                    "originalName",
-                    "storedName",
-                    extension,
-                    "mimeType",
-                    size,
-                    checksum,
-                    "storagePath",
-                    title,
-                    description,
-                    "altText",
-                    width,
-                    height,
-                    "durationMs",
-                    "pageCount",
-                    uuid,
-                    slug,
-                    first_title,
-                    middle_title,
-                    last_title,
-                    created_at,
-                    modified_at,
-                    created_by,
-                    modified_by,
-                    active,
-                    enabled,
-                    "deletedAt"
-                )
-                SELECT
-                    m.new_id,
-                    a.type,
-                    a.media_kind,
-                    a.document_kind,
-                    a.storage_kind,
-                    a.visibility,
-                    a.status,
-                    a.original_name,
-                    a.stored_name,
-                    a.extension,
-                    a.mime_type,
-                    a.size,
-                    a.checksum,
-                    a.storage_path,
-                    a.title,
-                    a.description,
-                    a.alt_text,
-                    a.width,
-                    a.height,
-                    a.duration_ms,
-                    a.page_count,
-                    decode(replace(a.id::text, '-', ''), 'hex'),
-                    a.id::text,
-                    COALESCE(a.title, a.original_name),
-                    NULL,
-                    NULL,
-                    a.created_at,
-                    a.updated_at,
-                    NULL,
-                    NULL,
-                    CASE WHEN a.status = 'deleted' THEN false ELSE true END,
-                    true,
-                    a.deleted_at
-                FROM attachment_legacy a
-                INNER JOIN attachment_id_map m ON m.old_id = a.id::text
-                ORDER BY m.new_id
-                SQL
-            );
-
-            $this->connection->executeStatement('CREATE TEMP TABLE attachment_link_id_map (old_id text PRIMARY KEY, new_id integer NOT NULL UNIQUE)');
-            $this->connection->executeStatement(
-                <<<'SQL'
-                INSERT INTO attachment_link_id_map (old_id, new_id)
-                SELECT l.id::text, row_number() OVER (ORDER BY l.created_at, l.updated_at, l.id::text)::integer
-                FROM attachment_link_legacy l
-                SQL
-            );
-
-            $this->connection->executeStatement(
-                <<<'SQL'
-                INSERT INTO attachment_link (
-                    id,
-                    attachment_id,
-                    "ownerType",
-                    "ownerId",
-                    context,
-                    slot,
-                    position,
-                    "isPrimary",
-                    created_at,
-                    modified_at,
-                    created_by,
-                    modified_by
-                )
-                SELECT
-                    lm.new_id,
-                    am.new_id,
-                    l.owner_type,
-                    l.owner_id,
-                    l.context,
-                    l.slot,
-                    l.position,
-                    l.is_primary,
-                    l.created_at,
-                    l.updated_at,
-                    NULL,
-                    NULL
-                FROM attachment_link_legacy l
-                INNER JOIN attachment_id_map am ON am.old_id = l.attachment_id::text
-                INNER JOIN attachment_link_id_map lm ON lm.old_id = l.id::text
-                ORDER BY lm.new_id
-                SQL
-            );
+            $this->migrateAttachmentRows();
+            $this->migrateAttachmentLinkRows();
 
             $this->reseedIdentityColumns();
 
@@ -193,6 +134,85 @@ final class AttachmentMigrateIdentifiersCommand extends Command
             $this->connection->rollBack();
             throw $throwable;
         }
+    }
+
+    /** Rebuild attachment identifiers and rows within the caller's transaction. */
+    private function migrateAttachmentRows(): void
+    {
+        $this->prepareLegacyAttachmentTables();
+        $this->copyLegacyAttachmentRows();
+    }
+
+    private function prepareLegacyAttachmentTables(): void
+    {
+        $this->connection->executeStatement('CREATE TEMP TABLE attachment_id_map (old_id text PRIMARY KEY, new_id integer NOT NULL UNIQUE)');
+        $this->connection->executeStatement(
+            <<<'SQL'
+            INSERT INTO attachment_id_map (old_id, new_id)
+            SELECT a.id::text, row_number() OVER (ORDER BY a.created_at, a.updated_at, a.id::text)::integer
+            FROM attachment a
+            SQL
+        );
+
+        $this->connection->executeStatement('ALTER TABLE attachment RENAME TO attachment_legacy');
+        $this->connection->executeStatement('ALTER TABLE attachment_link RENAME TO attachment_link_legacy');
+
+        $this->recreateAttachmentTable();
+        $this->recreateAttachmentLinkTable();
+    }
+
+    private function copyLegacyAttachmentRows(): void
+    {
+        $this->connection->executeStatement(self::ATTACHMENT_ROW_COPY_SQL);
+    }
+
+    /** Rebuild link identifiers and their mapped attachment references. */
+    private function migrateAttachmentLinkRows(): void
+    {
+        $this->connection->executeStatement('CREATE TEMP TABLE attachment_link_id_map (old_id text PRIMARY KEY, new_id integer NOT NULL UNIQUE)');
+        $this->connection->executeStatement(
+            <<<'SQL'
+            INSERT INTO attachment_link_id_map (old_id, new_id)
+            SELECT l.id::text, row_number() OVER (ORDER BY l.created_at, l.updated_at, l.id::text)::integer
+            FROM attachment_link_legacy l
+            SQL
+        );
+
+        $this->connection->executeStatement(
+            <<<'SQL'
+            INSERT INTO attachment_link (
+                id,
+                attachment_id,
+                "ownerType",
+                "ownerId",
+                context,
+                slot,
+                position,
+                "isPrimary",
+                created_at,
+                modified_at,
+                created_by,
+                modified_by
+            )
+            SELECT
+                lm.new_id,
+                am.new_id,
+                l.owner_type,
+                l.owner_id,
+                l.context,
+                l.slot,
+                l.position,
+                l.is_primary,
+                l.created_at,
+                l.updated_at,
+                NULL,
+                NULL
+            FROM attachment_link_legacy l
+            INNER JOIN attachment_id_map am ON am.old_id = l.attachment_id::text
+            INNER JOIN attachment_link_id_map lm ON lm.old_id = l.id::text
+            ORDER BY lm.new_id
+            SQL
+        );
     }
 
     private function requiresMigration(): bool
