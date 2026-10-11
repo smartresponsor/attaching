@@ -511,6 +511,19 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Determine real external Entity method consumers before any public API reduction; optional isolated database migration exercise and final branch integration.
 
+## 2026-10-11 — Attaching migration contract regression coverage
+
+- Continued from clean published commit `b081795`; inspected current migration command, public `AttachmentEntity` consumers, Objecting `ObjectEntityInterface`, Composer runtime, and existing SQLite fixture integration tests.
+- Added isolated `AttachmentMigrateIdentifiersCommandTest` with PostgreSQLPlatform/DBAL mock: already-migrated integer schema must be a no-op without transaction/SQL mutation; UUID schema must execute attachment and link migration stages, reseeding and legacy table cleanup in order inside begin/commit, without rollback on success.
+- Verification: `composer test` PASS 45 tests/253 assertions (previously 43/243); `composer phpstan` 0 errors; `composer cs:check` PASS 0/98; `composer gate` PASS 0 failures and warnings; Inspecting stays at one medium `AttachmentEntity` API-breadth advisory.
+- Scope: tests verify orchestration only; no disposable PostgreSQL schema migration performed, so real SQL execution/constraints remain unverified.
+- Entity contract review confirms ORM link mapping, DTO factory, repository interfaces, fixture services, voter and Objecting-interface dependency in this repository. Public method removal is deferred until external consumers can be ruled out.
+
+Что имеем? Additional executable migration regression evidence with 45 green tests and zero new Inspecting findings.
+
+Что осталось? Disposable PostgreSQL end-to-end migration validation, external Entity method compatibility review, final integration acceptance.
+
+
 
 
 
