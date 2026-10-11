@@ -402,3 +402,35 @@ Close the current Canonization packaging/runtime-contract drift without changing
 Что имеем? The canonical branch is rebased on current master, conflict-free, strict-lock reproducible, locally acceptance-green, and contains the substantive RC value of superseded PR #4.
 
 Что осталось? Commit/publish this Composer-topology correction and merge the conflict-free replacement PR #8; GitHub Actions remain intentionally non-blocking by repository policy.
+
+## 2026-10-11 — Canon034 hygiene remediation
+
+### Baseline
+- Read Attaching README, AGENTS, Composer manifests and prior orchestration journal; confirmed clean branch `rc/attaching-doc-runtime-drift-publish-20261005` before this edit.
+- Read dependencies' README/Composer entrypoints: Objecting, Cruding, Viewing, Interfacing, Gating, Canonization; inspected September CanonScanning Gating and Inspecting reports, and the live `.gating/README.md` artifact boundary.
+- The September Canon052 hard failure is stale: the current `.gating/` only contains its artifact README in the inspected source surface, and the previous journal records later passing checks. Five medium Inspecting observations remain historical, not proof of current failure.
+- Consulted normative Canonization `.canonization/Governance/Architecture/Rule/Canon034GitignoreBaselineRule.md` and `Canon052GatingIntegrationRule.md`. Mapping: Attaching must ignore local environment, OS noise and node dependencies; Gating executable policies remain in the dependency, not the consumer `.gating/`.
+
+### Selected RC work / growth boundary
+- Added `.gitignore` coverage for `node_modules`, local dotenv overrides, macOS Finder and Windows Explorer noise; no source, entities, CRUD or runtime logic changed.
+- RC gates: Composer gate, PHPStan, PHPUnit, formatting, and Git diff review. Inspecting rerun only if current scope changes warrant it.
+- Growth track (not RC): external storage backends, media transformations, and asynchronous derivatives; stays outside this hygiene change.
+- Market baseline: contemporary enterprise attachment implementations require upload validation, storage confinement, access control, deterministic retention, auditability, and safe lifecycle cleanup. No competitor parity claim is inferred from this hygiene patch.
+
+Что имеем? Canon034 source hygiene patch is applied with a minimal scope.
+
+Что осталось? Re-run deterministic gates and integrate only verified changes.
+
+### Verified gates (2026-10-11)
+- Composer manifest validation: PASS.
+- `composer gate`: PASS, 10 rules, 0 failures, 0 warnings, 3 skipped (current gate profile).
+- `composer phpstan`: PASS, 0 errors.
+- `composer test`: PASS, 41 tests / 241 assertions.
+- `composer cs:check`: PASS, 0/97 files.
+- `git diff`: reviewed; only `.gitignore` and this journal changed.
+- No user-visible UI changed; screenshots are not applicable to this patch.
+
+Что имеем? Canon034 ignore coverage is materially improved; local deterministic checks are GREEN.
+
+Что осталось? Publish the bounded change; broader PHPDoc/coverage maturity warnings remain separate nonblocking work.
+
