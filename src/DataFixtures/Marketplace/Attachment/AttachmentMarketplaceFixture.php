@@ -87,51 +87,63 @@ final class AttachmentMarketplaceFixture extends Fixture implements FixtureGroup
         }
 
         foreach ($ownerIds as $ownerId) {
-            $ownerId = trim($ownerId);
-            if ('' === $ownerId) {
-                continue;
-            }
-
-            if (null !== $this->attachmentMarketplaceRepository->findLink($ownerType, $ownerId, $context, $slot)) {
-                continue;
-            }
-
-            $extension = strtolower((string) pathinfo($sourceFile, PATHINFO_EXTENSION));
-            $storedName = sprintf('%s-%s-%s.%s', $ownerType, $ownerId, $slot, $extension);
-            $storagePath = sprintf('media/marketplace/%s/%s/%s', $ownerType, $ownerId, $storedName);
-            $absoluteTargetPath = $storageRoot.'/'.str_replace('/', DIRECTORY_SEPARATOR, $storagePath);
-            $this->filesystem->mkdir(dirname($absoluteTargetPath));
-            $this->filesystem->copy($sourceFile, $absoluteTargetPath, true);
-
-            $attachment = $this->attachmentMarketplaceRepository->findAttachmentByStoragePath($storagePath);
-            if (null === $attachment) {
-                $attachment = new Attachment(
-                    type: AttachmentType::Media,
-                    storageKind: AttachmentStorageKind::Local,
-                    visibility: AttachmentVisibility::Public,
-                    originalName: basename($sourceFile),
-                    storedName: $storedName,
-                    mimeType: 'image/png',
-                    size: filesize($sourceFile) ?: 0,
-                    checksum: $checksum,
-                    storagePath: $storagePath,
-                    extension: $extension,
-                    mediaKind: AttachmentMediaKind::Image,
-                    title: sprintf('%s %s', ucfirst($ownerType), $slot),
-                    description: 'Marketplace fixture media bound to a real persisted owner identifier.',
-                );
-                $this->attachmentMarketplaceRepository->persist($attachment);
-            }
-
-            $this->attachmentMarketplaceRepository->persist(new AttachmentLink(
-                attachment: $attachment,
-                ownerType: $ownerType,
-                ownerId: $ownerId,
-                context: $context,
-                slot: $slot,
-                position: 0,
-                isPrimary: true,
-            ));
+            $this->attachOwner($storageRoot, $sourceFile, $ownerType, $context, $slot, $ownerId, $checksum);
         }
+    }
+
+    private function attachOwner(
+        string $storageRoot,
+        string $sourceFile,
+        string $ownerType,
+        string $context,
+        string $slot,
+        string $ownerId,
+        string $checksum,
+    ): void {
+        $ownerId = trim($ownerId);
+        if ('' === $ownerId) {
+            return;
+        }
+
+        if (null !== $this->attachmentMarketplaceRepository->findLink($ownerType, $ownerId, $context, $slot)) {
+            return;
+        }
+
+        $extension = strtolower((string) pathinfo($sourceFile, PATHINFO_EXTENSION));
+        $storedName = sprintf('%s-%s-%s.%s', $ownerType, $ownerId, $slot, $extension);
+        $storagePath = sprintf('media/marketplace/%s/%s/%s', $ownerType, $ownerId, $storedName);
+        $absoluteTargetPath = $storageRoot.'/'.str_replace('/', DIRECTORY_SEPARATOR, $storagePath);
+        $this->filesystem->mkdir(dirname($absoluteTargetPath));
+        $this->filesystem->copy($sourceFile, $absoluteTargetPath, true);
+
+        $attachment = $this->attachmentMarketplaceRepository->findAttachmentByStoragePath($storagePath);
+        if (null === $attachment) {
+            $attachment = new Attachment(
+                type: AttachmentType::Media,
+                storageKind: AttachmentStorageKind::Local,
+                visibility: AttachmentVisibility::Public,
+                originalName: basename($sourceFile),
+                storedName: $storedName,
+                mimeType: 'image/png',
+                size: filesize($sourceFile) ?: 0,
+                checksum: $checksum,
+                storagePath: $storagePath,
+                extension: $extension,
+                mediaKind: AttachmentMediaKind::Image,
+                title: sprintf('%s %s', ucfirst($ownerType), $slot),
+                description: 'Marketplace fixture media bound to a real persisted owner identifier.',
+            );
+            $this->attachmentMarketplaceRepository->persist($attachment);
+        }
+
+        $this->attachmentMarketplaceRepository->persist(new AttachmentLink(
+            attachment: $attachment,
+            ownerType: $ownerType,
+            ownerId: $ownerId,
+            context: $context,
+            slot: $slot,
+            position: 0,
+            isPrimary: true,
+        ));
     }
 }
