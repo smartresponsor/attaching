@@ -485,6 +485,19 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Three more behavioral/contract-sensitive observations and final integration acceptance.
 
+## 2026-10-11 — Attaching demo attachment fixture extraction
+
+- Continued from clean, published `402db53` and retained the existing fixture records, resource paths, hashes, enum values, and persistence order.
+- Extracted `AttachmentFixture::load()` fixture definitions into three bounded private methods and moved persistence into `persistFixtures()`; used a precise PHPStan `AttachmentFixtureRow` shape to avoid weakening static checks.
+- `composer phpstan` PASS (0 errors), `composer test` PASS (43 tests / 243 assertions), `composer cs:check` PASS, `composer gate` PASS.
+- Post-mutation Inspecting: two remaining medium observations, down from three: migration command long method and attachment entity broad public API.
+- No UI source changed; visual evidence not applicable.
+
+Что имеем? Demo attachment fixture long-method observation resolved and deterministic checks green.
+
+Что осталось? Review migration command and entity contract observations, and final branch integration.
+
+
 
 
 
