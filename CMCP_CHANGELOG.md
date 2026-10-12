@@ -1,5 +1,18 @@
 # CMCP Orchestration Journal
 
+## 2026-10-11 — engine-20261004101523-attaching-59bf91 current baseline
+
+- Windows Console MCP resolved the authoritative Attaching workspace; branch `rc/attaching-doc-runtime-drift-publish-20261005`, HEAD `2dc9996314b82d5a8f8e4a9fa26039a3346bc89e`, clean worktree and synchronized upstream (ahead 0 / behind 0).
+- Read the complete task specification, current repository AGENTS.md, README.md, composer.json, .gitignore, prior orchestration journal, Canonization README/agent projection, and historic CanonScanning report dated 2026-09-29. Canonization normative rule catalog and complete helper contours remain to be cross-checked before any further architecture changes.
+- Historic RED concerned `canon.052.gating_integration` and embedded `.gating/` material; current `.gitignore` excludes `.gating/`. Do not remove embedded files without proving ownership and tracked/untracked status. Historic warnings concerned PHPDoc coverage, ignore patterns, stale test-coverage output, and missing UI coverage evidence.
+- Current deterministic checks: Gating PASS (0 errors, 0 warnings); composer validate PASS; PHPStan PASS (0 errors); PHPUnit PASS (45 tests, 253 assertions); PHP CS Fixer dry run PASS (0/98 files).
+- RC-critical remaining: confirm any current report drift, evaluate Entity public API consumers, test PostgreSQL migration on an isolated disposable dataset, and verify master/PR merge status before completion. Growth-only ideas remain outside release acceptance.
+- No UI files changed and no screenshot evidence generated; browser/mobile verification applicability depends on subsequent changes.
+
+Что имеем? Clean synchronized feature branch and passing current deterministic gates, with outdated upstream RED no longer corroborated by current Gating.
+
+Что осталось? Complete canonical/helper cross-checks, isolated migration verification where available, and master integration.
+
 ## 2026-10-05 — engine-20261004120050-attaching-28e0ae fresh-master documentation integration
 
 ### Isolation and reconciliation
