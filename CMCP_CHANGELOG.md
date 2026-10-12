@@ -562,6 +562,30 @@ Close the current Canonization packaging/runtime-contract drift without changing
 
 Что осталось? Disposable PostgreSQL end-to-end migration validation, external Entity method compatibility review, final integration acceptance.
 
+## 2026-10-12 — engine-20261004192121-attaching-029741 reconnaissance and current acceptance
+
+- Baseline: Windows Console MCP resolved Attaching to D:/PhpstormProjects/www/Attaching; clean master at dcebe020eb0fdced9d0db2d8da71d6f2b600588a, origin/master synchronized (ahead 0, behind 0).
+- Read the task specification, Attaching AGENTS.md/README.md/composer.json, production manifest and Symfony bundle registration, relevant helper repository contracts, Canonization root documentation and normative Canon004, Canon007, Canon008, Canon018, Canon021, Canon022, Canon052, Gating README, and historical 2026-09-29 Attaching RED report. Existing journal records prior source and compatibility work.
+- Historical Canon052 failure is not reproducible in today's aggregate Gating. Current `composer quality`: PASS, CS 0/98, PHPStan 0 errors, PHPUnit 45 tests/253 assertions, Gating 0 failed/0 warnings (3 skips); this is current evidence, not an inference from the historical report.
+- Canon mapping: App\\Attaching\\ namespace corresponds to attaching/attachment (Canon007/018); generic CRUD remains Cruding-owned (Canon021); explicit declared helper packages satisfy the observed Composer contour (Canon008); local symlink development and packaged production Gating contracts match Canon052. Canon004's special Entity path rule requires deliberate separate topology analysis; no blind relocation.
+- New normative Canon022 requires Failing as a direct standalone-runtime dependency and FailingBundle registration; current composer.json, composer.prod.json and config/bundles.php lack this dependency/registration. The requested sibling Failing/README.md was not accessible in this inspection, so do not inject unverified dependency wiring. Confirm its actual package/bundle surface and compatibility first.
+- RC-critical: resolve verified Canon022 Failing runtime contour if its package is locally available; verify isolated PostgreSQL schema migration and cross-repository AttachmentEntity public method consumers. Growth-only: richer attachment lifecycle observability, resumable upload/storage backends; keep outside RC.
+- No UI modification, no screenshot required; existing managed runtime was not restarted. No destructive action performed.
+
+Что имеем? Current 45-test quality suite GREEN; historical RED is stale for current Gating; clean synchronized master.
+Что осталось? Confirm Failing contract and safe integration, execute isolated PostgreSQL parity/behavioral verification, and close cross-repository compatibility review before RC completion.
+
+### Canon022 remediation and acceptance
+
+- Verified Failing/composer.json identity `failing/failure`, namespace `App\\Failing\\`, FailingBundle entrypoint and local repository registry. Added Failing to development and production runtime manifests, the local development symlink package repository, and Symfony config/bundles.php.
+- Guarded Composer update for `failing/failure` succeeded (exit 0) and updated composer.lock; Composer also resolved seven existing local path dependencies plus new transitive dependency packages. No sibling repository sources were edited by this task.
+- Post-change `composer quality`: PASS (CS 0/98, PHPStan 0 errors, PHPUnit 45/253, Gating 0 failure/0 warning/3 profile skips).
+- `php bin/console lint:container --env=test`: PASS with FailingBundle enabled. No browser/UI files changed; visual verification not applicable.
+- Remaining external acceptance: live PostgreSQL migration parity on isolated database and cross-repository public AttachmentEntity consumer review. These were not falsely marked green.
+
+Что имеем? Canon022 runtime package/bundle drift repaired and local PHP/Symfony gates GREEN.
+Что осталось? Preserve and integrate the verified patch; PostgreSQL schema and external consumer compatibility still require dedicated evidence.
+
 
 
 
