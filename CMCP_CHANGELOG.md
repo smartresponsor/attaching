@@ -1,5 +1,20 @@
 # CMCP Orchestration Journal
 
+## 2026-10-12 — engine-20261004193617-attaching-ce0f9a canon revalidation
+
+- Baseline: clean synchronized master `48117e0aa3f42689dfa4fb9ecd04630166bc8ea3`; read target AGENTS, README, Composer and gitignore, historical 2026-09-29 Gating/Inspecting reports, and Objecting/Cruding/Viewing/Interfacing/Gating/Canonization dependency contracts.
+- Consulted normative Canonization `.canonization/Governance/Architecture/Rule/Canon052GatingIntegrationRule.md`: Attaching already declares the Composer development Gating dependency, path symlink, and quality entrypoint. Its ignored `.gating/` must hold generated artifacts only. Historical RED is not proof of current gate behavior; existing journal documents repeated GREEN contemporary Composer quality runs.
+- RC-critical: verify current gating evidence before deciding whether ignored legacy tooling is safe to change; preserve unrelated local artifacts. Review attachment lifecycle failure handling and regression safety within component boundary.
+- Growth (post-RC): resumable transfer, richer retention controls, operational metrics. Do not treat speculative scope as RC gate.
+- Risks: ignored `.gating/` may include user-local tooling; destructive cleanup expressly forbidden. PostgreSQL production schema parity and UI behavioral evidence are environment/applicability dependent.
+- Implementation: documented storage-before-metadata orphan risk and stream ownership/cleanup guarantees in `AttachmentUploadService` and `AttachmentDownloadService` semantic PHPDoc; no runtime behavior or API change.
+- Current `composer quality` pre-change and post-change both GREEN on PHP 8.4.13: PHP CS Fixer 0/98; PHPStan 0 errors; PHPUnit 47 tests / 255 assertions; Gating 0 failed / 0 warning (3 skipped without profile). Historical full CanonScanning RED is not reasserted as present failure or claimed cleared by this narrower gate.
+- No UI files modified, so new visual artifact not applicable. No server or database restart performed; database/schema parity and behavioral UI applicability remain unverified. Current task reaches a verified documentation hardening checkpoint, not full RC acceptance.
+- Status: deterministic quality GREEN; integration and remaining runtime/behavioral evidence subject to follow-up.
+
+Что имеем? Normative Canon052 and clean local baseline, with historical RED and newer recorded GREEN distinguished.
+Что осталось? CanonScanning/full-profile parity, applicable runtime/database and behavioral evidence, and guarded Git integration.
+
 ## 2026-10-12 — engine-20261004193010-attaching-d79e62 binary storage hardening
 
 - Baseline: Windows Console MCP resolved D:\\PhpstormProjects\\www\\Attaching; clean master cf0167df2c959d73eba5348d8fe04675b065960f, origin/master synchronized.

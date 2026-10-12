@@ -21,6 +21,12 @@ use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentPathGeneratorInt
 use App\Attaching\ServiceInterface\Storage\Attachment\AttachmentStorageInterface;
 use App\Attaching\ServiceInterface\Transfer\Attachment\AttachmentUploadServiceInterface;
 
+/**
+ * Validates and persists an uploaded attachment and its owner link.
+ *
+ * File storage precedes metadata persistence. Callers must account for a possible
+ * orphaned stored object if persistence fails after the file has been written.
+ */
 final readonly class AttachmentUploadService implements AttachmentUploadServiceInterface
 {
     public function __construct(

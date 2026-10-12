@@ -14,6 +14,12 @@ use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ * Delivers active attachments using a local file response or an owned stream.
+ *
+ * The streamed response closes its file handle after output, including when
+ * streaming raises an exception.
+ */
 final readonly class AttachmentDownloadService implements AttachmentDownloadServiceInterface
 {
     public function __construct(
