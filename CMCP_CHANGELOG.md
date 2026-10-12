@@ -1,5 +1,19 @@
 # CMCP Orchestration Journal
 
+## 2026-10-12 — engine-20261004184448-attaching-60cae0 baseline revalidation
+
+- Authority: Windows Console MCP; workspace resolved to D:\\PhpstormProjects\\www\\Attaching. Current branch master, HEAD 887ac86b30a231028cd7b6865b278d2a92dc2bae, synchronized with origin/master (ahead 0, behind 0), clean before checks.
+- Read task specification; target AGENTS.md, README.md, composer.json, .gitignore and existing journal; consulted helper AGENTS.md/README.md/composer.json from Objecting, Cruding, Viewing and Interfacing, plus Canonization and Gating projections. Canonization textual catalog is authoritative; full applicable normative rule inventory is not yet confirmed.
+- Historical 2026-09-29 CanonScanning Gating RED: canon.052.gating_integration, consumer .gating state. Historical Inspecting: five medium maintainability observations; Semgrep timed out. These historical reports do not establish current failures.
+- Current deterministic acceptance: composer quality PASS on PHP 8.4.13: PHP CS Fixer 0/98 changes, PHPStan no errors, PHPUnit 45 tests/253 assertions, Gating 0 failed/0 warnings (3 profile-dependent skips). Existing .gitignore excludes /.gating/, /node_modules/ and local env/OS noise; do not delete ignored local tooling on stale evidence.
+- Canon mapping: App\\Attaching namespace and Symfony typed roles follow canonical component organization; generic application CRUD remains Cruding-owned; Objecting fields and helper boundaries remain application dependencies, not embedded replacements. Further canonical textual rule-file cross-check remains open.
+- RC-critical workstream: verify remaining normative canon scope, deployment/schema parity, actual UI/behavioral coverage where applicable and inspect current post-check Git state; do not claim release acceptance until applicability and evidence are established. Growth workstream (not RC-blocking): consider richer attachment lifecycle observability, resumable uploads and administrative UX based on explicit product scope and tests.
+- Runtime/schema verification attempt: `composer run-script schema:parity` FAILED (exit 1) because its `prod` Doctrine migration requires PostgreSQL; current connection was rejected by the migration. No retry or database reconfiguration was attempted. Schema parity remains NOT_VERIFIED on the required PostgreSQL environment.
+- This pass changes orchestration documentation only; no user-facing UI change, screenshot not applicable. No runtime restart.
+
+Что имеем? Clean current master and verified green deterministic quality suite; historic RED is not reproduced by today's configured Gating.
+Что осталось? Complete factual current canonical rule cross-check and applicable runtime/behavioral checks before closing the autonomous task.
+
 ## 2026-10-11 — engine-20261004101523-attaching-59bf91 current baseline
 
 - Windows Console MCP resolved the authoritative Attaching workspace; branch `rc/attaching-doc-runtime-drift-publish-20261005`, HEAD `2dc9996314b82d5a8f8e4a9fa26039a3346bc89e`, clean worktree and synchronized upstream (ahead 0 / behind 0).
