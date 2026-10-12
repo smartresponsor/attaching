@@ -16,7 +16,36 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
 
     public function load(ObjectManager $manager): void
     {
-        $links = [
+        $links = $this->linkDefinitions();
+
+        foreach ($links as $fixture) {
+            /** @var Attachment $attachment */
+            $attachment = $this->getReference($fixture['reference'], Attachment::class);
+
+            $manager->persist(new AttachmentLink(
+                attachment: $attachment,
+                ownerType: $fixture['ownerType'],
+                ownerId: $fixture['ownerId'],
+                context: $fixture['context'],
+                slot: $fixture['slot'],
+                position: $fixture['position'],
+                isPrimary: $fixture['isPrimary'],
+            ));
+        }
+
+        $manager->flush();
+    }
+
+    /** @return list<array{reference: string, ownerType: string, ownerId: string, context: string, slot: string, position: int, isPrimary: bool}> */
+    private function linkDefinitions(): array
+    {
+        return [...$this->primaryLinkDefinitions(), ...$this->additionalLinkDefinitions()];
+    }
+
+    /** @return list<array{reference: string, ownerType: string, ownerId: string, context: string, slot: string, position: int, isPrimary: bool}> */
+    private function primaryLinkDefinitions(): array
+    {
+        return [
             [
                 'reference' => 'attachment.message.1',
                 'ownerType' => 'message',
@@ -53,15 +82,21 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'position' => 0,
                 'isPrimary' => true,
             ],
-            [
-                'reference' => 'attachment.vendor.gallery.1',
-                'ownerType' => 'vendor',
-                'ownerId' => 'vendor-fixture-1',
-                'context' => 'gallery',
-                'slot' => 'image',
-                'position' => 0,
-                'isPrimary' => false,
-            ],
+        ];
+    }
+
+    /** @return list<array{reference: string, ownerType: string, ownerId: string, context: string, slot: string, position: int, isPrimary: bool}> */
+    private function additionalLinkDefinitions(): array
+    {
+        return [[
+            'reference' => 'attachment.vendor.gallery.1',
+            'ownerType' => 'vendor',
+            'ownerId' => 'vendor-fixture-1',
+            'context' => 'gallery',
+            'slot' => 'image',
+            'position' => 0,
+            'isPrimary' => false,
+        ],
             [
                 'reference' => 'attachment.category.icon.1',
                 'ownerType' => 'category',
@@ -90,23 +125,6 @@ final class AttachmentLinkFixture extends Fixture implements DependentFixtureInt
                 'isPrimary' => false,
             ],
         ];
-
-        foreach ($links as $fixture) {
-            /** @var Attachment $attachment */
-            $attachment = $this->getReference($fixture['reference'], Attachment::class);
-
-            $manager->persist(new AttachmentLink(
-                attachment: $attachment,
-                ownerType: $fixture['ownerType'],
-                ownerId: $fixture['ownerId'],
-                context: $fixture['context'],
-                slot: $fixture['slot'],
-                position: $fixture['position'],
-                isPrimary: $fixture['isPrimary'],
-            ));
-        }
-
-        $manager->flush();
     }
 
     public function getDependencies(): array

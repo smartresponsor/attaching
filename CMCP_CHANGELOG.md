@@ -1,5 +1,18 @@
 # CMCP Orchestration Journal
 
+## 2026-10-11 — engine-20261004101523-attaching-59bf91 current baseline
+
+- Windows Console MCP resolved the authoritative Attaching workspace; branch `rc/attaching-doc-runtime-drift-publish-20261005`, HEAD `2dc9996314b82d5a8f8e4a9fa26039a3346bc89e`, clean worktree and synchronized upstream (ahead 0 / behind 0).
+- Read the complete task specification, current repository AGENTS.md, README.md, composer.json, .gitignore, prior orchestration journal, Canonization README/agent projection, and historic CanonScanning report dated 2026-09-29. Canonization normative rule catalog and complete helper contours remain to be cross-checked before any further architecture changes.
+- Historic RED concerned `canon.052.gating_integration` and embedded `.gating/` material; current `.gitignore` excludes `.gating/`. Do not remove embedded files without proving ownership and tracked/untracked status. Historic warnings concerned PHPDoc coverage, ignore patterns, stale test-coverage output, and missing UI coverage evidence.
+- Current deterministic checks: Gating PASS (0 errors, 0 warnings); composer validate PASS; PHPStan PASS (0 errors); PHPUnit PASS (45 tests, 253 assertions); PHP CS Fixer dry run PASS (0/98 files).
+- RC-critical remaining: confirm any current report drift, evaluate Entity public API consumers, test PostgreSQL migration on an isolated disposable dataset, and verify master/PR merge status before completion. Growth-only ideas remain outside release acceptance.
+- No UI files changed and no screenshot evidence generated; browser/mobile verification applicability depends on subsequent changes.
+
+Что имеем? Clean synchronized feature branch and passing current deterministic gates, with outdated upstream RED no longer corroborated by current Gating.
+
+Что осталось? Complete canonical/helper cross-checks, isolated migration verification where available, and master integration.
+
 ## 2026-10-05 — engine-20261004120050-attaching-28e0ae fresh-master documentation integration
 
 ### Isolation and reconciliation
@@ -402,3 +415,131 @@ Close the current Canonization packaging/runtime-contract drift without changing
 Что имеем? The canonical branch is rebased on current master, conflict-free, strict-lock reproducible, locally acceptance-green, and contains the substantive RC value of superseded PR #4.
 
 Что осталось? Commit/publish this Composer-topology correction and merge the conflict-free replacement PR #8; GitHub Actions remain intentionally non-blocking by repository policy.
+
+## 2026-10-11 — Canon034 hygiene remediation
+
+### Baseline
+- Read Attaching README, AGENTS, Composer manifests and prior orchestration journal; confirmed clean branch `rc/attaching-doc-runtime-drift-publish-20261005` before this edit.
+- Read dependencies' README/Composer entrypoints: Objecting, Cruding, Viewing, Interfacing, Gating, Canonization; inspected September CanonScanning Gating and Inspecting reports, and the live `.gating/README.md` artifact boundary.
+- The September Canon052 hard failure is stale: the current `.gating/` only contains its artifact README in the inspected source surface, and the previous journal records later passing checks. Five medium Inspecting observations remain historical, not proof of current failure.
+- Consulted normative Canonization `.canonization/Governance/Architecture/Rule/Canon034GitignoreBaselineRule.md` and `Canon052GatingIntegrationRule.md`. Mapping: Attaching must ignore local environment, OS noise and node dependencies; Gating executable policies remain in the dependency, not the consumer `.gating/`.
+
+### Selected RC work / growth boundary
+- Added `.gitignore` coverage for `node_modules`, local dotenv overrides, macOS Finder and Windows Explorer noise; no source, entities, CRUD or runtime logic changed.
+- RC gates: Composer gate, PHPStan, PHPUnit, formatting, and Git diff review. Inspecting rerun only if current scope changes warrant it.
+- Growth track (not RC): external storage backends, media transformations, and asynchronous derivatives; stays outside this hygiene change.
+- Market baseline: contemporary enterprise attachment implementations require upload validation, storage confinement, access control, deterministic retention, auditability, and safe lifecycle cleanup. No competitor parity claim is inferred from this hygiene patch.
+
+Что имеем? Canon034 source hygiene patch is applied with a minimal scope.
+
+Что осталось? Re-run deterministic gates and integrate only verified changes.
+
+### Verified gates (2026-10-11)
+- Composer manifest validation: PASS.
+- `composer gate`: PASS, 10 rules, 0 failures, 0 warnings, 3 skipped (current gate profile).
+- `composer phpstan`: PASS, 0 errors.
+- `composer test`: PASS, 41 tests / 241 assertions.
+- `composer cs:check`: PASS, 0/97 files.
+- `git diff`: reviewed; only `.gitignore` and this journal changed.
+- No user-visible UI changed; screenshots are not applicable to this patch.
+
+Что имеем? Canon034 ignore coverage is materially improved; local deterministic checks are GREEN.
+
+Что осталось? Publish the bounded change; broader PHPDoc/coverage maturity warnings remain separate nonblocking work.
+
+## 2026-10-11 — engine-20261004100124-attaching-b6645d verification baseline
+
+- Reconnaissance: confirmed clean `rc/attaching-doc-runtime-drift-publish-20261005` at `89f444979d327492d078dd0db5a5cc83b964acbf`, tracking origin without ahead/behind divergence.
+- Read Attaching `AGENTS.md`, `README.md`, `composer.json`, `.gitignore`, service and route exports, current CMCP journal; read README and Composer contracts of Canonization, Gating, Objecting, Cruding, Viewing, Interfacing.
+- Consulted Canonization `.canonization/Governance/Architecture/Rule/Canon052GatingIntegrationRule.md`: Attaching's `gating/gate` developer dependency, symlinked path repository, Composer gate and quality scripts, production package surface, and artifact-only `.gating/` are the mapping criteria.
+- Reused historical CanonScanning September 29 report, which showed Canon052 RED due to executable and policy files under `.gating/`; journal records subsequent remediation. Current `.gitignore` explicitly excludes `.gating/`, node dependencies, local environment and OS noise. Historical Inspecting identified five medium structural observations; no current freshness claim is made.
+- Current deterministic checks: `composer gate` PASS (10 rules, 0 failures); `composer phpstan` PASS (0 errors); `composer test` PASS (41 tests / 241 assertions); `composer cs:check` PASS (0 of 97 files); Inspecting capability is available.
+- RC-critical workstream: ensure full CanonScanning Canon052 evidence is current, maintain security of attachment storage and lifecycle, and complete applicable release verification. Growth workstream: optional remote storage and asynchronous media derivatives, separate from RC.
+- This journal entry records factual reconnaissance and verification, not a claim of completed RC or source remediation. No browser or user-observable UI changed in this pass.
+
+Что имеем? Clean branch and green local quick gates, with explicit historical Canon052 evidence and normative rule mapping.
+
+Что осталось? Full current CanonScanning/Inspecting acceptance where needed, targeted source remediation if actionable findings remain, and publication of coherent work.
+
+## 2026-10-11 — engine-20261004100124-attaching-b6645d storage path hardening
+
+- Continued from signed/published checkpoint `d5d1a0d` with a clean, upstream-synced branch.
+- Inspected `AttachmentLocalStorage`, its PHPUnit path traversal regression test, and current Inspecting's medium findings. Selected a bounded security hardening fix instead of speculative refactoring of unrelated fixtures or migration logic.
+- Hardened `AttachmentLocalStorage::normalizeRelativePath()` to reject any colon in a relative target. This closes Windows drive-relative `C:filename` and NTFS alternate data stream `filename:stream` spellings while preserving the existing absolute-path, traversal, empty-segment and NUL guards.
+- Added focused PHPUnit coverage for both previously accepted spellings.
+- Verified after mutation: `composer test` PASS (43 tests, 243 assertions); `composer phpstan` PASS (0 errors); `composer cs:check` PASS (0/97 fixable files); `composer gate` PASS (0 failures, 0 warnings).
+- No browser/mobile UI, navigation or form behavior changed, so Playwright/Panther screenshots are not applicable to this storage-only change.
+
+Что имеем? Tested rejection of additional Windows storage path escapes, with local deterministic gates green.
+
+Что осталось? Post-change Inspecting and Git integration; broader Inspecting medium maintainability observations remain separate nonblocking backlog.
+
+## 2026-10-11 — Attaching Inspecting maintainability remediation
+
+- Started from clean, published commit `8aa4d3f`.
+- Refactored `AttachmentMarketplaceFixture::attachRows()` to delegate per-owner materialization to `attachOwner()`, preserving validation, existing-link checks, storage copying, attachment persistence and final flush semantics.
+- Verification: PHPUnit PASS (43 tests, 243 assertions), PHPStan PASS (0 errors), Gating PASS (0 failures), PHP-CS-Fixer PASS after correcting one spacing discrepancy.
+- Post-mutation Inspecting: 4 medium findings versus 5 previously; marketplace long-method finding is resolved. Remaining findings: migration command long method, two demo-fixture long methods, and attachment entity public API breadth.
+- No UI change, so screenshots are not applicable. Remaining structural observations require separate behavior-aware remediation rather than deleting public contracts.
+
+Что имеем? One Inspecting maintainability finding resolved with deterministic local checks GREEN.
+
+Что осталось? Review and safely remediate four remaining medium structural observations, and complete integration acceptance.
+
+## 2026-10-11 — Attaching demo link fixture maintainability pass
+
+- Continued on clean branch from published `a1b8703`, leaving existing attachment references and fixture persistence untouched.
+- Refactored `AttachmentLinkFixture::load()` to use `linkDefinitions()`, with private `primaryLinkDefinitions()` and `additionalLinkDefinitions()` to keep the unchanged eight fixture records in their original order.
+- `composer test`: PASS, 43 tests / 243 assertions; `composer phpstan`: PASS, 0 errors; `composer gate`: PASS, 0 failures; `composer cs:check`: PASS after `composer cs:fix` normalized array layout.
+- Post-mutation Inspecting: 3 medium findings (down from 4), removing `AttachmentLinkFixture` long-method observation. Remaining: `AttachmentMigrateIdentifiersCommand::execute`, `AttachmentFixture::load`, and 31-method `AttachmentEntity` review.
+- No user-visible UI changes; visual artifacts not applicable.
+
+Что имеем? Two maintainability findings have been resolved over consecutive verified passes while preserving the 43-test baseline.
+
+Что осталось? Three more behavioral/contract-sensitive observations and final integration acceptance.
+
+## 2026-10-11 — Attaching demo attachment fixture extraction
+
+- Continued from clean, published `402db53` and retained the existing fixture records, resource paths, hashes, enum values, and persistence order.
+- Extracted `AttachmentFixture::load()` fixture definitions into three bounded private methods and moved persistence into `persistFixtures()`; used a precise PHPStan `AttachmentFixtureRow` shape to avoid weakening static checks.
+- `composer phpstan` PASS (0 errors), `composer test` PASS (43 tests / 243 assertions), `composer cs:check` PASS, `composer gate` PASS.
+- Post-mutation Inspecting: two remaining medium observations, down from three: migration command long method and attachment entity broad public API.
+- No UI source changed; visual evidence not applicable.
+
+Что имеем? Demo attachment fixture long-method observation resolved and deterministic checks green.
+
+Что осталось? Review migration command and entity contract observations, and final branch integration.
+
+## 2026-10-11 — Migration command refactoring and Entity API review
+
+- Started from clean published `12793c5`; read the active migration command and attachment entity through Windows Console MCP.
+- Refactored `AttachmentMigrateIdentifiersCommand::execute()` into transactional helper phases for legacy table preparation, attachment row insertion, link row insertion and existing reseeding. Preserved existing SQL bodies, statement order, begin/commit/rollback flow and PostgreSQL guard. Moved long attachment row copy SQL into an immutable private typed constant without SQL logic changes.
+- Verified `composer phpstan`: 0 errors, `composer test`: 43 tests/243 assertions, and `composer gate`: 0 failures. Formatting normalized with `composer cs:fix`; repeat final cs check before commit.
+- Post-mutation Inspecting: exactly one medium design observation remains, namely 31 public methods on `AttachmentEntity`; the migration long-method finding is resolved.
+- Entity API review: getters, lifecycle methods and Objecting trait-backed status/audit form a public persistence contract; several timestamp aliases have no in-repository callers, but this does not establish absence of external package callers. Avoid deleting these methods merely to lower a numeric heuristic without a cross-repository compatibility inventory.
+- No PostgreSQL migration was executed against live data; transaction integration requires a controlled disposable PostgreSQL dataset before any behavioral acceptance claim.
+- No UI change; visual artifacts are not applicable.
+
+Что имеем? Long-method remediation verified; remaining large-public-API finding is a medium compatibility-review advisory, not a demonstrated runtime defect.
+
+Что осталось? Determine real external Entity method consumers before any public API reduction; optional isolated database migration exercise and final branch integration.
+
+## 2026-10-11 — Attaching migration contract regression coverage
+
+- Continued from clean published commit `b081795`; inspected current migration command, public `AttachmentEntity` consumers, Objecting `ObjectEntityInterface`, Composer runtime, and existing SQLite fixture integration tests.
+- Added isolated `AttachmentMigrateIdentifiersCommandTest` with PostgreSQLPlatform/DBAL mock: already-migrated integer schema must be a no-op without transaction/SQL mutation; UUID schema must execute attachment and link migration stages, reseeding and legacy table cleanup in order inside begin/commit, without rollback on success.
+- Verification: `composer test` PASS 45 tests/253 assertions (previously 43/243); `composer phpstan` 0 errors; `composer cs:check` PASS 0/98; `composer gate` PASS 0 failures and warnings; Inspecting stays at one medium `AttachmentEntity` API-breadth advisory.
+- Scope: tests verify orchestration only; no disposable PostgreSQL schema migration performed, so real SQL execution/constraints remain unverified.
+- Entity contract review confirms ORM link mapping, DTO factory, repository interfaces, fixture services, voter and Objecting-interface dependency in this repository. Public method removal is deferred until external consumers can be ruled out.
+
+Что имеем? Additional executable migration regression evidence with 45 green tests and zero new Inspecting findings.
+
+Что осталось? Disposable PostgreSQL end-to-end migration validation, external Entity method compatibility review, final integration acceptance.
+
+
+
+
+
+
+
+

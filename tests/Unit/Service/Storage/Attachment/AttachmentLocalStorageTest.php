@@ -40,6 +40,8 @@ final class AttachmentLocalStorageTest extends TestCase
         yield 'parent traversal with backslash' => ['media\\..\\outside.txt'];
         yield 'unix absolute path' => ['/etc/passwd'];
         yield 'windows absolute path' => ['C:\\outside.txt'];
+        yield 'windows drive-relative path' => ['C:outside.txt'];
+        yield 'windows alternate data stream' => ['media/file.txt:stream'];
         yield 'empty segment' => ['media//file.png'];
         yield 'current directory segment' => ['media/./file.png'];
         yield 'null byte' => ["media/file.png\0.txt"];
