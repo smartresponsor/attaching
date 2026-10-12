@@ -51,8 +51,11 @@ final readonly class AttachmentDownloadService implements AttachmentDownloadServ
         $stream = $this->attachmentStorage->readStream($attachment->getStoragePath());
 
         $response = new StreamedResponse(static function () use ($stream): void {
-            fpassthru($stream);
-            fclose($stream);
+            try {
+                fpassthru($stream);
+            } finally {
+                fclose($stream);
+            }
         });
         $response->headers->set('Content-Type', $attachment->getMimeType());
         $response->headers->set(

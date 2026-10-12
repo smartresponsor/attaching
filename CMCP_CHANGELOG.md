@@ -1,5 +1,17 @@
 # CMCP Orchestration Journal
 
+## 2026-10-12 — engine-20261004191457-attaching-339828 stream hardening
+
+- Baseline: clean `master` at `2b2e886f4fc9cce9d1df0cb9355940ae54f1e8e3` before changes; reused upstream 2026-09-29 CanonScanning reports only as historical evidence.
+- Read component README/AGENTS/Composer manifests and attachment upload/download services; owner helper README/AGENTS/Composer manifests for Objecting, Cruding, Viewing, Interfacing and Gating. Consulted normative `Canon052GatingIntegrationRule.md` in Canonization.
+- Canon052 mapping: `gating/gate`, symlink repository, `gate` and aggregate `quality` scripts are present. Historical RED for copied `.gating/` is not proof of current failure; do not delete ignored owner/tooling trees without current ownership evidence. Canon021: generic CRUD belongs in Cruding; download is attachment business action. Root namespace `App\\Attaching\\` retained.
+- RC-critical fix: attachment streaming now uses try/finally so the file handle closes after successful or failing output. Tests and quality gates are required after this mutation.
+- Residual risks: runtime database/schema parity and UI coverage need environment-applicable proof; Inspecting has maintainability observations. Growth track, non-blocking: storage observability and attachment API DX.
+
+Что имеем? Verified repository baseline and bounded download resource-safety fix.
+Что осталось? Complete post-change quality verification, safe Git integration, and remaining applicable runtime evidence.
+
+
 ## 2026-10-12 — engine-20261004184448-attaching-60cae0 baseline revalidation
 
 - Authority: Windows Console MCP; workspace resolved to D:\\PhpstormProjects\\www\\Attaching. Current branch master, HEAD 887ac86b30a231028cd7b6865b278d2a92dc2bae, synchronized with origin/master (ahead 0, behind 0), clean before checks.
