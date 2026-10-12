@@ -1,5 +1,17 @@
 # CMCP Orchestration Journal
 
+## 2026-10-12 — engine-20261004194020-attaching-b7d0fb documentation and canon baseline
+
+- Repository baseline: clean master at reconnaissance; inspected local manifests, source entrypoints, historical CanonScanning and Inspecting evidence, and Objecting/Cruding/Viewing/Interfacing/Gating README and Composer contracts.
+- Normative rule: Canonization `.canonization/Governance/Architecture/Rule/Canon052GatingIntegrationRule.md`; Composer Gating linkage complies, while historical `.gating/` ownership report requires fresh verification and non-destructive handling.
+- RC-critical stream: semantic PHPDoc for three Attaching PHP classes; deterministic quality and artifact-ownership recheck. Growth stream (non-RC): storage diagnostics and provider parity.
+- Applied semantic class PHPDoc to bundle, orphan cleanup command and download controller without runtime behavior changes.
+- Existing ignored `.gating/` files are preserved; unrelated repository roots and healthy runtime are untouched.
+- Verification and integration pending in this run.
+
+Что имеем? Factual baseline, current code and canon rule reviewed; documented selected public entrypoints.
+Что осталось? Run applicable gates, inspect outcomes, reconcile authorized integration and residual RC issues.
+
 ## 2026-10-12 — engine-20261004193617-attaching-ce0f9a canon revalidation
 
 - Baseline: clean synchronized master `48117e0aa3f42689dfa4fb9ecd04630166bc8ea3`; read target AGENTS, README, Composer and gitignore, historical 2026-09-29 Gating/Inspecting reports, and Objecting/Cruding/Viewing/Interfacing/Gating/Canonization dependency contracts.

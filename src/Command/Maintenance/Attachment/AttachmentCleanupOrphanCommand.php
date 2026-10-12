@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(name: 'app:attachment:cleanup-orphan', description: 'Remove deleted attachment record that no longer has owner link.')]
+/** Removes soft-deleted attachment orphans and their stored objects. */
 final class AttachmentCleanupOrphanCommand extends Command
 {
     public function __construct(
