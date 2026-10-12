@@ -39,10 +39,10 @@ final readonly class AttachmentLocalStorage implements AttachmentStorageInterfac
 
     public function readStream(string $path)
     {
-        $stream = \fopen($this->resolveAbsolutePath($path), 'r');
+        $stream = @\fopen($this->resolveAbsolutePath($path), 'r');
 
         if (false === $stream) {
-            throw new \RuntimeException(sprintf('Unable to open attachment path "%s".', $path));
+            throw new AttachmentStorageException(sprintf('Unable to open attachment path "%s".', $path));
         }
 
         return $stream;

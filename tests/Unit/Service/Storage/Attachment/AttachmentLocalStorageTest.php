@@ -21,6 +21,36 @@ final class AttachmentLocalStorageTest extends TestCase
         );
     }
 
+    public function testItReadsAttachmentBytesWithoutTextModeConversion(): void
+    {
+        $root = sys_get_temp_dir().DIRECTORY_SEPARATOR.'attaching-binary-'.bin2hex(random_bytes(8));
+        mkdir($root);
+        $file = $root.DIRECTORY_SEPARATOR.'payload.bin';
+        $payload = "\x00\x0D\x0A\xFF";
+        file_put_contents($file, $payload);
+
+        try {
+            $stream = (new AttachmentLocalStorage($root))->readStream('payload.bin');
+
+            try {
+                self::assertSame($payload, stream_get_contents($stream));
+            } finally {
+                fclose($stream);
+            }
+        } finally {
+            unlink($file);
+            rmdir($root);
+        }
+    }
+
+    public function testItRejectsMissingFileWithStorageException(): void
+    {
+        $storage = new AttachmentLocalStorage(sys_get_temp_dir());
+
+        $this->expectException(AttachmentStorageException::class);
+        $storage->readStream('missing-'.bin2hex(random_bytes(8)).'.bin');
+    }
+
     #[DataProvider('unsafePathProvider')]
     public function testItRejectsPathsThatCanEscapeOrBypassTheStorageRoot(string $path): void
     {

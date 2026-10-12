@@ -1,5 +1,17 @@
 # CMCP Orchestration Journal
 
+## 2026-10-12 — engine-20261004193010-attaching-d79e62 binary storage hardening
+
+- Baseline: Windows Console MCP resolved D:\\PhpstormProjects\\www\\Attaching; clean master cf0167df2c959d73eba5348d8fe04675b065960f, origin/master synchronized.
+- Read target README, AGENTS, Composer and source/tests; Objecting, Cruding, Viewing, Interfacing, Gating and Canonization agent contracts, and normative Canon052, Canon021 and Canon031 textual rules. Consulted 2026-09-29 CanonScanning RED report; current composer quality gate baseline was GREEN (45 tests / 253 assertions), so stale RED must not justify destructive tooling cleanup.
+- Canon mapping: Canon052 development Gating dependency, local symlink, quality script and artifact-only .gating follow target Composer; Canon021 generic CRUD remains owned by Cruding, attachment transfers stay component-specific; Canon031 requires meaningful PHPDoc improvement but is advisory at current scope. Symfony App\\Attaching namespace and typed layer structure retained. Existing production package wiring and deployed database parity still warrant external proof.
+- RC-critical change: local storage readStream translates failed reads into AttachmentStorageException without emitting fopen warnings. Regression cases exercise opaque binary bytes and missing-file failure. No UI, router, browser runtime, or database migration changed.
+- Post-change composer quality PASS on PHP 8.4.13: PHP CS Fixer 0/98, PHPStan 0 errors, PHPUnit 47 tests / 255 assertions, Gating 0 failed / 0 warnings (3 profile skips). No user-facing UI files changed; visual evidence not applicable. Remaining verification: deployment/schema parity on an authorized isolated database and any externally required acceptance checks. Growth backlog (non-RC): richer diagnostics and resumable transfer capability.
+
+Что имеем? Clean repository baseline, current green pre-change quality evidence, focused read-stream robustness change and tests.
+Что осталось? Post-change verification, guarded integration, and unverified runtime parity.
+
+
 ## 2026-10-12 — engine-20261004191457-attaching-339828 stream hardening
 
 - Baseline: clean `master` at `2b2e886f4fc9cce9d1df0cb9355940ae54f1e8e3` before changes; reused upstream 2026-09-29 CanonScanning reports only as historical evidence.
